@@ -18,7 +18,7 @@ body {
   overflow: hidden;
   scrollbar-width: none;
   scrollbar-color: var(--scrollbar-color) var(--scrollbar-track-color);
-  cursor: crosshair;
+  cursor: auto;
 }
 
 a {
