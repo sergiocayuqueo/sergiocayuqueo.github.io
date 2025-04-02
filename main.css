@@ -77,7 +77,7 @@ html {
   ); /* Adjust scroll target for fixed header if added */
   scrollbar-width: none;
   scrollbar-color: var(--scrollbar-color) var(--scrollbar-track-color);
-  cursor: crosshair;
+  cursor: auto;
 }
 
 body {
