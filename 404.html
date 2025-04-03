@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- --- SEO Metadata --- -->
-    <title>404 - Beyond Known Coordinates | Sergio Cayuqueo</title>
+    <title>404 - Page Not Found | Sergio Cayuqueo</title>
     <meta
       name="description"
-      content="Oops! It seems you've ventured beyond the charted territories of Sergio Cayuqueo's site. Let's get you back."
+      content="Oops! The page you were looking for doesn't exist on Sergio Cayuqueo's site. Let's get you back on track."
     />
     <!-- Setting noindex tells search engines not to index this error page -->
     <meta name="robots" content="noindex, follow" />
 
-    <!-- --- Favicons --- -->
+    <!-- --- Favicons (Assuming these are fine, can be simplified if needed) --- -->
     <link rel="icon" href="./images/a_city_of_fantasy.jpg" sizes="any" />
     <link
       rel="icon"
@@ -21,45 +21,43 @@
       type="image/svg+xml"
     />
     <link rel="apple-touch-icon" href="./images/a_city_of_fantasy.jpg" />
-    <link rel="manifest" href="/images/site.webmanifest" />
+    <!-- <link rel="manifest" href="/images/site.webmanifest" /> -->
+    <!-- Manifest might be less relevant for a simple 404 -->
 
-    <!-- --- Fonts & CSS --- -->
+    <!-- --- Fonts --- -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Oxygen:wght@300;400;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@700&family=Oxygen:wght@400;700&display=swap"
       rel="stylesheet"
     />
 
     <style>
-      /* --- Import or Define Core Variables (consistency with main site) --- */
+      /* --- Minimalist Black & White Variables --- */
       :root {
-        /* Copy relevant variables from your main CSS (:root) */
-        --color-background: #333; /* Darker theme for 404? */
-        --color-text: #e0e0e0; /* Light text on dark */
-        --color-text-muted: #a0a0a0;
-        --color-text-heading: #ffffff;
-        --color-primary: #4dabf7; /* A slightly brighter blue for dark bg */
-        --color-accent: #ff9a4d; /* Brighter accent */
-        --color-border: #333a4a;
-        --color-selection-bg: var(--color-primary);
-        --color-selection-text: #000000;
-        --color-link: var(--color-primary);
-        --color-link-hover: var(--color-accent);
+        --color-background: #ffffff; /* White background */
+        --color-text: #000000; /* Black text */
+        --color-text-muted: #555555; /* Dark gray for subtle contrast */
+        --color-border: #cccccc; /* Light gray for borders */
+        --color-link-hover-bg: #f0f0f0; /* Very light gray for subtle hover */
+        --color-focus-outline: #000000; /* Black focus outline */
 
         --font-primary: "Oxygen", -apple-system, BlinkMacSystemFont, "Segoe UI",
           Roboto, Helvetica, Arial, sans-serif;
-        --font-secondary: "Crimson Text", Georgia, serif;
+        --font-secondary: "Crimson Text", Georgia, serif; /* Keep for the large 404 */
         --font-size-base: 1rem;
-        --line-height-base: 1.65;
+        --line-height-base: 1.6; /* Slightly reduced for tighter feel */
 
+        --space-sm: 0.5rem;
         --space-md: 1rem;
         --space-lg: 1.5rem;
         --space-xl: 2.5rem;
+        --space-xxl: 4rem;
 
-        --border-radius: 5px;
-        --transition-speed-fast: 0.2s;
+        --border-radius: 3px; /* Slightly sharper corners */
+        --transition-speed-fast: 0.15s;
         --transition-ease: ease-in-out;
+        --border-width: 1px;
       }
 
       /* --- Global Reset & Base --- */
@@ -73,6 +71,7 @@
 
       html {
         font-size: 100%;
+        height: 100%; /* Ensure html takes full height */
       }
 
       body.page-404 {
@@ -81,48 +80,39 @@
         line-height: var(--line-height-base);
         color: var(--color-text);
         background-color: var(--color-background);
-        background-image: radial-gradient(
-            circle at top left,
-            rgba(255, 255, 255, 0.03),
-            transparent 50%
-          ),
-          radial-gradient(
-            circle at bottom right,
-            rgba(77, 171, 247, 0.05),
-            transparent 60%
-          ); /* Subtle gradient/light effect */
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
+        justify-content: center; /* Center content vertically */
+        align-items: center; /* Center content horizontally */
+        min-height: 100%; /* Ensure body takes at least full viewport height */
         padding: var(--space-lg);
         text-align: center;
         overflow-x: hidden; /* Prevent horizontal scroll */
       }
 
-      /* --- Selection Highlight --- */
+      /* --- Selection Highlight (Minimal) --- */
       ::selection {
-        background-color: var(--color-selection-bg);
-        color: var(--color-selection-text);
+        background-color: var(--color-border); /* Light gray selection */
+        color: var(--color-text);
       }
       ::-moz-selection {
-        background-color: var(--color-selection-bg);
-        color: var(--color-selection-text);
+        background-color: var(--color-border);
+        color: var(--color-text);
       }
 
       /* --- Container --- */
       .not-found-container {
-        max-width: 650px;
+        max-width: 550px; /* Slightly smaller max-width for minimalist feel */
         width: 100%;
-        animation: fadeIn 1s var(--transition-ease) forwards;
+        /* Simple fade-in is okay for minimalism */
+        animation: fadeIn 0.8s var(--transition-ease) forwards;
         opacity: 0;
       }
 
       @keyframes fadeIn {
         from {
           opacity: 0;
-          transform: translateY(10px);
+          transform: translateY(5px); /* Subtle upward movement */
         }
         to {
           opacity: 1;
@@ -133,29 +123,18 @@
       /* --- Header (404 Code) --- */
       .error-header {
         margin-bottom: var(--space-lg);
-        position: relative;
       }
 
       .status-code {
         font-family: var(--font-secondary);
-        font-size: clamp(6rem, 25vw, 12rem); /* Fluid and LARGE */
+        /* Responsive font size */
+        font-size: clamp(7rem, 30vw, 14rem);
         font-weight: 700;
-        color: var(--color-text-heading);
+        color: var(--color-text);
         line-height: 1;
-        text-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         margin: 0;
-      }
-
-      .status-code-decoration {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: clamp(8rem, 30vw, 15rem); /* Even larger decoration */
-        color: rgba(255, 255, 255, 0.04); /* Very subtle */
-        font-weight: bold;
-        z-index: -1; /* Behind the main number */
-        user-select: none;
+        /* Removed text-shadow */
+        /* Removed decoration span */
       }
 
       /* --- Main Content --- */
@@ -164,136 +143,151 @@
       }
 
       .message-heading {
-        font-family: var(--font-secondary);
-        font-size: clamp(1.5rem, 5vw, 2.2rem);
-        color: var(--color-text-heading);
-        margin-bottom: var(--space-md);
-        font-weight: 600;
+        font-family: var(--font-primary); /* Use primary font here */
+        font-size: clamp(1.3rem, 4vw, 1.8rem); /* Slightly smaller heading */
+        color: var(--color-text);
+        margin-bottom: var(--space-sm); /* Tighter spacing */
+        font-weight: 700; /* Bolder weight */
       }
 
       .explanation {
-        color: var(--color-text-muted);
-        margin-bottom: var(--space-xl);
-        font-size: 1.1em; /* Slightly larger explanation text */
+        color: var(--color-text-muted); /* Use muted gray */
+        margin-bottom: var(--space-lg);
+        font-size: 1rem; /* Standard base size */
+        max-width: 450px; /* Constrain line length for readability */
+        margin-left: auto;
+        margin-right: auto;
       }
 
       /* --- Recovery Navigation --- */
       .recovery-navigation {
-        margin-top: var(--space-xl);
+        margin-top: var(--space-lg);
       }
 
-      .recovery-prompt {
-        font-size: 0.95em;
-        color: var(--color-text-muted);
-        margin-bottom: var(--space-lg);
-      }
+      /* Prompt removed for stricter minimalism, explanation implies the need for navigation */
 
       .recovery-navigation ul {
         list-style: none;
         padding: 0;
         display: flex;
-        flex-direction: column;
+        flex-direction: column; /* Default to column */
         align-items: center;
-        gap: var(--space-md);
+        gap: var(--space-md); /* Consistent gap */
       }
 
       .recovery-link {
         display: inline-block;
-        padding: 0.75em 1.75em;
-        border: var(--border-width) solid var(--color-border);
+        padding: 0.6em 1.5em; /* Slightly adjusted padding */
+        border: var(--border-width) solid var(--color-border); /* Simple border */
         border-radius: var(--border-radius);
         color: var(--color-text);
         text-decoration: none;
         transition: background-color var(--transition-speed-fast)
             var(--transition-ease),
-          color var(--transition-speed-fast) var(--transition-ease),
-          transform var(--transition-speed-fast) var(--transition-ease);
-        font-size: 0.95em;
+          border-color var(--transition-speed-fast) var(--transition-ease);
+        font-size: 0.9rem;
+        font-weight: 400; /* Standard weight */
+        background-color: transparent; /* No background */
       }
 
       .recovery-link:hover,
-      .recovery-link:focus {
-        background-color: rgba(255, 255, 255, 0.08);
-        color: var(--color-text-heading);
-        text-decoration: none;
-        transform: translateY(-2px);
-        border-color: var(--color-primary);
-      }
       .recovery-link:focus-visible {
-        outline: 2px dashed var(--color-primary);
-        outline-offset: 3px;
-      }
-
-      .recovery-link.primary-action {
-        background-color: var(--color-primary);
-        color: #000; /* Dark text on primary button */
-        border-color: var(--color-primary);
-        font-weight: bold;
-      }
-
-      .recovery-link.primary-action:hover,
-      .recovery-link.primary-action:focus {
         background-color: var(
-          --color-link-hover
-        ); /* Use accent for hover on primary */
-        border-color: var(--color-link-hover);
-        color: #fff;
+          --color-link-hover-bg
+        ); /* Subtle background on hover/focus */
+        border-color: var(
+          --color-text-muted
+        ); /* Darker border on hover/focus */
+        text-decoration: none;
+        outline: none; /* Remove default focus outline, handled by style change */
       }
 
-      /* Optional Search Form Styling */
-      .search-form-404 {
-        display: flex;
-        width: 100%;
-        max-width: 350px; /* Limit search width */
+      /* Focus-visible for keyboard navigation accessibility */
+      .recovery-link:focus-visible {
+        outline: 2px solid var(--color-focus-outline);
+        outline-offset: 2px;
+        background-color: transparent; /* Ensure focus ring is clear */
+        border-color: var(--color-border); /* Keep original border */
       }
-      .search-form-404 input[type="search"] {
-        flex-grow: 1;
-        padding: 0.75em;
-        border: var(--border-width) solid var(--color-border);
-        border-right: none;
-        border-radius: var(--border-radius) 0 0 var(--border-radius);
-        background-color: rgba(255, 255, 255, 0.05);
-        color: var(--color-text);
-        font-size: 0.9em;
-      }
-      .search-form-404 input[type="search"]:focus {
-        outline: none;
-        border-color: var(--color-primary);
-        background-color: rgba(255, 255, 255, 0.1);
-      }
-      .search-form-404 button {
-        padding: 0.75em 1em;
-        border: var(--border-width) solid var(--color-border);
-        border-radius: 0 var(--border-radius) var(--border-radius) 0;
-        background-color: var(--color-border);
-        color: var(--color-text);
-        cursor: pointer;
-        transition: background-color var(--transition-speed-fast);
-        font-size: 0.9em;
-      }
-      .search-form-404 button:hover {
-        background-color: var(--color-primary);
-        color: #000;
-      }
+
+      /* Remove primary action styling for minimalism */
+      /* .recovery-link.primary-action { ... } */
+
+      /* Search Form Styling (Minimalist - if uncommented in HTML) */
+      /*
+            .search-form-404 {
+                display: flex;
+                width: 100%;
+                max-width: 300px;
+                border: var(--border-width) solid var(--color-border);
+                border-radius: var(--border-radius);
+                overflow: hidden;
+            }
+            .search-form-404 input[type="search"] {
+                flex-grow: 1;
+                padding: 0.6em 0.8em;
+                border: none;
+                background-color: transparent;
+                color: var(--color-text);
+                font-size: 0.9em;
+                outline: none;
+            }
+             .search-form-404 input[type="search"]::placeholder {
+                 color: var(--color-text-muted);
+                 opacity: 0.8;
+             }
+            .search-form-404 button {
+                padding: 0.6em 1em;
+                border: none;
+                border-left: var(--border-width) solid var(--color-border);
+                background-color: transparent;
+                color: var(--color-text);
+                cursor: pointer;
+                transition: background-color var(--transition-speed-fast);
+                font-size: 0.9em;
+            }
+            .search-form-404 button:hover {
+                background-color: var(--color-link-hover-bg);
+            }
+            .search-form-404:focus-within { // Style container when input has focus
+                 border-color: var(--color-text-muted);
+            }
+            */
 
       /* --- Footer --- */
       .error-footer {
-        margin-top: var(--space-xl);
-        font-size: 0.85em;
+        margin-top: var(--space-xxl); /* More space before footer */
+        font-size: 0.8rem; /* Smaller footer text */
         color: var(--color-text-muted);
-        opacity: 0.7;
+        position: absolute; /* Position footer at bottom if content is short */
+        bottom: var(--space-lg); /* Space from bottom */
+        left: 0;
+        right: 0;
+        text-align: center;
       }
-      .error-footer span + span::before {
-        content: " | ";
-        margin: 0 0.5em;
-      }
+      /* Remove separator for minimalism */
+      /* .error-footer span + span::before { content: none; } */
 
       /* --- Responsive Adjustments --- */
-      @media (min-width: 576px) {
+      @media (min-width: 480px) {
+        /* Adjust breakpoint if needed */
         .recovery-navigation ul {
-          flex-direction: row; /* Horizontal links on larger screens */
+          flex-direction: row; /* Horizontal links on slightly larger screens */
           justify-content: center;
           flex-wrap: wrap;
+          gap: var(--space-lg); /* Wider gap for horizontal layout */
+        }
+      }
+
+      @media (max-height: 500px) {
+        /* Adjust footer position on short viewports */
+        body.page-404 {
+          justify-content: flex-start; /* Align content top on very short screens */
+          padding-top: var(--space-xl);
+        }
+        .error-footer {
+          position: static; /* Let footer flow normally */
+          margin-top: var(--space-xl);
         }
       }
     </style>
@@ -301,56 +295,79 @@
   <body class="page-404">
     <div class="not-found-container">
       <header class="error-header">
-        <span class="status-code-decoration" aria-hidden="true">//</span>
+        <!-- Decoration span removed for minimalism -->
         <h1 class="status-code">404</h1>
       </header>
 
       <main class="error-content">
-        <h2 class="message-heading">Beyond Known Coordinates</h2>
+        <h2 class="message-heading">Page Not Found</h2>
         <p class="explanation">
-          The resource you seek isn't available at this location.
+          It seems the page you're looking for isn't here. Perhaps it was moved,
+          deleted, or never existed.
         </p>
 
         <nav class="recovery-navigation" aria-label="Recovery options">
-          <p class="recovery-prompt">Let's re-orient and find your way back:</p>
+          <!-- Prompt removed for minimalism -->
           <ul>
             <li>
-              <a
-                href="https://sergiocayuqueo.com/"
-                class="recovery-link primary-action"
+              <a href="https://sergiocayuqueo.com/" class="recovery-link"
                 >Return Home</a
               >
+              <!-- Removed primary-action class -->
             </li>
+            <!-- Keep other links simple and consistent -->
             <!-- <li>
-              <a href="" class="recovery-link">Explore Projects</a>
+              <a href="/projects" class="recovery-link">Explore Projects</a>
             </li>
             <li>
-              <a href="/#works" class="recovery-link">Consult the Works</a>
+              <a href="/#works" class="recovery-link">Consult Works</a>
             </li> -->
-            <!-- Optional: Add Search if your site has it -->
+            <!-- Optional Search Form (uncomment if needed) -->
             <!-- <li>
-                        <form action="/search" method="get" class="search-form-404">
-                             <input type="search" name="q" placeholder="Search the known..." aria-label="Search site">
-                             <button type="submit">Search</button>
-                        </form>
-                    </li> -->
+                 <form action="/search" method="get" class="search-form-404">
+                     <label for="search-404" class="visually-hidden">Search Site</label> // Add label for accessibility
+                     <input type="search" id="search-404" name="q" placeholder="Search..." aria-label="Search site">
+                     <button type="submit">Go</button> // Simple text or icon
+                 </form>
+             </li> -->
           </ul>
         </nav>
       </main>
 
-      <footer class="error-footer">
-        <!-- Minimal footer consistent with main site -->
-        <!-- <span>© <span id="current-year"></span> Sergio Cayuqueo</span> -->
-        <span>Navigating the Frontier</span>
-      </footer>
+      <!-- Footer moved outside the main container for better bottom positioning -->
     </div>
+    <footer class="error-footer">
+      <!-- Minimalist footer text -->
+      <!-- <span>Navigating the Void</span> -->
+      <!-- Or simply the site name/year -->
+      <!-- <span>© <span id="current-year"></span> Sergio Cayuqueo</span> -->
+    </footer>
 
     <script>
-      // Simple script for footer year
+      // Simple script for footer year (optional)
       const yearSpan = document.getElementById("current-year");
       if (yearSpan) {
         yearSpan.textContent = new Date().getFullYear();
       }
+
+      // Helper class for visually hidden labels (if using search)
+      /*
+            const style = document.createElement('style');
+            style.textContent = `
+                .visually-hidden {
+                    position: absolute;
+                    width: 1px;
+                    height: 1px;
+                    padding: 0;
+                    margin: -1px;
+                    overflow: hidden;
+                    clip: rect(0, 0, 0, 0);
+                    white-space: nowrap;
+                    border-width: 0;
+                }
+            `;
+            document.head.appendChild(style);
+            */
     </script>
   </body>
 </html>
