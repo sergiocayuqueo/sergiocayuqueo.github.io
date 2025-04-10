@@ -1620,8 +1620,184 @@
         </div>
       </aside>
     </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // --- Theme Switcher ---
+        const themeToggle = document.getElementById("theme-toggle");
+        const htmlElement = document.documentElement;
 
-    <!-- Use external script file -->
-    <script src="script.js" defer></script>
+        const applyTheme = (theme) => {
+          htmlElement.setAttribute("data-theme", theme);
+          localStorage.setItem("theme", theme);
+          if (themeToggle) {
+            const newLabel =
+              theme === "dark" ? "Switch to light mode" : "Switch to dark mode";
+            themeToggle.setAttribute("aria-label", newLabel);
+          }
+        };
+
+        const savedTheme = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)"
+        ).matches;
+        const initialTheme = savedTheme
+          ? savedTheme
+          : prefersDark
+          ? "dark"
+          : "light";
+        applyTheme(initialTheme);
+
+        if (themeToggle) {
+          themeToggle.addEventListener("click", () => {
+            const currentTheme = htmlElement.getAttribute("data-theme");
+            const newTheme = currentTheme === "dark" ? "light" : "dark";
+            applyTheme(newTheme);
+          });
+        }
+
+        // Optional: Listen for system theme changes ONLY if no user preference is saved
+        window
+          .matchMedia("(prefers-color-scheme: dark)")
+          .addEventListener("change", (event) => {
+            if (!localStorage.getItem("theme")) {
+              applyTheme(event.matches ? "dark" : "light");
+            }
+          });
+
+        // --- Mobile Menu Toggle ---
+        const mobileMenuToggle = document.getElementById("mobileMenuToggle");
+        const leftSidebar = document.getElementById("leftSidebar");
+        const mainContent = document.getElementById("mainContent"); // Target main content area
+
+        if (mobileMenuToggle && leftSidebar) {
+          mobileMenuToggle.addEventListener("click", function () {
+            const isExpanded = leftSidebar.classList.contains("active");
+            if (isExpanded) {
+              leftSidebar.classList.remove("active");
+              mobileMenuToggle.textContent = "☰";
+              mobileMenuToggle.setAttribute("aria-expanded", "false");
+              // Optional: Re-enable scroll on main content if it was disabled
+              // mainContent.style.overflowY = 'auto';
+            } else {
+              leftSidebar.classList.add("active");
+              mobileMenuToggle.textContent = "✕"; // Close icon
+              mobileMenuToggle.setAttribute("aria-expanded", "true");
+              // Optional: Disable scroll on main content when sidebar is open
+              // mainContent.style.overflowY = 'hidden';
+            }
+          });
+        }
+
+        // --- Poem List Navigation & Active State ---
+        const poemLinks = document.querySelectorAll(".poem-list a");
+        const contentArea = document.querySelector(".content"); // Scroll this area
+
+        poemLinks.forEach((link) => {
+          link.addEventListener("click", function (event) {
+            // 1. Update Active Class
+            poemLinks.forEach((el) =>
+              el.parentElement.classList.remove("active")
+            );
+            this.parentElement.classList.add("active");
+
+            // 2. Smooth Scroll to Section (if it's an internal link)
+            const href = this.getAttribute("href");
+            if (href && href.startsWith("#")) {
+              // No need to preventDefault if scrolling is the goal
+              // event.preventDefault(); // Only prevent if doing JS-only navigation
+              const targetId = href.substring(1);
+              const targetElement = document.getElementById(targetId);
+
+              if (targetElement && contentArea) {
+                // Calculate position relative to the scroll container
+                const containerTop = contentArea.getBoundingClientRect().top;
+                const targetTop = targetElement.getBoundingClientRect().top;
+                const scrollTop = contentArea.scrollTop;
+
+                const targetScrollTop =
+                  scrollTop + targetTop - containerTop - 20; // Adjust offset (20px padding)
+
+                contentArea.scrollTo({
+                  top: targetScrollTop,
+                  behavior: "smooth",
+                });
+              }
+            }
+
+            // 3. On mobile, close the sidebar after selection
+            if (
+              window.innerWidth <= 768 &&
+              leftSidebar.classList.contains("active")
+            ) {
+              leftSidebar.classList.remove("active");
+              mobileMenuToggle.textContent = "☰";
+              mobileMenuToggle.setAttribute("aria-expanded", "false");
+              // mainContent.style.overflowY = 'auto'; // Re-enable scroll
+            }
+          });
+        });
+
+        // --- Initial Active State based on URL Hash ---
+        function setActiveLinkFromHash() {
+          if (window.location.hash) {
+            const activeLink = document.querySelector(
+              `.poem-list a[href="${window.location.hash}"]`
+            );
+            if (activeLink) {
+              poemLinks.forEach((el) =>
+                el.parentElement.classList.remove("active")
+              );
+              activeLink.parentElement.classList.add("active");
+              // Optionally scroll to it on initial load (might interfere with browser default)
+              // const targetElement = document.getElementById(window.location.hash.substring(1));
+              // if (targetElement) targetElement.scrollIntoView({ behavior: 'auto' });
+            }
+          } else {
+            // Optionally set the first link as active if no hash
+            const firstLink = document.querySelector(
+              ".poem-list li:first-child a"
+            );
+            if (firstLink) {
+              firstLink.parentElement.classList.add("active");
+            }
+          }
+        }
+        setActiveLinkFromHash();
+        window.addEventListener("hashchange", setActiveLinkFromHash); // Update active link if hash changes
+
+        // --- Handle Device Change (Simplified - CSS handles layout) ---
+        // JS might only be needed if specific JS behaviors differ
+        function handleDeviceChange() {
+          if (window.innerWidth > 768) {
+            // If resizing larger and mobile menu was open, close it
+            if (leftSidebar && leftSidebar.classList.contains("active")) {
+              leftSidebar.classList.remove("active");
+              mobileMenuToggle.textContent = "☰";
+              mobileMenuToggle.setAttribute("aria-expanded", "false");
+            }
+          }
+        }
+        window.addEventListener("resize", handleDeviceChange);
+
+        // --- Paste Functionality (Keep as is, if needed) ---
+        const content = document.querySelector(".content");
+        if (content) {
+          content.addEventListener("paste", function (e) {
+            // This seems more for editing, maybe remove if just displaying?
+            // If keeping, ensure it targets the correct editable area if needed.
+            console.log("Paste event detected - default prevented");
+            e.preventDefault();
+            const text = e.clipboardData?.getData("text/plain");
+            if (text) {
+              // Decide where to insert - this simplistic version might break things.
+              // Consider using document.execCommand('insertText', false, text) if contenteditable="true"
+              // Or append to a specific div.
+              // For now, just logging.
+              console.log("Pasted text:", text);
+            }
+          });
+        }
+      }); // End DOMContentLoaded
+    </script>
   </body>
 </html>
