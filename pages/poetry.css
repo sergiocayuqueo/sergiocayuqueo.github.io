@@ -447,6 +447,12 @@ h6 {
   }
 }
 
+@media (min-width: 768px) {
+  .mobile-menu-toggle {
+    display: none;
+  }
+}
+
 @media (max-width: 768px) {
   /* Mobile */
   body {
