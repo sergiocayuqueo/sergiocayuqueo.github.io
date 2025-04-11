@@ -65,7 +65,6 @@
 
 html {
   font-size: 100%;
-  scroll-behavior: smooth;
   scrollbar-width: none; /* Use 'thin' or 'auto', 'none' hides */
   scrollbar-color: var(--scrollbar-color) var(--scrollbar-track-color);
 }
