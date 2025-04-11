@@ -425,7 +425,7 @@ h6 {
 }
 .mobile-menu-toggle:active {
   transform: scale(0.95); /* Press effect */
-}
+}  
 /* Responsive Styles */
 @media (max-width: 1024px) {
   /* Tablet */
