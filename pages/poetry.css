@@ -392,25 +392,40 @@ h6 {
 
 /* Mobile Menu Toggle */
 .mobile-menu-toggle {
-  display: none; /* Hidden by default */
+  display: block; /* Show hamburger */
   background: var(--bg-content);
   color: var(--text-primary);
+  backdrop-filter: blur(5px);
   border: 1px solid var(--border-color);
   font-size: 1.5rem; /* Adjust size */
   cursor: pointer;
   position: fixed;
-  top: 10px;
-  right: 10px;
+  /* top: 10px; */ /* Remove or comment out top */
+  bottom: 20px; /* <--- Add this (adjust value as needed) */
+  right: 20px; /* <--- Add or adjust this (adjust value as needed) */
   z-index: 1001; /* Above sidebar */
-  padding: 5px 10px;
-  border-radius: 4px;
+  padding: 8px 12px; /* Slightly adjust padding for balance */
+  border-radius: 3%; /* Make it circular like the theme toggle? Optional */
+  width: 45px; /* Set width/height if using border-radius 50% */
+  height: 45px; /* Set width/height if using border-radius 50% */
+  display: flex; /* Center icon if using fixed width/height */
+  align-items: center; /* Center icon vertically */
+  justify-content: center; /* Center icon horizontally */
   line-height: 1; /* Ensure icon fits */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* Slightly stronger shadow */
   transition: background-color var(--transition-speed) var(--transition-ease),
     color var(--transition-speed) var(--transition-ease),
-    border-color var(--transition-speed) var(--transition-ease);
+    border-color var(--transition-speed) var(--transition-ease),
+    transform 0.1s ease-out; /* Add transform for potential active state */
 }
 
+/* Optional: Add hover/active state for the toggle */
+.mobile-menu-toggle:hover {
+  background-color: var(--bg-primary); /* Slight change on hover */
+}
+.mobile-menu-toggle:active {
+  transform: scale(0.95); /* Press effect */
+}
 /* Responsive Styles */
 @media (max-width: 1024px) {
   /* Tablet */
