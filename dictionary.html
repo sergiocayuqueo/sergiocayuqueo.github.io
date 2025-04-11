@@ -1622,10 +1622,17 @@
     </div>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
-        // --- Theme Switcher ---
+        // --- DOM Element References ---
         const themeToggle = document.getElementById("theme-toggle");
         const htmlElement = document.documentElement;
+        const mobileMenuToggle = document.getElementById("mobileMenuToggle");
+        const leftSidebar = document.getElementById("leftSidebar");
+        const mainContent = document.getElementById("mainContent"); // Or '.content'
+        // Use the correct selector based on your HTML nav list
+        const menuLinks = document.querySelectorAll(".dictionary-list a");
+        const contentArea = document.querySelector(".content"); // Scroll this area
 
+        // --- Theme Switcher ---
         const applyTheme = (theme) => {
           htmlElement.setAttribute("data-theme", theme);
           localStorage.setItem("theme", theme);
@@ -1655,7 +1662,6 @@
           });
         }
 
-        // Optional: Listen for system theme changes ONLY if no user preference is saved
         window
           .matchMedia("(prefers-color-scheme: dark)")
           .addEventListener("change", (event) => {
@@ -1664,139 +1670,227 @@
             }
           });
 
-        // --- Mobile Menu Toggle ---
-        const mobileMenuToggle = document.getElementById("mobileMenuToggle");
-        const leftSidebar = document.getElementById("leftSidebar");
-        const mainContent = document.getElementById("mainContent"); // Target main content area
+        // --- Mobile Menu Logic ---
 
+        // Function to close the mobile menu
+        const closeMobileMenu = () => {
+          if (leftSidebar && leftSidebar.classList.contains("active")) {
+            leftSidebar.classList.remove("active");
+            if (mobileMenuToggle) {
+              mobileMenuToggle.textContent = "☰"; // Hamburger icon
+              mobileMenuToggle.setAttribute("aria-expanded", "false");
+            }
+            // Optional: Re-enable scroll on main content if needed,
+            // but CSS might handle this better with :has() or careful overflow rules.
+            // if (mainContent) mainContent.style.overflowY = 'auto';
+            console.log("Mobile menu closed"); // For debugging
+          }
+        };
+
+        // Function to open the mobile menu
+        const openMobileMenu = () => {
+          if (leftSidebar && !leftSidebar.classList.contains("active")) {
+            leftSidebar.classList.add("active");
+            if (mobileMenuToggle) {
+              mobileMenuToggle.textContent = "✕"; // Close icon
+              mobileMenuToggle.setAttribute("aria-expanded", "true");
+            }
+            // Optional: Disable scroll on main content when sidebar is open
+            // if (mainContent) mainContent.style.overflowY = 'hidden';
+            console.log("Mobile menu opened"); // For debugging
+          }
+        };
+
+        // Toggle Button Handler
         if (mobileMenuToggle && leftSidebar) {
           mobileMenuToggle.addEventListener("click", function () {
             const isExpanded = leftSidebar.classList.contains("active");
             if (isExpanded) {
-              leftSidebar.classList.remove("active");
-              mobileMenuToggle.textContent = "☰";
-              mobileMenuToggle.setAttribute("aria-expanded", "false");
-              // Optional: Re-enable scroll on main content if it was disabled
-              // mainContent.style.overflowY = 'auto';
+              closeMobileMenu();
             } else {
-              leftSidebar.classList.add("active");
-              mobileMenuToggle.textContent = "✕"; // Close icon
-              mobileMenuToggle.setAttribute("aria-expanded", "true");
-              // Optional: Disable scroll on main content when sidebar is open
-              // mainContent.style.overflowY = 'hidden';
+              openMobileMenu();
             }
           });
         }
 
-        // --- Poem List Navigation & Active State ---
-        const poemLinks = document.querySelectorAll(".poem-list a");
-        const contentArea = document.querySelector(".content"); // Scroll this area
-
-        poemLinks.forEach((link) => {
-          link.addEventListener("click", function (event) {
-            // 1. Update Active Class
-            poemLinks.forEach((el) =>
-              el.parentElement.classList.remove("active")
-            );
-            this.parentElement.classList.add("active");
-
-            // 2. Smooth Scroll to Section (if it's an internal link)
-            const href = this.getAttribute("href");
-            if (href && href.startsWith("#")) {
-              // No need to preventDefault if scrolling is the goal
-              // event.preventDefault(); // Only prevent if doing JS-only navigation
-              const targetId = href.substring(1);
-              const targetElement = document.getElementById(targetId);
-
-              if (targetElement && contentArea) {
-                // Calculate position relative to the scroll container
-                const containerTop = contentArea.getBoundingClientRect().top;
-                const targetTop = targetElement.getBoundingClientRect().top;
-                const scrollTop = contentArea.scrollTop;
-
-                const targetScrollTop =
-                  scrollTop + targetTop - containerTop - 20; // Adjust offset (20px padding)
-
-                contentArea.scrollTo({
-                  top: targetScrollTop,
-                  behavior: "smooth",
-                });
+        // --- Dictionary List Navigation & Active State ---
+        if (menuLinks.length > 0 && contentArea) {
+          menuLinks.forEach((link) => {
+            link.addEventListener("click", function (event) {
+              // 1. Update Active Class Styling for the clicked link
+              menuLinks.forEach((el) => {
+                // Check parentElement exists before accessing classList
+                if (el.parentElement) {
+                  el.parentElement.classList.remove("active");
+                }
+              });
+              // Check parentElement exists before adding class
+              if (this.parentElement) {
+                this.parentElement.classList.add("active");
               }
-            }
 
-            // 3. On mobile, close the sidebar after selection
-            if (
-              window.innerWidth <= 768 &&
-              leftSidebar.classList.contains("active")
-            ) {
-              leftSidebar.classList.remove("active");
-              mobileMenuToggle.textContent = "☰";
-              mobileMenuToggle.setAttribute("aria-expanded", "false");
-              // mainContent.style.overflowY = 'auto'; // Re-enable scroll
-            }
+              // 2. Smooth Scroll to Section (if it's an internal hash link)
+              const href = this.getAttribute("href");
+              if (href && href.startsWith("#")) {
+                // We don't need preventDefault() if the primary action is scrolling
+                const targetId = href.substring(1);
+                const targetElement = document.getElementById(targetId);
+
+                if (targetElement) {
+                  // Calculate position relative to the scroll container
+                  const containerRect = contentArea.getBoundingClientRect();
+                  const targetRect = targetElement.getBoundingClientRect();
+                  const scrollOffset = targetRect.top - containerRect.top; // Distance from container top to element top
+                  const currentScrollTop = contentArea.scrollTop;
+                  const headerOffset = 20; // Optional padding from the top
+
+                  const targetScrollTop =
+                    currentScrollTop + scrollOffset - headerOffset;
+
+                  contentArea.scrollTo({
+                    top: targetScrollTop,
+                    behavior: "smooth",
+                  });
+
+                  console.log(`Scrolling to: ${href}`); // For debugging
+
+                  // --- >>> BEST PRACTICE <<< ---
+                  // 3. CLOSE MOBILE MENU AFTER CLICKING A LINK
+                  // Check if we are likely in mobile view (adjust breakpoint if needed)
+                  // and if the sidebar is actually open.
+                  if (
+                    window.innerWidth <= 768 &&
+                    leftSidebar &&
+                    leftSidebar.classList.contains("active")
+                  ) {
+                    console.log(
+                      "Is mobile and sidebar active, closing menu..."
+                    ); // For debugging
+                    // Use a timeout to allow the scroll to start before the menu visually disappears,
+                    // preventing potential layout shifts during scroll calculation.
+                    // Adjust timeout duration as needed (e.g., 100-300ms).
+                    setTimeout(closeMobileMenu, 150);
+                  }
+                  // --- <<< END BEST PRACTICE >>> ---
+                } else {
+                  console.warn(`Target element not found for ID: ${targetId}`);
+                }
+              } else {
+                // If it's not a hash link, maybe close menu anyway on mobile?
+                // Decide based on desired UX for external links in the menu.
+                if (
+                  window.innerWidth <= 768 &&
+                  leftSidebar &&
+                  leftSidebar.classList.contains("active")
+                ) {
+                  setTimeout(closeMobileMenu, 150);
+                }
+              }
+            });
           });
-        });
+        } else {
+          if (menuLinks.length === 0)
+            console.warn(
+              "No dictionary links found with selector '.dictionary-list a'."
+            );
+          if (!contentArea)
+            console.warn("Content area not found with selector '.content'.");
+        }
 
         // --- Initial Active State based on URL Hash ---
         function setActiveLinkFromHash() {
+          // Clear existing active states first
+          menuLinks.forEach((el) => {
+            if (el.parentElement) {
+              el.parentElement.classList.remove("active");
+            }
+          });
+
           if (window.location.hash) {
-            const activeLink = document.querySelector(
-              `.poem-list a[href="${window.location.hash}"]`
-            );
-            if (activeLink) {
-              poemLinks.forEach((el) =>
-                el.parentElement.classList.remove("active")
+            try {
+              const activeLink = document.querySelector(
+                // Ensure the hash is properly escaped for use in querySelector
+                `.dictionary-list a[href="${CSS.escape(window.location.hash)}"]`
               );
-              activeLink.parentElement.classList.add("active");
-              // Optionally scroll to it on initial load (might interfere with browser default)
-              // const targetElement = document.getElementById(window.location.hash.substring(1));
-              // if (targetElement) targetElement.scrollIntoView({ behavior: 'auto' });
+              if (activeLink && activeLink.parentElement) {
+                activeLink.parentElement.classList.add("active");
+                console.log(
+                  `Set active link from hash: ${window.location.hash}`
+                );
+
+                // Optional: Scroll to it on initial load only if not handled by browser default
+                // const targetElement = document.getElementById(window.location.hash.substring(1));
+                // if (targetElement && contentArea) {
+                //    // Use instant scroll on load, or smooth if preferred
+                //    contentArea.scrollTo({ top: targetElement.offsetTop - contentArea.offsetTop - 20, behavior: 'auto' });
+                // }
+              } else {
+                console.log(
+                  `No link found matching hash: ${window.location.hash}`
+                );
+                // Set first link as default if hash link doesn't match
+                const firstLink = document.querySelector(
+                  ".dictionary-list li:first-child a"
+                );
+                if (firstLink && firstLink.parentElement) {
+                  firstLink.parentElement.classList.add("active");
+                }
+              }
+            } catch (e) {
+              console.error("Error processing hash for active link:", e);
+              // Fallback to first link on error
+              const firstLink = document.querySelector(
+                ".dictionary-list li:first-child a"
+              );
+              if (firstLink && firstLink.parentElement) {
+                firstLink.parentElement.classList.add("active");
+              }
             }
           } else {
-            // Optionally set the first link as active if no hash
+            // Set the first link as active if no hash is present
             const firstLink = document.querySelector(
-              ".poem-list li:first-child a"
+              ".dictionary-list li:first-child a"
             );
-            if (firstLink) {
+            if (firstLink && firstLink.parentElement) {
               firstLink.parentElement.classList.add("active");
+              console.log("No hash, setting first link active.");
             }
           }
         }
+        // Set initial state on load
         setActiveLinkFromHash();
-        window.addEventListener("hashchange", setActiveLinkFromHash); // Update active link if hash changes
+        // Update active link if hash changes during session (e.g., back/forward buttons)
+        window.addEventListener("hashchange", setActiveLinkFromHash);
 
-        // --- Handle Device Change (Simplified - CSS handles layout) ---
-        // JS might only be needed if specific JS behaviors differ
+        // --- Handle Device Change (e.g., resizing from mobile to desktop) ---
         function handleDeviceChange() {
+          // If window is resized larger than mobile breakpoint
           if (window.innerWidth > 768) {
-            // If resizing larger and mobile menu was open, close it
-            if (leftSidebar && leftSidebar.classList.contains("active")) {
-              leftSidebar.classList.remove("active");
-              mobileMenuToggle.textContent = "☰";
-              mobileMenuToggle.setAttribute("aria-expanded", "false");
-            }
+            // If the mobile menu was open, close it, as it's not needed on desktop
+            closeMobileMenu();
           }
         }
         window.addEventListener("resize", handleDeviceChange);
 
-        // --- Paste Functionality (Keep as is, if needed) ---
-        const content = document.querySelector(".content");
-        if (content) {
-          content.addEventListener("paste", function (e) {
+        // --- SUGGESTION: Remove Paste Functionality if not needed ---
+        /*
+    const content = document.querySelector(".content");
+    if (content) {
+        content.addEventListener("paste", function (e) {
             // This seems more for editing, maybe remove if just displaying?
-            // If keeping, ensure it targets the correct editable area if needed.
             console.log("Paste event detected - default prevented");
             e.preventDefault();
             const text = e.clipboardData?.getData("text/plain");
             if (text) {
-              // Decide where to insert - this simplistic version might break things.
-              // Consider using document.execCommand('insertText', false, text) if contenteditable="true"
-              // Or append to a specific div.
-              // For now, just logging.
-              console.log("Pasted text:", text);
+                console.log("Pasted text:", text);
+                // Inserting pasted text directly like this can be complex
+                // and might not be desired for a display page.
             }
-          });
-        }
+        });
+    }
+    */
+
+        console.log("Dictionary page script loaded."); // Confirm script runs
       }); // End DOMContentLoaded
     </script>
   </body>
