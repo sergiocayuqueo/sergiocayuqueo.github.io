@@ -1,7 +1,7 @@
 /* --- poetry.css --- */
 
 :root {
-  /* Light Theme Variables */ 
+  /* Light Theme Variables */
   --bg-primary: #f5f5f5;
   --bg-content: #ffffff;
   --text-primary: #1a1a1a; /* Darker text */
@@ -66,13 +66,6 @@ html {
   font-size: 100%;
   scrollbar-width: none; /* Use 'thin' or 'auto', 'none' hides */
   scrollbar-color: var(--scrollbar-color) var(--scrollbar-track-color);
-}
-
-/* Apply smooth scroll only if user doesn't prefer reduced motion */
-@media (prefers-reduced-motion: no-preference) {
-  html {
-    scroll-behavior: smooth;
-  }
 }
 
 body {
