@@ -19,6 +19,19 @@
   --color-selection-bg: var(--color-accent);
   --color-selection-text: var(--color-background);
 
+  /* --- Dark Theme Color Palette --- */
+  --color-background-dark: #1a1a1a; /* Dark background */
+  --color-text-dark: #e0e0e0; /* Light text */
+  --color-text-muted-dark: #888888; /* Muted light text */
+  --color-primary-dark: #4dabf7; /* Brighter blue for contrast */
+  --color-accent-dark: #cccccc; /* Lighter accent */
+  --color-border-dark: #333333; /* Darker border */
+  --color-highlight-bg-dark: #2c2c2c; /* Dark highlight */
+  --color-card-bg-dark: #252525; /* Slightly lighter card background */
+  --color-shadow-dark: rgba(0, 0, 0, 0.2); /* Darker shadow */
+
+  /* ... Keep your existing typography, spacing, etc. variables ... */
+
   /* Typography */
   --font-primary: "Raleway", -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
     sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -93,6 +106,304 @@ body {
 /* Lock body scroll when mobile nav is active */
 body.nav-active {
   overflow: hidden;
+}
+
+/* --- Dark Mode Overrides --- */
+/* Apply dark theme when html element has data-theme="dark" */
+html[data-theme="dark"] {
+  /* Reassign core color variables */
+  --color-background: var(--color-background-dark);
+  --color-text: var(--color-text-dark);
+  --color-text-muted: var(--color-text-muted-dark);
+  --color-primary: var(--color-primary-dark);
+  --color-accent: var(--color-accent-dark);
+  --color-border: var(--color-border-dark);
+  --color-highlight-bg: var(--color-highlight-bg-dark);
+  --color-selection-bg: var(--color-primary-dark); /* Use brighter selection */
+  --color-selection-text: var(--color-background-dark);
+
+  /* Optional: Override specific component backgrounds if needed */
+  /* --shadow-sm: 0 2px 5px var(--color-shadow-dark); */
+  /* --shadow-md: 0 5px 15px var(--color-shadow-dark); */
+  /* --shadow-lg: 0 10px 30px var(--color-shadow-dark); */
+}
+
+/* Specific adjustments for dark mode */
+html[data-theme="dark"] body {
+  background-color: var(--color-background); /* Ensure body bg matches */
+  color: var(--color-text);
+}
+
+/* --- Update Component Styles for Dark Mode --- */
+
+/* Header */
+html[data-theme="dark"] .site-header {
+  background-color: #1a1a1a; /* Dark semi-transparent */
+  /* backdrop-filter: blur(10px); Optional: keep or adjust blur */
+  border-bottom-color: transparent; /* Already handled */
+}
+html[data-theme="dark"] .site-header.scrolled {
+  background-color: rgba(30, 30, 30, 0.9); /* Darker on scroll */
+  border-bottom-color: var(--color-border-dark);
+  /* box-shadow: var(--shadow-sm); Adjust shadow if using shadow vars */
+}
+html[data-theme="dark"] .identity .name {
+  color: var(--color-accent); /* Use lighter accent for name */
+}
+html[data-theme="dark"] .identity .title {
+  color: var(--color-text-muted);
+}
+
+/* Hamburger */
+html[data-theme="dark"] .hamburger,
+html[data-theme="dark"] .hamburger::before,
+html[data-theme="dark"] .hamburger::after {
+  background-color: var(--color-accent); /* Use lighter accent */
+}
+/* Ensure X animation remains visible */
+html[data-theme="dark"] .nav-toggle[aria-expanded="true"] .hamburger::before,
+html[data-theme="dark"] .nav-toggle[aria-expanded="true"] .hamburger::after {
+  background-color: var(--color-accent);
+}
+
+/* Mobile Navigation Overlay */
+html[data-theme="dark"] .main-navigation {
+  /* background: radial-gradient(circle at top right, rgba(30, 30, 30, 0.9), rgba(30, 30, 30, 0.98)); */
+  background: rgba(30, 30, 30, 0.95); /* Simpler dark background */
+  backdrop-filter: blur(15px);
+}
+html[data-theme="dark"] .nav-links a {
+  color: var(--color-text);
+}
+html[data-theme="dark"] .nav-links a:hover,
+html[data-theme="dark"] .nav-links a:focus {
+  color: var(--color-primary);
+}
+
+/* Desktop Navigation Links */
+@media (min-width: 768px) {
+  html[data-theme="dark"] .nav-links a {
+    color: var(--color-text);
+  }
+  html[data-theme="dark"] .nav-links a::after {
+    background-color: var(--color-primary);
+  }
+  html[data-theme="dark"] .nav-links a:hover,
+  html[data-theme="dark"] .nav-links a:focus {
+    color: var(--color-primary);
+  }
+}
+
+/* Headings */
+html[data-theme="dark"] h1,
+html[data-theme="dark"] h2,
+html[data-theme="dark"] h3,
+html[data-theme="dark"] h4,
+html[data-theme="dark"] h5,
+html[data-theme="dark"] h6 {
+  color: var(--color-accent);
+}
+html[data-theme="dark"] h2.subsection-title {
+  color: var(--color-text); /* Regular text color for subsection titles */
+  border-bottom-color: var(--color-border);
+}
+
+/* Links */
+html[data-theme="dark"] a {
+  color: var(--color-primary);
+}
+html[data-theme="dark"] a:hover,
+html[data-theme="dark"] a:focus {
+  color: var(--color-text); /* Use light text color for hover */
+}
+/* Adjust subtle underline color */
+html[data-theme="dark"] p a,
+html[data-theme="dark"] .content-section li a,
+html[data-theme="dark"] .footer-links a {
+  background-image: linear-gradient(
+    var(--color-primary),
+    var(--color-primary)
+  ); /* Use primary for underline */
+}
+html[data-theme="dark"] p a:hover,
+html[data-theme="dark"] .content-section li a:hover,
+html[data-theme="dark"] .footer-links a:hover,
+html[data-theme="dark"] p a:focus,
+html[data-theme="dark"] .content-section li a:focus,
+html[data-theme="dark"] .footer-links a:focus {
+  color: var(--color-text);
+}
+
+/* Item Lists (Projects) */
+html[data-theme="dark"] .item-list {
+  background-color: var(
+    --color-border-dark
+  ); /* Dark background shows through gaps */
+  border-color: var(--color-border-dark);
+}
+html[data-theme="dark"] .list-item {
+  background-color: var(--color-background-dark); /* Dark item background */
+  color: var(--color-text);
+}
+html[data-theme="dark"] .list-item:hover,
+html[data-theme="dark"] .list-item:focus {
+  background-color: var(--color-highlight-bg-dark);
+  color: var(--color-primary);
+}
+html[data-theme="dark"] .item-meta {
+  color: var(--color-text-muted);
+}
+html[data-theme="dark"] .list-item.placeholder .item-title,
+html[data-theme="dark"] .list-item.placeholder .item-meta {
+  color: var(--color-text-muted);
+}
+
+/* Works Cards */
+html[data-theme="dark"] .work-item-card {
+  background-color: var(--color-card-bg-dark);
+  border-color: var(--color-border-dark);
+  box-shadow: 0 2px 5px var(--color-shadow-dark); /* Use dark shadow */
+}
+html[data-theme="dark"] .work-item-card:hover {
+  border-color: var(--color-primary-dark); /* Highlight border on hover */
+  box-shadow: 0 5px 15px var(--color-shadow-dark);
+}
+html[data-theme="dark"] .work-item-image-wrapper {
+  background-color: var(--color-background-dark); /* Darker placeholder */
+}
+/* Optional: Adjust image filter for dark mode */
+html[data-theme="dark"] .work-item-image-wrapper img {
+  filter: brightness(0.85) contrast(1.05); /* Slightly dim images */
+}
+html[data-theme="dark"] .work-item-card:hover .work-item-image-wrapper img {
+  filter: brightness(1) contrast(1); /* Restore on hover */
+}
+html[data-theme="dark"] .work-item-content {
+  /* Background is handled by the card */
+}
+html[data-theme="dark"] .work-item-title {
+  color: var(--color-accent);
+}
+
+/* List inside cards */
+html[data-theme="dark"] .work-item-card .item-list.works-list {
+  background-color: transparent; /* Ensure transparency */
+}
+html[data-theme="dark"] .work-item-card .list-item {
+  background-color: transparent;
+  border-bottom-color: var(--color-border-dark);
+  color: var(--color-text); /* Ensure text is readable */
+}
+html[data-theme="dark"] .work-item-card .list-item:hover,
+html[data-theme="dark"] .work-item-card .list-item:focus {
+  background-color: transparent;
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+}
+
+/* Contact Section */
+html[data-theme="dark"] .contact-intro {
+  color: var(--color-text-muted);
+}
+html[data-theme="dark"] .contact-item {
+  border-bottom-color: var(--color-border-dark);
+}
+html[data-theme="dark"] .contact-label {
+  color: var(--color-text-muted);
+}
+html[data-theme="dark"] .contact-value,
+html[data-theme="dark"] .contact-item a {
+  color: var(--color-text); /* Use standard light text for values */
+}
+html[data-theme="dark"] .contact-item a {
+  color: var(--color-primary); /* Keep links primary */
+}
+html[data-theme="dark"] .contact-item a:hover,
+html[data-theme="dark"] .contact-item a:focus {
+  color: var(--color-text);
+}
+
+/* Footer */
+html[data-theme="dark"] .site-footer-bottom {
+  border-top-color: var(--color-border-dark);
+  color: var(--color-text-muted);
+}
+html[data-theme="dark"] .footer-links a {
+  color: var(--color-text-muted);
+}
+html[data-theme="dark"] .footer-links a:hover,
+html[data-theme="dark"] .footer-links a:focus {
+  color: var(--color-primary);
+}
+
+/* Scrollbar (Optional - adjust if needed) */
+html[data-theme="dark"] {
+  scrollbar-color: var(--color-text-muted-dark) var(--color-background-dark);
+}
+html[data-theme="dark"]::-webkit-scrollbar-track {
+  background-color: var(--color-background-dark);
+}
+html[data-theme="dark"]::-webkit-scrollbar-thumb {
+  background-color: var(--color-text-muted-dark);
+  border-color: var(--color-background-dark);
+}
+html[data-theme="dark"]::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-accent-dark);
+}
+
+/* --- Theme Toggle Button Icons --- */
+.theme-toggle {
+  background: none;
+  border: none;
+  padding: var(--space-xs); /* Adjust padding as needed */
+  margin: 0; /* Reset margin */
+  cursor: pointer;
+  font-size: 1.3rem; /* Control icon size */
+  line-height: 1; /* Prevent extra vertical space */
+  color: var(--color-text); /* Match surrounding text color */
+  transition: color var(--transition-speed-fast) var(--ease-out-quad),
+    transform var(--transition-speed-fast) var(--ease-out-quad);
+  position: relative; /* If needed for positioning */
+  overflow: hidden; /* Helps if icons slightly overlap during potential transitions */
+}
+
+.theme-toggle:hover,
+.theme-toggle:focus-visible {
+  color: var(--color-primary); /* Highlight on hover/focus */
+  transform: scale(1.1); /* Slight scale effect */
+  outline: none; /* Use focus-visible or manage manually */
+}
+
+.theme-toggle .icon-sun,
+.theme-toggle .icon-moon {
+  display: inline-block; /* Allow them to sit side-by-side initially if needed */
+}
+
+/* --- Icon Display Logic --- */
+
+/* Default (Light Theme): Show Moon, Hide Sun */
+html:not([data-theme="dark"]) .theme-toggle .icon-sun {
+  display: none;
+}
+html:not([data-theme="dark"]) .theme-toggle .icon-moon {
+  display: inline-block;
+}
+
+/* Dark Theme: Show Sun, Hide Moon */
+html[data-theme="dark"] .theme-toggle .icon-sun {
+  display: inline-block;
+}
+html[data-theme="dark"] .theme-toggle .icon-moon {
+  display: none;
+}
+
+/* Dark Mode Color for Toggle Button */
+html[data-theme="dark"] .theme-toggle {
+  color: var(--color-text); /* Use the variable which changes with theme */
+}
+html[data-theme="dark"] .theme-toggle:hover,
+html[data-theme="dark"] .theme-toggle:focus-visible {
+  color: var(--color-primary); /* Use the primary color variable */
 }
 
 /* Container for centered content */
