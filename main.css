@@ -169,8 +169,8 @@ html[data-theme="dark"] .nav-toggle[aria-expanded="true"] .hamburger::after {
 /* Mobile Navigation Overlay */
 html[data-theme="dark"] .main-navigation {
   /* background: radial-gradient(circle at top right, rgba(30, 30, 30, 0.9), rgba(30, 30, 30, 0.98)); */
-  background: rgba(30, 30, 30, 0.95); /* Simpler dark background */
-  backdrop-filter: blur(15px);
+  background: rgba(30, 30, 30, 0.25); /* Simpler dark background */
+  backdrop-filter: blur(6px);
 }
 html[data-theme="dark"] .nav-links a {
   color: var(--color-text);
