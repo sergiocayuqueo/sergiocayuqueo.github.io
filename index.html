@@ -683,6 +683,51 @@
           }
         });
       }); // End of DOMContentLoaded
+
+      // Example JavaScript for a theme toggle button
+      const themeToggle = document.getElementById("theme-toggle-button"); // Assuming your button has this ID
+      const htmlElement = document.documentElement;
+
+      // Function to set the theme
+      function setTheme(theme) {
+        htmlElement.setAttribute("data-theme", theme);
+        // Optional: Save preference to localStorage
+        localStorage.setItem("theme", theme);
+      }
+
+      // Check for saved theme preference or system preference
+      const savedTheme = localStorage.getItem("theme");
+      const prefersDark = window.matchMedia(
+        "(prefers-color-scheme: dark)"
+      ).matches;
+
+      // Initialize theme on load
+      if (savedTheme) {
+        setTheme(savedTheme);
+      } else if (prefersDark) {
+        setTheme("dark");
+      } else {
+        setTheme("light"); // Default to light if no preference
+      }
+
+      // Add click listener to the toggle button
+      if (themeToggle) {
+        themeToggle.addEventListener("click", () => {
+          const currentTheme = htmlElement.getAttribute("data-theme");
+          const newTheme = currentTheme === "dark" ? "light" : "dark";
+          setTheme(newTheme);
+        });
+      }
+
+      // Optional: Listen for system preference changes
+      window
+        .matchMedia("(prefers-color-scheme: dark)")
+        .addEventListener("change", (event) => {
+          // Only change if user hasn't manually set a theme via localStorage
+          if (!localStorage.getItem("theme")) {
+            setTheme(event.matches ? "dark" : "light");
+          }
+        });
     </script>
   </body>
 </html>
