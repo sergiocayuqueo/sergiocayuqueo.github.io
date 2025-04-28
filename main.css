@@ -258,44 +258,44 @@ html[data-theme="dark"] .list-item.placeholder .item-meta {
   color: var(--color-text-muted);
 }
 
-/* Works Cards */
-html[data-theme="dark"] .work-item-card {
+/* writings Cards */
+html[data-theme="dark"] .writings-item-card {
   background-color: var(--color-card-bg-dark);
   border-color: var(--color-border-dark);
   box-shadow: 0 2px 5px var(--color-shadow-dark); /* Use dark shadow */
 }
-html[data-theme="dark"] .work-item-card:hover {
+html[data-theme="dark"] .writings-item-card:hover {
   border-color: var(--color-primary-dark); /* Highlight border on hover */
   box-shadow: 0 5px 15px var(--color-shadow-dark);
 }
-html[data-theme="dark"] .work-item-image-wrapper {
+html[data-theme="dark"] .writings-item-image-wrapper {
   background-color: var(--color-background-dark); /* Darker placeholder */
 }
 /* Optional: Adjust image filter for dark mode */
-html[data-theme="dark"] .work-item-image-wrapper img {
+html[data-theme="dark"] .writings-item-image-wrapper img {
   filter: brightness(0.85) contrast(1.05); /* Slightly dim images */
 }
-html[data-theme="dark"] .work-item-card:hover .work-item-image-wrapper img {
+html[data-theme="dark"] .writings-item-card:hover .writings-item-image-wrapper img {
   filter: brightness(1) contrast(1); /* Restore on hover */
 }
-html[data-theme="dark"] .work-item-content {
+html[data-theme="dark"] .writings-item-content {
   /* Background is handled by the card */
 }
-html[data-theme="dark"] .work-item-title {
+html[data-theme="dark"] .writings-item-title {
   color: var(--color-accent);
 }
 
 /* List inside cards */
-html[data-theme="dark"] .work-item-card .item-list.works-list {
+html[data-theme="dark"] .writings-item-card .item-list.writings-list {
   background-color: transparent; /* Ensure transparency */
 }
-html[data-theme="dark"] .work-item-card .list-item {
+html[data-theme="dark"] .writings-item-card .list-item {
   background-color: transparent;
   border-bottom-color: var(--color-border-dark);
   color: var(--color-text); /* Ensure text is readable */
 }
-html[data-theme="dark"] .work-item-card .list-item:hover,
-html[data-theme="dark"] .work-item-card .list-item:focus {
+html[data-theme="dark"] .writings-item-card .list-item:hover,
+html[data-theme="dark"] .writings-item-card .list-item:focus {
   background-color: transparent;
   color: var(--color-primary);
   border-bottom-color: var(--color-primary);
@@ -666,7 +666,7 @@ main {
   padding-left: 0;
 } /* Override default list margin */
 
-/* --- Generic Item List Styling (for Projects & Works) --- */
+/* --- Generic Item List Styling (for Projects & writings) --- */
 .item-list {
   display: grid;
   gap: var(--border-width); /* Use gap to simulate borders */
@@ -869,8 +869,8 @@ main {
   }
 }
 
-/* --- Works Section Grid --- */
-.works-grid {
+/* --- writings Section Grid --- */
+.writings-grid {
   display: grid;
   /* Creates responsive columns: fits as many cards as possible with a minimum width,
      but allows them to grow. Adjust minmax(300px, ...) for desired minimum card width.
@@ -880,7 +880,7 @@ main {
   margin-top: var(--space-xl); /* Space below intro text */
 }
 
-.work-item-card {
+.writings-item-card {
   background-color: var(--color-background);
   border: var(--border-width) solid var(--color-border);
   border-radius: var(--border-radius);
@@ -892,12 +892,12 @@ main {
     box-shadow var(--transition-speed) var(--transition-ease);
 }
 
-.work-item-card:hover {
+.writings-item-card:hover {
   transform: translateY(-5px); /* Subtle lift on hover */
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-.work-item-image-wrapper {
+.writings-item-image-wrapper {
   /* Enforce a consistent aspect ratio for images */
   aspect-ratio: 16 / 10; /* Common ratio, adjust as needed (e.g., 3/2, 4/3) */
   overflow: hidden; /* To contain image zoom effect */
@@ -905,7 +905,7 @@ main {
   background-color: var(--color-highlight-bg); /* Placeholder color */
 }
 
-.work-item-image-wrapper img {
+.writings-item-image-wrapper img {
   display: block; /* Remove extra space below image */
   width: 100%;
   height: 100%;
@@ -913,18 +913,18 @@ main {
   transition: transform var(--transition-speed) var(--transition-ease);
 }
 
-.work-item-card:hover .work-item-image-wrapper img {
+.writings-item-card:hover .writings-item-image-wrapper img {
   transform: scale(1.05); /* Zoom image slightly on card hover */
 }
 
-.work-item-content {
+.writings-item-content {
   padding: var(--space-lg);
   flex-grow: 1; /* Allow content area to fill remaining space */
   display: flex;
   flex-direction: column;
 }
 
-.work-item-title {
+.writings-item-title {
   font-family: var(--font-primary); /* Maybe use primary font for card title */
   font-size: var(--font-size-md); /* Adjust size */
   font-weight: 700;
@@ -933,7 +933,7 @@ main {
 }
 
 /* Adjustments for the list INSIDE the card */
-.work-item-card .item-list.works-list {
+.writings-item-card .item-list.writings-list {
   border: none; /* Remove border simulation from list itself */
   background-color: transparent; /* List has no background */
   gap: 0; /* Remove outer gap */
@@ -942,7 +942,7 @@ main {
   flex-grow: 1; /* Allow list to take space within content area */
 }
 
-.work-item-card .list-item {
+.writings-item-card .list-item {
   grid-template-columns: 1fr auto; /* Ensure layout */
   padding: var(--space-sm) 0; /* Padding top/bottom only */
   background-color: transparent;
@@ -953,28 +953,28 @@ main {
   border-radius: 0; /* No radius on list items */
 }
 
-.work-item-card .list-item:last-child {
+.writings-item-card .list-item:last-child {
   border-bottom: none; /* No border on the last link */
 }
 
-.work-item-card .list-item:hover,
-.work-item-card .list-item:focus {
+.writings-item-card .list-item:hover,
+.writings-item-card .list-item:focus {
   background-color: transparent;
   color: var(--color-primary);
   transform: none;
 }
 
-.work-item-card .list-item:hover .item-title {
+.writings-item-card .list-item:hover .item-title {
   /* text-decoration: underline; */ /* Optional underline on hover */
 }
 
 /* Specific style for cards without an image */
-.work-item-card--no-image {
+.writings-item-card--no-image {
   /* Example: Add more padding if there's no image */
   /* padding-top: var(--space-xl); */
 }
 /* Hide the image wrapper if the card has the --no-image modifier */
-.work-item-card--no-image .work-item-image-wrapper {
+.writings-item-card--no-image .writings-item-image-wrapper {
   display: none;
 }
 
