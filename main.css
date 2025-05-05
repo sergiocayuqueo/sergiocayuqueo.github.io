@@ -377,6 +377,7 @@ html[data-theme="dark"]::-webkit-scrollbar-thumb:hover {
 .theme-toggle .icon-sun,
 .theme-toggle .icon-moon {
   display: inline-block; /* Allow them to sit side-by-side initially if needed */
+  font-weight: lighter;
 }
 
 /* --- Icon Display Logic --- */
