@@ -1,0 +1,636 @@
+/* --- poetry.css --- */
+
+:root {
+  /* Light Theme Variables */
+  --bg-primary: #f5f5f5;
+  --bg-content: #ffffff;
+  --text-primary: #1a1a1a; /* Darker text */
+  --text-secondary: #555555;
+  --text-muted: #777777;
+  --border-color: #e0e0e0;
+  --accent-color: #0056b3; /* Adjusted blue */
+  --link-color: var(--accent-color);
+  --link-hover-color: #003d80; /* Darker blue */
+  --highlight-bg: #333333;
+  --highlight-text: #ffffff;
+  --selection-bg: var(--accent-color);
+  --selection-text: #ffffff;
+  --scrollbar-color: #cccccc;
+  --scrollbar-track-color: var(--bg-primary);
+  --toggle-bg: #eee;
+  --toggle-border: var(--border-color);
+  --toggle-icon: var(--text-primary);
+
+  /* Typography & Spacing */
+  --font-primary: "Raleway", BlinkMacSystemFont, system-ui, -apple-system,
+    sans-serif;
+  --font-secondary: "Raleway", Georgia, serif;
+  --base-spacing: 1rem; /* 16px */
+  --line-height: 1.7; /* Increased slightly for readability */
+
+  /* Transitions */
+  --transition-speed: 0.3s;
+  --transition-ease: ease-in-out;
+}
+
+/* Dark Theme Variables */
+[data-theme="dark"] {
+  --bg-primary: #1a1a1a;
+  --bg-content: #242424;
+  --text-primary: #e0e0e0;
+  --text-secondary: #b0b0b0;
+  --text-muted: #888888;
+  --border-color: #444444;
+  --accent-color: #4dabf7; /* Lighter blue */
+  --link-color: var(--accent-color);
+  --link-hover-color: #86c6ff;
+  --highlight-bg: #eeeeee;
+  --highlight-text: #1a1a1a;
+  --selection-bg: var(--accent-color);
+  --selection-text: #111111;
+  --scrollbar-color: #555555;
+  --scrollbar-track-color: var(--bg-primary);
+  --toggle-bg: #333;
+  --toggle-border: var(--border-color);
+  --toggle-icon: var(--text-primary);
+}
+
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 100%;
+  scrollbar-width: none; /* Use 'thin' or 'auto', 'none' hides */
+  scrollbar-color: var(--scrollbar-color) var(--scrollbar-track-color);
+}
+
+body {
+  font-family: var(--font-primary);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: var(--line-height);
+  height: 100vh;
+  overflow: hidden; /* Prevent body scroll on desktop */
+  /* Smooth theme transitions */
+  transition: background-color var(--transition-speed) var(--transition-ease),
+    color var(--transition-speed) var(--transition-ease);
+}
+
+/* Selection Styling */
+::selection {
+  background-color: var(--selection-bg);
+  color: var(--selection-text);
+}
+::-moz-selection {
+  background-color: var(--selection-bg);
+  color: var(--selection-text);
+}
+
+/* Links */
+a {
+  color: var(--link-color);
+  text-decoration: none;
+  transition: color var(--transition-speed) var(--transition-ease);
+}
+a:hover,
+a:focus {
+  color: var(--link-hover-color);
+  text-decoration: underline;
+  outline: none;
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-secondary);
+  color: var(--text-primary);
+  margin-bottom: calc(var(--base-spacing) * 0.5);
+  line-height: 1.3;
+}
+
+/* Layout */
+.container {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) minmax(400px, 3fr) minmax(
+      220px,
+      1fr
+    ); /* Adjusted min widths */
+  height: 100vh;
+  max-width: 1800px; /* Limit max width */
+  margin: 0 auto; /* Center container */
+}
+
+/* Sidebar Styles */
+.sidebar {
+  padding: calc(var(--base-spacing) * 2) var(--base-spacing);
+  overflow-y: auto;
+  height: 100vh; /* Use height instead of max-height */
+  background-color: var(--bg-primary); /* Match body background */
+  scrollbar-width: none; /* Hide scrollbar */
+  -ms-overflow-style: none; /* IE/Edge */
+  transition: background-color var(--transition-speed) var(--transition-ease),
+    border-color var(--transition-speed) var(--transition-ease);
+}
+.sidebar::-webkit-scrollbar {
+  display: none;
+} /* Chrome/Safari */
+
+.sidebar-left {
+  border-right: 1px solid var(--border-color);
+}
+.sidebar-right {
+  border-left: 1px solid var(--border-color);
+}
+
+.identity {
+  margin-bottom: calc(var(--base-spacing) * 2.5);
+}
+.identity h1 {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+.identity p {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.section-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: var(--base-spacing);
+  position: relative;
+  display: inline-block;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.section-title::before {
+  /* Optional decorative element */
+  content: "";
+  display: block;
+  width: 20px;
+  height: 2px;
+  background-color: var(--accent-color);
+  margin-bottom: 5px;
+}
+
+.dictionary-list {
+  list-style: none;
+  margin-bottom: calc(var(--base-spacing) * 2.5);
+}
+.dictionary-list li {
+  margin-bottom: calc(var(--base-spacing) * 0.6);
+}
+.dictionary-list a {
+  font-size: 0.8rem; /* Slightly larger */
+  color: var(--text-secondary);
+  display: block; /* Make link full width */
+  padding: 3px 0; /* Add slight padding */
+  border-radius: 3px;
+}
+.dictionary-list a:hover,
+.dictionary-list a:focus,
+.dictionary-list li.active a {
+  /* Style for active link */
+  color: var(--accent-color);
+  background-color: rgba(0, 0, 0, 0.03); /* Subtle hover/active background */
+  text-decoration: none;
+}
+[data-theme="dark"] .dictionary-list a:hover,
+[data-theme="dark"] .dictionary-list a:focus,
+[data-theme="dark"] .dictionary-list li.active a {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Info Section */
+.info-section {
+  margin-bottom: calc(var(--base-spacing) * 1.8);
+}
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Align items vertically */
+  border-bottom: 1px solid var(--border-color);
+  padding: calc(var(--base-spacing) * 0.6) 0;
+  font-size: 0.75rem;
+  transition: border-color var(--transition-speed) var(--transition-ease);
+}
+.info-item:last-child {
+  border-bottom: none;
+}
+.info-label {
+  color: var(--text-muted);
+}
+.info-item span:last-child,
+.info-item a {
+  /* Style value/link */
+  color: var(--text-primary);
+  text-align: right;
+}
+.info-item a {
+  color: var(--link-color);
+}
+
+/* Content Styles */
+.content {
+  padding: calc(var(--base-spacing) * 2) calc(var(--base-spacing) * 2.5);
+  overflow-y: auto;
+  height: 100vh;
+  background-color: var(--bg-content);
+  transition: background-color var(--transition-speed) var(--transition-ease);
+  scrollbar-width: none;
+  scrollbar-color: var(--scrollbar-color) var(--bg-content); /* Track matches content bg */
+}
+.content::-webkit-scrollbar {
+  width: 8px;
+}
+.content::-webkit-scrollbar-track {
+  background: var(--bg-content);
+}
+.content::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-color);
+  border-radius: 4px;
+  border: 2px solid var(--bg-content); /* Creates padding around thumb */
+}
+
+.dictionary-section {
+  margin-bottom: calc(var(--base-spacing) * 3); /* Space between dictionarys */
+  padding-bottom: calc(var(--base-spacing) * 1);
+  border-bottom: 1px dashed var(--border-color); /* Separator */
+}
+.dictionary-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.dictionary-image {
+  display: block; /* Center image */
+  max-width: 80%; /* Control image width */
+  height: auto; /* Maintain aspect ratio */
+  margin: 0 auto calc(var(--base-spacing) * 1.5) auto; /* Center horizontally */
+  border-radius: 4px;
+  max-height: 400px; /* Limit image height */
+  object-fit: contain; /* Ensure image fits without distortion */
+}
+
+.dictionary-text {
+  font-family: var(--font-secondary); /* Use Crimson Text for dictionarys */
+  font-size: 0.8rem;
+  line-height: var(--line-height);
+  max-width: 65ch; /* Improve readability */
+  margin-left: auto;
+  margin-right: auto;
+}
+.dictionary-text p {
+  margin-bottom: var(--base-spacing);
+}
+
+/* Highlight Span */
+.highlight-span {
+  background-color: var(--highlight-bg);
+  color: var(--highlight-text);
+  padding: 0.1em 0.4em;
+  border-radius: 3px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  transition: background-color var(--transition-speed) var(--transition-ease),
+    color var(--transition-speed) var(--transition-ease);
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+  background: var(--toggle-bg);
+  border: 1px solid var(--toggle-border);
+  color: var(--toggle-icon); /* Icon color */
+  cursor: pointer;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+  transition: background-color var(--transition-speed) var(--transition-ease),
+    border-color var(--transition-speed) var(--transition-ease),
+    color var(--transition-speed) var(--transition-ease),
+    transform 0.1s ease-out; /* Add slight press effect */
+}
+.theme-toggle:hover,
+.theme-toggle:focus {
+  border-color: var(--accent-color);
+  outline: none;
+}
+.theme-toggle:active {
+  transform: scale(0.95); /* Press effect */
+}
+
+/* Sun/Moon Icon (Adapt from previous example) */
+.theme-toggle::before,
+.theme-toggle::after {
+  content: "";
+  position: absolute;
+  transition: transform var(--transition-speed) var(--transition-ease),
+    opacity var(--transition-speed) var(--transition-ease);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+}
+/* Sun */
+.theme-toggle::before {
+  background-color: currentColor;
+  opacity: 1;
+  transform: scale(1);
+}
+/* Moon */
+.theme-toggle::after {
+  box-shadow: inset 4px -4px 0 0 currentColor;
+  transform: scale(0);
+  opacity: 0;
+}
+/* Dark mode states */
+[data-theme="dark"] .theme-toggle::before {
+  transform: scale(0);
+  opacity: 0;
+}
+[data-theme="dark"] .theme-toggle::after {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* Visually Hidden Class */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+  white-space: nowrap;
+}
+
+/* Mobile Menu Toggle */
+.mobile-menu-toggle {
+  display: block; /* Show hamburger */
+  background: var(--bg-content);
+  color: var(--text-primary);
+  backdrop-filter: blur(5px);
+  border: 1px solid var(--border-color);
+  font-size: 1.5rem; /* Adjust size */
+  cursor: pointer;
+  position: fixed;
+  /* top: 10px; */ /* Remove or comment out top */
+  bottom: 20px; /* <--- Add this (adjust value as needed) */
+  right: 20px; /* <--- Add or adjust this (adjust value as needed) */
+  z-index: 1001; /* Above sidebar */
+  padding: 8px 12px; /* Slightly adjust padding for balance */
+  border-radius: 3%; /* Make it circular like the theme toggle? Optional */
+  width: 45px; /* Set width/height if using border-radius 50% */
+  height: 45px; /* Set width/height if using border-radius 50% */
+  display: flex; /* Center icon if using fixed width/height */
+  align-items: center; /* Center icon vertically */
+  justify-content: center; /* Center icon horizontally */
+  line-height: 1; /* Ensure icon fits */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* Slightly stronger shadow */
+  transition: background-color var(--transition-speed) var(--transition-ease),
+    color var(--transition-speed) var(--transition-ease),
+    border-color var(--transition-speed) var(--transition-ease),
+    transform 0.1s ease-out; /* Add transform for potential active state */
+}
+
+/* Optional: Add hover/active state for the toggle */
+.mobile-menu-toggle:hover {
+  background-color: var(--bg-primary); /* Slight change on hover */
+}
+.mobile-menu-toggle:active {
+  transform: scale(0.95); /* Press effect */
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+  /* Tablet */
+  .container {
+    grid-template-columns: minmax(180px, 1fr) minmax(350px, 2.5fr) minmax(
+        180px,
+        1fr
+      );
+  }
+  .dictionary-text {
+    font-size: 0.9rem;
+    max-width: 60ch;
+  }
+  .content {
+    padding: calc(var(--base-spacing) * 1.5) var(--base-spacing);
+  }
+  .sidebar {
+    padding: calc(var(--base-spacing) * 1.5) var(--base-spacing);
+  }
+}
+
+@media (min-width: 768px) {
+  .mobile-menu-toggle {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Mobile */
+  body {
+    overflow: auto; /* Allow body scroll */
+    height: auto;
+  }
+  .container {
+    display: block; /* Stack elements */
+    height: auto;
+  }
+  .mobile-menu-toggle {
+    display: block;
+  } /* Show hamburger */
+
+  .sidebar {
+    display: none; /* Hide sidebars by default */
+    position: fixed;
+    top: 0;
+    left: -100%; /* Start off-screen */
+    width: 80%;
+    max-width: 300px;
+    height: 100%;
+    z-index: 1000; /* Below toggle */
+    border-right: 1px solid var(--border-color); /* Add border */
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform var(--transition-speed) var(--transition-ease),
+      background-color var(--transition-speed) var(--transition-ease);
+    padding-top: 60px; /* Space for potential fixed header/toggle */
+  }
+  .sidebar-right {
+    /* Hide right sidebar completely on mobile */
+    display: none;
+  }
+  .sidebar-left.active {
+    /* Show left sidebar when active */
+    display: block;
+    transform: translateX(100%); /* Slide in */
+  }
+
+  .content {
+    max-height: none; /* Remove height restriction */
+    min-height: 100vh; /* Ensure content fills screen */
+    padding: calc(var(--base-spacing) * 3) var(--base-spacing)
+      var(--base-spacing); /* Adjust padding */
+  }
+  .dictionary-image {
+    max-width: 100%;
+    margin-top: var(--base-spacing);
+  }
+  .dictionary-text {
+    font-size: 0.8rem;
+    max-width: none;
+  } /* Allow full width */
+}
+
+/* --- poetry.css --- */
+
+/* ... (Keep all styles above the responsive section) ... */
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+  /* Tablet */
+  .container {
+    grid-template-columns: minmax(180px, 1fr) minmax(350px, 2.5fr) minmax(
+        180px,
+        1fr
+      );
+  }
+  .dictionary-text {
+    font-size: 0.9rem;
+    max-width: 60ch;
+  }
+  .content {
+    padding: calc(var(--base-spacing) * 1.5) var(--base-spacing);
+  }
+  .sidebar {
+    padding: calc(var(--base-spacing) * 1.5) var(--base-spacing);
+  }
+}
+
+@media (max-width: 768px) {
+  /* Mobile */
+  body {
+    overflow: auto; /* Allow body scroll */
+    height: auto;
+  }
+  .container {
+    display: block; /* Stack elements */
+    height: auto;
+  }
+  .mobile-menu-toggle {
+    display: block;
+  } /* Show hamburger */
+
+  /* --- Mobile Sidebar Base Styles --- */
+  .sidebar {
+    /* Base state: Hidden off-screen */
+    position: fixed;
+    top: 0;
+    left: 0; /* Start from the left edge */
+    transform: translateX(-100%); /* Move it fully off-screen to the left */
+    width: 80%; /* Take up 80% of viewport width */
+    max-width: 300px; /* But no more than 300px */
+    height: 100%;
+    z-index: 1000; /* Below toggle button */
+    background-color: var(--bg-primary); /* Ensure background */
+    border-right: 1px solid var(--border-color);
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    padding-top: 60px; /* Space for toggle/header */
+    overflow-y: auto; /* Allow scrolling within the sidebar */
+    display: block; /* IMPORTANT: Ensure it's display block */
+
+    /* Smooth transition for the transform property */
+    transition: transform var(--transition-speed) var(--transition-ease),
+      background-color var(--transition-speed) var(--transition-ease),
+      border-color var(--transition-speed) var(--transition-ease);
+  }
+
+  /* --- Sidebar Left Specifics (if any needed, otherwise handled by .sidebar) --- */
+  /* .sidebar-left { ... } */
+
+  /* --- Sidebar Right (Hide completely) --- */
+  .sidebar-right {
+    display: none;
+  }
+
+  /* --- Active State for Left Sidebar --- */
+  .sidebar-left.active {
+    transform: translateX(0); /* Slide it into view */
+    /* Display is already block */
+  }
+
+  .content {
+    max-height: none; /* Remove height restriction */
+    min-height: 100vh; /* Ensure content fills screen */
+    padding: calc(var(--base-spacing) * 3) var(--base-spacing)
+      var(--base-spacing); /* Adjust padding */
+    /* Remove potential overflow restrictions if sidebar scroll lock was attempted */
+    overflow-y: auto; /* Ensure content is scrollable */
+  }
+  .dictionary-image {
+    max-width: 100%;
+    margin-top: var(--base-spacing);
+  }
+  .dictionary-text {
+    font-size: 0.8rem;
+    max-width: none;
+  } /* Allow full width */
+}
+
+/* ... (Keep scrollbar and other styles below) ... */
+
+/* Standard syntax */
+::selection {
+  background-color: #333;
+  color: white;
+}
+
+/* Firefox */
+::-moz-selection {
+  background-color: #333;
+  color: white;
+}
+
+/* --- poetry.css --- */
+
+/* ... Keep ALL your existing CSS ... */
+
+/* Ensure the transition is defined correctly for the transform */
+@media (max-width: 768px) {
+  /* ... other mobile styles ... */
+
+  .sidebar {
+    /* ... other sidebar styles ... */
+    transition: transform 0.3s ease-in-out,
+      /* Ensure this line exists and is smooth */ background-color
+        var(--transition-speed) var(--transition-ease),
+      border-color var(--transition-speed) var(--transition-ease);
+  }
+
+  .sidebar-left.active {
+    transform: translateX(0); /* Slide it into view */
+  }
+
+  /* ... rest of your mobile styles ... */
+}
+
+/* ... Keep rest of your CSS ... */

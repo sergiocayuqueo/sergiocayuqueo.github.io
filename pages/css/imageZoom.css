@@ -1,0 +1,131 @@
+/* --- Basic Page Styling --- */
+body {
+  overflow: hidden;
+  overflow-x: hidden;
+}
+
+h1 {
+  /* color: #fff; */
+  margin-bottom: 20px;
+  font-weight: 300;
+}
+
+.caption {
+  font-style: italic;
+  /* color: #aaa; */
+  margin-top: 15px;
+}
+/* Optional styling for your original caption */
+.original-caption {
+  font-size: 0.9em;
+  /* color: #888; */
+  margin-top: 5px;
+}
+
+/* --- Interaction Area & Cursor Handling --- */
+/* .interaction-area { */
+/* position: relative Context for absolute children if needed */
+/* display: inline-ock; Fit content */
+/* max-width: 550px; Adjust max size */
+/* width: 90%; Responsive width */
+/* Hide the default cursor when hovering this area */
+/* cursor: none; */
+/* } */
+
+/* --- Perspective Container --- */
+.perspective-wrapper {
+  perspective: 100%; /* Adjust depth of perspective */
+  perspective-origin: center center;
+}
+
+/* --- Image Tilt Wrapper --- */
+.image-tilt-wrapper {
+  position: relative; /* Ensure stacking context */
+  border-radius: 2px; /* Slightly rounded corners */
+  /* overflow: hidden; Clip image to rounded corners */
+  /* box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); */
+  /* Smooth transition for transform reset on mouse leave */
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1); /* Nice elastic ease-out */
+  /* Enable 3D transformations for children */
+  transform-style: preserve-3d;
+  /* Performance hint */
+  will-change: transform;
+  cursor: auto;
+}
+
+/* --- The Image --- */
+/* Selects your image via its ID */
+#main-image {
+  display: block; /* Remove extra space */
+  width: 100%;
+  height: auto;
+  border-radius: 8px; /* Match wrapper */
+  /* Prevent image selection/dragging */
+  user-select: none;
+  -webkit-user-drag: none;
+  /* Your original .poem-image class might add other styles */
+}
+
+/* --- Custom Zoom Cursor Square --- */
+#zoom-cursor-square {
+  /* Visibility & Positioning */
+  display: none; /* Hidden initially */
+  position: absolute; /* Position relative to viewport */
+  z-index: 999; /* Stay on top */
+  /* MUST NOT block mouse events on elements underneath */
+  pointer-events: none;
+
+  /* Appearance (Using the increased size & adjusted zoom from previous step) */
+  width: 220px;
+  height: 250px;
+  /* border: 1px solid rgba(255, 255, 255, 0.85); Slightly less transparent border */
+  border-radius: 2px; /* Slightly rounded square */
+  /* box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4); */
+  background: transparent;
+
+  /* Background Image Properties (handled by JS) */
+  background-repeat: no-repeat;
+  /* background-image, background-size, background-position set dynamically */
+}
+
+/* === ADD THESE STYLES === */
+
+.vertical-text {
+  position: absolute;
+  /* Position its top-left corner at the vertical center of the right edge */
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%); /* Adjust for vertical centering */
+
+  /* Text Styling */
+  writing-mode: vertical-rl; /* Makes text vertical (Right-to-Left flow) */
+  text-orientation: mixed; /* Keeps latin characters upright */
+  white-space: nowrap; /* Prevent text from wrapping */
+  /* color: rgba(23, 23, 23, 0.75); Semi-transparent white */
+  font-size: 1rem; /* Adjust size as needed */
+  font-weight: 300;
+  letter-spacing: 0.15em; /* Add spacing between vertical letters */
+  text-transform: uppercase; /* Optional: stylistic choice */
+  padding-left: 12px; /* Creates space between image edge and text */
+  opacity: 0; /* Start hidden */
+  transition: opacity 0.5s ease-in-out 0.2s; /* Smooth fade-in (delay slightly) */
+  pointer-events: none; /* Important: Won't interfere with image hover */
+  z-index: 9999999; /* Ensures it's visually layered correctly if needed */
+}
+
+/* Show the vertical text when hovering the main interaction area */
+/* .perspective-wrapper:hover .vertical-text {
+  opacity: 1; /* Fade in
+} */
+
+/* @media (hover: hover) {
+  .effect-boundary:hover .vertical-text {
+    opacity: 1; /* Fade in ONLY on hover-capable devices 
+  }
+}
+@media (min-width: 1024px) {
+  .effect-boundary:hover .vertical-text {
+    opacity: 1; /* Fade in ONLY on hover-capable devices 
+  }
+} */
+/* === END OF ADDED STYLES === */
