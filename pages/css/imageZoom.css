@@ -59,7 +59,7 @@ h1 {
   display: block; /* Remove extra space */
   width: 100%;
   height: auto;
-  border-radius: 8px; /* Match wrapper */
+  border-radius: 4px; /* Match wrapper */
   /* Prevent image selection/dragging */
   user-select: none;
   -webkit-user-drag: none;
