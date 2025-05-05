@@ -3,9 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <!-- --- SEO Metadata --- -->
-    <title>404 - Page Not Found | Sergio Cayuqueo</title>
+    <title>404 - Page Not Found</title>
     <meta
       name="description"
       content="Oops! The page you were looking for doesn't exist on Sergio Cayuqueo's site. Let's get you back on track."
@@ -33,341 +31,305 @@
     />
 
     <style>
-      /* --- Minimalist Black & White Variables --- */
-      :root {
-        --color-background: #ffffff; /* White background */
-        --color-text: #000000; /* Black text */
-        --color-text-muted: #555555; /* Dark gray for subtle contrast */
-        --color-border: #cccccc; /* Light gray for borders */
-        --color-link-hover-bg: #f0f0f0; /* Very light gray for subtle hover */
-        --color-focus-outline: #000000; /* Black focus outline */
-
-        --font-primary: "Oxygen", -apple-system, BlinkMacSystemFont, "Segoe UI",
-          Roboto, Helvetica, Arial, sans-serif;
-        --font-secondary: "Crimson Text", Georgia, serif; /* Keep for the large 404 */
-        --font-size-base: 1rem;
-        --line-height-base: 1.6; /* Slightly reduced for tighter feel */
-
-        --space-sm: 0.5rem;
-        --space-md: 1rem;
-        --space-lg: 1.5rem;
-        --space-xl: 2.5rem;
-        --space-xxl: 4rem;
-
-        --border-radius: 3px; /* Slightly sharper corners */
-        --transition-speed-fast: 0.15s;
-        --transition-ease: ease-in-out;
-        --border-width: 1px;
-      }
-
-      /* --- Global Reset & Base --- */
-      *,
-      *::before,
-      *::after {
-        margin: 0;
-        padding: 0;
+      /* --- Global Styles & Dark Theme --- */
+      * {
         box-sizing: border-box;
-      }
-
-      html {
-        font-size: 100%;
-        height: 100%; /* Ensure html takes full height */
-      }
-
-      body.page-404 {
-        font-family: var(--font-primary);
-        font-size: var(--font-size-base);
-        line-height: var(--line-height-base);
-        color: var(--color-text);
-        background-color: var(--color-background);
-        display: flex;
-        flex-direction: column;
-        justify-content: center; /* Center content vertically */
-        align-items: center; /* Center content horizontally */
-        min-height: 100%; /* Ensure body takes at least full viewport height */
-        padding: var(--space-lg);
-        text-align: center;
-        overflow-x: hidden; /* Prevent horizontal scroll */
-      }
-
-      /* --- Selection Highlight (Minimal) --- */
-      ::selection {
-        background-color: var(--color-border); /* Light gray selection */
-        color: var(--color-text);
-      }
-      ::-moz-selection {
-        background-color: var(--color-border);
-        color: var(--color-text);
-      }
-
-      /* --- Container --- */
-      .not-found-container {
-        max-width: 550px; /* Slightly smaller max-width for minimalist feel */
-        width: 100%;
-        /* Simple fade-in is okay for minimalism */
-        animation: fadeIn 0.8s var(--transition-ease) forwards;
-        opacity: 0;
-      }
-
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(5px); /* Subtle upward movement */
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      /* --- Header (404 Code) --- */
-      .error-header {
-        margin-bottom: var(--space-lg);
-      }
-
-      .status-code {
-        font-family: var(--font-secondary);
-        /* Responsive font size */
-        font-size: clamp(7rem, 30vw, 14rem);
-        font-weight: 700;
-        color: var(--color-text);
-        line-height: 1;
         margin: 0;
-        /* Removed text-shadow */
-        /* Removed decoration span */
-      }
-
-      /* --- Main Content --- */
-      .error-content {
-        margin-bottom: var(--space-xl);
-      }
-
-      .message-heading {
-        font-family: var(--font-primary); /* Use primary font here */
-        font-size: clamp(1.3rem, 4vw, 1.8rem); /* Slightly smaller heading */
-        color: var(--color-text);
-        margin-bottom: var(--space-sm); /* Tighter spacing */
-        font-weight: 700; /* Bolder weight */
-      }
-
-      .explanation {
-        color: var(--color-text-muted); /* Use muted gray */
-        margin-bottom: var(--space-lg);
-        font-size: 1rem; /* Standard base size */
-        max-width: 450px; /* Constrain line length for readability */
-        margin-left: auto;
-        margin-right: auto;
-      }
-
-      /* --- Recovery Navigation --- */
-      .recovery-navigation {
-        margin-top: var(--space-lg);
-      }
-
-      /* Prompt removed for stricter minimalism, explanation implies the need for navigation */
-
-      .recovery-navigation ul {
-        list-style: none;
         padding: 0;
+      }
+
+      body {
+        font-family: "Roboto Mono", monospace; /* Monospace font for mathy feel */
+        background-color: #000; /* Dark blue/purple background */
+        color: white; /* Light text color */
         display: flex;
-        flex-direction: column; /* Default to column */
+        justify-content: center;
         align-items: center;
-        gap: var(--space-md); /* Consistent gap */
+        min-height: 100vh;
+        overflow: hidden; /* Prevent scrollbars from animation overflow */
+        position: relative; /* Needed for z-index stacking */
       }
 
-      .recovery-link {
-        display: inline-block;
-        padding: 0.6em 1.5em; /* Slightly adjusted padding */
-        border: var(--border-width) solid var(--color-border); /* Simple border */
-        border-radius: var(--border-radius);
-        color: var(--color-text);
-        text-decoration: none;
-        transition: background-color var(--transition-speed-fast)
-            var(--transition-ease),
-          border-color var(--transition-speed-fast) var(--transition-ease);
-        font-size: 0.9rem;
-        font-weight: 400; /* Standard weight */
-        background-color: transparent; /* No background */
-      }
-
-      .recovery-link:hover,
-      .recovery-link:focus-visible {
-        background-color: var(
-          --color-link-hover-bg
-        ); /* Subtle background on hover/focus */
-        border-color: var(
-          --color-text-muted
-        ); /* Darker border on hover/focus */
-        text-decoration: none;
-        outline: none; /* Remove default focus outline, handled by style change */
-      }
-
-      /* Focus-visible for keyboard navigation accessibility */
-      .recovery-link:focus-visible {
-        outline: 2px solid var(--color-focus-outline);
-        outline-offset: 2px;
-        background-color: transparent; /* Ensure focus ring is clear */
-        border-color: var(--color-border); /* Keep original border */
-      }
-
-      /* Remove primary action styling for minimalism */
-      /* .recovery-link.primary-action { ... } */
-
-      /* Search Form Styling (Minimalist - if uncommented in HTML) */
-      /*
-            .search-form-404 {
-                display: flex;
-                width: 100%;
-                max-width: 300px;
-                border: var(--border-width) solid var(--color-border);
-                border-radius: var(--border-radius);
-                overflow: hidden;
-            }
-            .search-form-404 input[type="search"] {
-                flex-grow: 1;
-                padding: 0.6em 0.8em;
-                border: none;
-                background-color: transparent;
-                color: var(--color-text);
-                font-size: 0.9em;
-                outline: none;
-            }
-             .search-form-404 input[type="search"]::placeholder {
-                 color: var(--color-text-muted);
-                 opacity: 0.8;
-             }
-            .search-form-404 button {
-                padding: 0.6em 1em;
-                border: none;
-                border-left: var(--border-width) solid var(--color-border);
-                background-color: transparent;
-                color: var(--color-text);
-                cursor: pointer;
-                transition: background-color var(--transition-speed-fast);
-                font-size: 0.9em;
-            }
-            .search-form-404 button:hover {
-                background-color: var(--color-link-hover-bg);
-            }
-            .search-form-404:focus-within { // Style container when input has focus
-                 border-color: var(--color-text-muted);
-            }
-            */
-
-      /* --- Footer --- */
-      .error-footer {
-        margin-top: var(--space-xxl); /* More space before footer */
-        font-size: 0.8rem; /* Smaller footer text */
-        color: var(--color-text-muted);
-        position: absolute; /* Position footer at bottom if content is short */
-        bottom: var(--space-lg); /* Space from bottom */
+      /* --- Background Animation Container --- */
+      #math-animation-container {
+        position: fixed;
+        top: 0;
         left: 0;
-        right: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0; /* Behind content-wrapper */
+        overflow: hidden;
+        pointer-events: none; /* Ignore mouse events */
+      }
+
+      /* --- Individual Math Symbol Styling --- */
+      .math-symbol {
+        position: absolute;
+        color: white; /* Muted purple, semi-transparent */
+        user-select: none;
+        /* Animation defined below */
+        animation: fallAndFade linear infinite;
+        white-space: nowrap; /* Prevent wrapping */
+        will-change: transform, opacity; /* Performance hint */
+        text-shadow: 0 0 5px rgba(150, 150, 220, 0.2); /* Subtle glow */
+      }
+
+      /* --- Keyframes for Falling/Floating Animation --- */
+      @keyframes fallAndFade {
+        0% {
+          transform: translateY(-10vh) rotate(0deg); /* Start above viewport */
+          opacity: 0;
+        }
+        10% {
+          opacity: 1; /* Fade in quickly */
+        }
+        90% {
+          opacity: 0.8; /* Stay visible */
+        }
+        100% {
+          transform: translateY(110vh) rotate(720deg); /* Fall below viewport, rotating */
+          opacity: 0; /* Fade out */
+        }
+      }
+
+      /* --- Main 404 Content Styling --- */
+      .content-wrapper {
+        position: relative; /* Ensure it's above the background */
+        z-index: 1;
         text-align: center;
+        padding: 20px;
+        /* background-color: rgba(26, 26, 46, 0.6); Semi-transparent overlay */
+        border-radius: 1px;
+        backdrop-filter: blur(3px); /* Blur background behind the content */
+        -webkit-backdrop-filter: blur(3px);
+        /* border: 1px solid rgba(110, 110, 180, 0.2); */
+        /* box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37); */
       }
-      /* Remove separator for minimalism */
-      /* .error-footer span + span::before { content: none; } */
 
-      /* --- Responsive Adjustments --- */
-      @media (min-width: 480px) {
-        /* Adjust breakpoint if needed */
-        .recovery-navigation ul {
-          flex-direction: row; /* Horizontal links on slightly larger screens */
-          justify-content: center;
-          flex-wrap: wrap;
-          gap: var(--space-lg); /* Wider gap for horizontal layout */
+      .error-code {
+        font-size: clamp(5rem, 20vw, 12rem); /* Responsive font size */
+        font-weight: lighter;
+        color: #9fa8da; /* Lighter purple/blue */
+        margin-bottom: 0px;
+        line-height: 1;
+        text-shadow: 0 0 15px rgba(159, 168, 218, 0.5);
+      }
+
+      .error-code span:nth-child(2) {
+        /* Style the middle '0' (∅) */
+        color: #f06292; /* A contrasting pink/red for emphasis */
+        animation: pulseError 2s infinite ease-in-out; /* Subtle pulse */
+      }
+
+      @keyframes pulseError {
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 0.8;
+        }
+        50% {
+          transform: scale(1.1);
+          opacity: 1;
         }
       }
 
-      @media (max-height: 500px) {
-        /* Adjust footer position on short viewports */
-        body.page-404 {
-          justify-content: flex-start; /* Align content top on very short screens */
-          padding-top: var(--space-xl);
+      h1 {
+        font-size: clamp(1.5rem, 5vw, 2.5rem);
+        margin-bottom: 15px;
+        color: #c5cae9;
+      }
+
+      p {
+        font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+        margin-bottom: 30px;
+        max-width: 600px;
+        line-height: 1.6;
+        color: #bdbdbd; /* Slightly greyed text */
+      }
+
+      .home-link {
+        display: inline-block;
+        text-decoration: none;
+        color: #1a1a2e; /* Dark text */
+        background-color: #9fa8da; /* Lighter purple/blue button */
+        padding: 12px 25px;
+        border-radius: 2px;
+        font-weight: lighter;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        box-shadow: 0 4px 15px rgba(159, 168, 218, 0.3);
+      }
+
+      .home-link:hover,
+      .home-link:focus {
+        background-color: #c5cae9;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(159, 168, 218, 0.5);
+      }
+
+      /* --- Accessibility --- */
+      @media (prefers-reduced-motion: reduce) {
+        .math-symbol {
+          animation: none; /* Disable symbol animation */
+          opacity: 0.05; /* Make them very faint static elements */
         }
-        .error-footer {
-          position: static; /* Let footer flow normally */
-          margin-top: var(--space-xl);
+        .error-code span:nth-child(2) {
+          animation: none; /* Disable pulsing */
+        }
+        .home-link:hover,
+        .home-link:focus {
+          transform: none; /* Disable button hover effect */
         }
       }
     </style>
   </head>
-  <body class="page-404">
-    <div class="not-found-container">
-      <header class="error-header">
-        <!-- Decoration span removed for minimalism -->
-        <h1 class="status-code">404</h1>
-      </header>
+  <body>
+    <!-- Container for the background math animation -->
+    <div id="math-animation-container"></div>
 
-      <main class="error-content">
-        <h2 class="message-heading">Page Not Found</h2>
-        <p class="explanation">
-          It seems the page you're looking for isn't here. Perhaps it was moved,
-          deleted, or never existed.
-        </p>
-
-        <nav class="recovery-navigation" aria-label="Recovery options">
-          <!-- Prompt removed for minimalism -->
-          <ul>
-            <li>
-              <a href="https://sergiocayuqueo.com/" class="recovery-link"
-                >Return Home</a
-              >
-              <!-- Removed primary-action class -->
-            </li>
-            <!-- Keep other links simple and consistent -->
-            <!-- <li>
-              <a href="/projects" class="recovery-link">Explore Projects</a>
-            </li>
-            <li>
-              <a href="/#works" class="recovery-link">Consult Works</a>
-            </li> -->
-            <!-- Optional Search Form (uncomment if needed) -->
-            <!-- <li>
-                 <form action="/search" method="get" class="search-form-404">
-                     <label for="search-404" class="visually-hidden">Search Site</label> // Add label for accessibility
-                     <input type="search" id="search-404" name="q" placeholder="Search..." aria-label="Search site">
-                     <button type="submit">Go</button> // Simple text or icon
-                 </form>
-             </li> -->
-          </ul>
-        </nav>
-      </main>
-
-      <!-- Footer moved outside the main container for better bottom positioning -->
+    <!-- Main 404 Content -->
+    <div class="content-wrapper">
+      <div class="error-code">
+        <span>4</span>
+        <span>∅</span>
+        <!-- Using Empty Set symbol for Zero -->
+        <span>4</span>
+      </div>
+      <h1>Page Not Found</h1>
+      <a href="/" class="home-link">Return to Homepage (Solve for X)</a>
     </div>
-    <footer class="error-footer">
-      <!-- Minimalist footer text -->
-      <!-- <span>Navigating the Void</span> -->
-      <!-- Or simply the site name/year -->
-      <!-- <span>© <span id="current-year"></span> Sergio Cayuqueo</span> -->
-    </footer>
-
-    <script>
-      // Simple script for footer year (optional)
-      const yearSpan = document.getElementById("current-year");
-      if (yearSpan) {
-        yearSpan.textContent = new Date().getFullYear();
+  </body>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const container = document.getElementById("math-animation-container");
+      if (!container) {
+        console.error("Animation container not found!");
+        return;
       }
 
-      // Helper class for visually hidden labels (if using search)
-      /*
-            const style = document.createElement('style');
-            style.textContent = `
-                .visually-hidden {
-                    position: absolute;
-                    width: 1px;
-                    height: 1px;
-                    padding: 0;
-                    margin: -1px;
-                    overflow: hidden;
-                    clip: rect(0, 0, 0, 0);
-                    white-space: nowrap;
-                    border-width: 0;
-                }
-            `;
-            document.head.appendChild(style);
-            */
-    </script>
-  </body>
+      // --- Configuration ---
+      const symbols = [
+        "∫",
+        "∑",
+        "∏",
+        "∂",
+        "∇",
+        "√",
+        "∛",
+        "∞",
+        "≈",
+        "≠",
+        "≤",
+        "≥",
+        "∈",
+        "∉",
+        "⊂",
+        "⊃",
+        "∀",
+        "∃",
+        "∴",
+        "∵",
+        "↦",
+        "→",
+        "↔",
+        "¬",
+        "∧",
+        "∨",
+        "⊕",
+        "⊗",
+        "α",
+        "β",
+        "γ",
+        "δ",
+        "ε",
+        "ζ",
+        "η",
+        "θ",
+        "ι",
+        "κ",
+        "λ",
+        "μ",
+        "ν",
+        "ξ",
+        "ο",
+        "π",
+        "ρ",
+        "σ",
+        "τ",
+        "υ",
+        "φ",
+        "χ",
+        "ψ",
+        "ω",
+        "0",
+        "1",
+        "x",
+        "y",
+        "z",
+        "f(x)",
+        "g(y)",
+        "dx",
+        "dy",
+        "lim",
+        "log",
+        "ln",
+        "E=mc²",
+        "a²+b²=c²",
+        "sin(θ)",
+        "cos(φ)",
+        "tan(α)",
+        "d/dx",
+        "?",
+        "∅",
+        "NaN",
+        "Error",
+        "Null",
+        "404", // Thematic elements
+      ];
+      const numberOfSymbols = 150; // Adjust density (consider performance)
+      const minDuration = 10; // Min animation duration (seconds)
+      const maxDuration = 25; // Max animation duration (seconds)
+      const minSize = 10; // Min font size (px)
+      const maxSize = 28; // Max font size (px)
+      const minOpacity = 0.1; // Min base opacity
+      const maxOpacity = 0.5; // Max base opacity
+      // --- End Configuration ---
+
+      function createSymbol() {
+        const symbolElement = document.createElement("span");
+        symbolElement.classList.add("math-symbol");
+
+        // Random properties
+        symbolElement.textContent =
+          symbols[Math.floor(Math.random() * symbols.length)];
+        const randomLeft = Math.random() * 100; // % vw
+        const randomDuration =
+          Math.random() * (maxDuration - minDuration) + minDuration;
+        const randomDelay = Math.random() * maxDuration; // Spread out start times
+        const randomSize = Math.random() * (maxSize - minSize) + minSize;
+        const randomOpacity =
+          Math.random() * (maxOpacity - minOpacity) + minOpacity;
+
+        // Apply styles
+        symbolElement.style.left = `${randomLeft}vw`;
+        symbolElement.style.fontSize = `${randomSize}px`;
+        symbolElement.style.opacity = randomOpacity.toString(); // Base opacity
+        symbolElement.style.animationDuration = `${randomDuration}s`;
+        // Use negative delay to make animations start at different points in their cycle immediately
+        symbolElement.style.animationDelay = `-${randomDelay}s`;
+
+        container.appendChild(symbolElement);
+
+        // Optional: Remove element after animation to prevent infinite build-up
+        // This requires knowing the *exact* duration including delay, might be complex
+        // Given they fade out and are behind content, often okay to leave them
+      }
+
+      // Create initial batch
+      for (let i = 0; i < numberOfSymbols; i++) {
+        createSymbol();
+      }
+
+      console.log("404 Math Animation Initialized.");
+    });
+  </script>
 </html>
