@@ -444,6 +444,7 @@ h6 {
 
 h1.section-title {
   font-size: var(--font-size-display);
+  font-weight: lighter;
   margin-bottom: var(--space-xl);
 }
 h2.subsection-title {
