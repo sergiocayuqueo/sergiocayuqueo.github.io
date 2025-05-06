@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
- 
+
     <!-- --- SEO Core Metadata (Review & COMPLETE Placeholders!) --- -->
     <!-- Title: Concise, descriptive, includes primary keywords. Aim for < 60 chars. -->
     <title>
@@ -91,7 +91,7 @@
     />
     <link rel="stylesheet" href="main.css" />
     <link rel="stylesheet" href="animation/css/symbols.css" />
-    <link rel="stylesheet" href="animation/css/title.css" />
+    <link rel="stylesheet" href="animation/css/wordGlobe.css" />
 
     <!-- Tailwind CSS -->
     <link
@@ -188,14 +188,20 @@
 
       <nav class="main-navigation">
         <ul class="nav-links">
-          <li><a href="#projects">MAIN</a></li>
+          <li><a href="#main">MAIN</a></li>
           <li><a href="#writings">WRITINGS</a></li>
           <li><a href="#contact">CONTACT</a></li>
         </ul>
       </nav>
     </header>
 
-    <main>
+    <main id="main">
+      <div class="word-globe-container" aria-hidden="true">
+        <div class="word-globe">
+          <!-- Words/formulas will be added here by JavaScript -->
+        </div>
+      </div>
+
       <!-- SECTION: Projects -->
       <section id="projects" class="content-section">
         <br />
@@ -709,5 +715,6 @@
         });
     </script>
     <script src="animation/js/symbols.js"></script>
+    <script src="animation/js/wordGlobe.js"></script>
   </body>
 </html>
