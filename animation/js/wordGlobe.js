@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   const formulas = [
-    "E = mc²",
+    "E = c²",
     "F = ma",
     "PV = nRT",
     "KE = ½mv²",
@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
     "P(A|B) = [P(B|A)P(A)] / P(B)",
     "n! = n × (n-1)!",
     "e = lim (1 + 1/n)ⁿ",
-    "Fₙ = Fₙ₋₁ + Fₙ₋₂",
+    "F ₙ = F ₙ₋₁ + F ₙ₋₂",
     "(x+y)ⁿ = ∑ (n¦k) x^(n-k) y^k",
     "∬D f(x,y) dA",
     "det(A)",
