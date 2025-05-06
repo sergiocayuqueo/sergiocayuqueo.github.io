@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "lim",
     "log",
     "ln",
-    "E=mc²",
+    "E=c²",
     "a²+b²=c²",
     "sin(θ)",
     "cos(φ)",
