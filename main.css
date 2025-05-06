@@ -35,7 +35,7 @@
   /* Typography */
   --font-primary: "Raleway", -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
     sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  --font-secondary: "Crimson Text", Georgia, serif;
+  --font-secondary: "Raleway", "Crimson Text", Georgia, serif;
   --font-size-base: 1rem; /* Typically 16px */
   --font-size-sm: clamp(
     0.8rem,
@@ -275,7 +275,10 @@ html[data-theme="dark"] .writings-item-image-wrapper {
 html[data-theme="dark"] .writings-item-image-wrapper img {
   filter: brightness(0.85) contrast(1.05); /* Slightly dim images */
 }
-html[data-theme="dark"] .writings-item-card:hover .writings-item-image-wrapper img {
+html[data-theme="dark"]
+  .writings-item-card:hover
+  .writings-item-image-wrapper
+  img {
   filter: brightness(1) contrast(1); /* Restore on hover */
 }
 html[data-theme="dark"] .writings-item-content {
@@ -424,7 +427,7 @@ a {
 
 a:hover,
 a:focus {
-  color: var(--color-accent);
+  color: var(--color-primary);
   text-decoration: underline; /* Clearer indication on hover/focus */
   outline: 2px solid transparent; /* Remove default outline, manage focus style explicitly */
 }
@@ -437,7 +440,7 @@ h4,
 h5,
 h6 {
   font-family: var(--font-secondary);
-  font-weight: 600; /* Crimson Text looks good semi-bold */
+  font-weight: lighter; /* Crimson Text looks good semi-bold */
   line-height: var(--line-height-heading);
   margin-bottom: var(--space-md);
   color: var(--color-accent);
@@ -467,7 +470,7 @@ dl {
   padding-left: 1.2em;
 } /* Basic list styling */
 dt {
-  font-weight: bold;
+  font-weight: lighter;
   color: var(--color-accent);
   margin-top: var(--space-sm);
 }
@@ -515,7 +518,7 @@ dd {
 }
 .identity .name {
   font-family: var(--font-primary);
-  font-weight: 700;
+  font-weight: lighter;
   font-size: var(--font-size-lg);
   color: var(--color-accent);
   letter-spacing: 0.5px;
@@ -613,7 +616,7 @@ dd {
 
 .nav-links a {
   font-size: var(--font-size-xl);
-  font-weight: light;
+  font-weight: lighter;
   color: var(--color-accent);
   text-decoration: none;
   padding: var(--space-sm) var(--space-md);
@@ -648,7 +651,7 @@ main {
   color: var(--color-text-muted);
   margin-bottom: var(--space-xl);
   max-width: 65ch; /* Improve readability */
-  font-weight: 300;
+  font-weight: lighter;
 }
 
 /* --- Projects Section Specifics --- */
@@ -661,6 +664,7 @@ main {
   gap: var(--space-lg);
   margin-bottom: var(--space-xl);
   font-size: var(--font-size-sm);
+  backdrop-filter: blur(6px);
 }
 
 .project-categories dl {
@@ -704,7 +708,7 @@ main {
 }
 
 .item-title {
-  font-weight: 500; /* Semi-bold title */
+  font-weight: lighter; /* Semi-bold title */
 }
 
 .item-meta {
@@ -723,6 +727,7 @@ main {
 .contact-container {
   display: grid;
   gap: var(--space-xl);
+  color: var(--color-primary);
 }
 
 .contact-intro {
@@ -765,8 +770,12 @@ main {
 .contact-value,
 .contact-item a {
   font-size: var(--font-size-md);
-  font-weight: 400;
+  font-weight: lighter;
 }
+.contact-value {
+  color: var(--color-text);
+}
+
 .contact-item a {
   word-break: break-all;
 } /* Prevent long links overflowing */
@@ -815,7 +824,7 @@ main {
 
   .nav-links a {
     font-size: var(--font-size-sm); /* Smaller font for desktop nav */
-    font-weight: normal;
+    font-weight: lighter;
     color: var(--color-text);
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -929,7 +938,7 @@ main {
 .writings-item-title {
   font-family: var(--font-primary); /* Maybe use primary font for card title */
   font-size: var(--font-size-md); /* Adjust size */
-  font-weight: 700;
+  font-weight: lighter;
   margin-bottom: var(--space-md);
   color: var(--color-accent);
 }
@@ -983,4 +992,87 @@ main {
 /* Remove meta text if empty */
 .item-meta:empty {
   display: none;
+}
+
+/*-----------------------------------------------------------------------------------*/
+
+/* --- Project List Refinements --- */
+.project-categories {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xl);
+  padding-bottom: var(--space-lg);
+  border-bottom: var(--border-width) dashed var(--color-border); /* Dashed separator */
+}
+html[data-theme="dark"] .project-categories {
+  border-bottom-color: var(--color-border-dark);
+}
+.project-categories dl {
+  margin: 0;
+  padding: 0;
+}
+.project-categories dt {
+  font-size: var(--font-size-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-xs);
+  color: var(--color-text-muted);
+}
+.project-categories dd {
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+  margin: 0 0 var(--space-xs) 0;
+}
+html[data-theme="dark"] .project-categories dt {
+  color: var(--color-text-muted-dark);
+}
+html[data-theme="dark"] .project-categories dd {
+  color: var(--color-text-dark);
+}
+
+.subsection-title {
+  margin-bottom: var(--space-lg);
+  padding-bottom: var(--space-sm);
+  border-bottom: none; /* Remove default border */
+}
+
+.project-list .list-item {
+  /* Inherit base .list-item */
+  transition: background-color var(--transition-speed-fast) ease,
+    border-left-color var(--transition-speed-fast) ease,
+    transform var(--transition-speed-fast) ease;
+  border-left: 3px solid transparent; /* Add space for hover indicator */
+  padding-left: calc(var(--space-lg) - 3px); /* Adjust padding */
+}
+
+.project-list .list-item:hover,
+.project-list .list-item:focus {
+  background-color: var(--color-highlight-bg);
+  color: var(--color-text); /* Keep text color */
+  border-left-color: var(--color-primary);
+  transform: none; /* Remove scale */
+}
+html[data-theme="dark"] .project-list .list-item:hover,
+html[data-theme="dark"] .project-list .list-item:focus {
+  background-color: var(--color-highlight-bg-dark);
+  color: var(--color-text-dark);
+  border-left-color: var(--color-primary-dark);
+}
+
+.project-list .item-title {
+  font-weight: lighter;
+  transition: color var(--transition-speed-fast) ease;
+}
+.project-list .item-meta {
+  font-style: italic;
+}
+
+.project-list .list-item:hover .item-title,
+.project-list .list-item:focus .item-title {
+  color: var(--color-primary);
+}
+html[data-theme="dark"] .project-list .list-item:hover .item-title,
+html[data-theme="dark"] .project-list .list-item:focus .item-title {
+  color: var(--color-primary-dark);
 }
