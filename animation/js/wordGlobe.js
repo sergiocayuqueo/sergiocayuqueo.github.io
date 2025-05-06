@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
     "P(A|B) = [P(B|A)P(A)] / P(B)",
     "n! = n × (n-1)!",
     "e = lim (1 + 1/n)ⁿ",
-    "F ₙ = F ₙ₋₁ + F ₙ₋₂",
+    "Fₙ = Fₙ₋₁ + Fₙ₋₂",
     "(x+y)ⁿ = ∑ (n¦k) x^(n-k) y^k",
     "∬D f(x,y) dA",
     "det(A)",
