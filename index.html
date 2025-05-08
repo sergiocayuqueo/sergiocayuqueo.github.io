@@ -196,12 +196,17 @@
     </header>
 
     <main id="main">
-      <div class="word-globe-container" aria-hidden="true">
+      <div
+        class="word-globe-container"
+        data-initial-rotate-x="10"
+        data-initial-rotate-y="0"
+        aria-label="Interactive 3D globe of formulas"
+        role="application"
+      >
         <div class="word-globe">
           <!-- Words/formulas will be added here by JavaScript -->
         </div>
       </div>
-
       <!-- SECTION: Projects -->
       <section id="projects" class="content-section">
         <br />
@@ -601,8 +606,34 @@
     </main>
 
     <footer class="site-footer-bottom">
-      <span>© <span id="current-year"></span> __</span>
-      <span>Building the Future</span>
+      <div class="footer-content-left">
+        <span>© <span id="current-year"></span> __</span>
+        <span class="footer-separator">|</span>
+        <span id="user-location">
+          <span class="location-text"></span>
+          <img
+            id="country-flag"
+            src=""
+            alt="User country flag"
+            style="
+              display: none;
+              vertical-align: middle;
+              margin-left: 5px;
+              height: 1em;
+            "
+          />
+          <span id="country-name" style="display: none"></span>
+        </span>
+      </div>
+      <div class="footer-content-right">
+        <span id="utc-time-container"
+          >UTC: <span id="utc-time">--:--:--</span></span
+        >
+        <span class="footer-separator">|</span>
+        <span>Building the Future</span>
+      </div>
+      <!-- Canvas for particle/digital rain effect -->
+      <canvas id="footer-wild-effect-canvas"></canvas>
     </footer>
 
     <script>
@@ -713,6 +744,156 @@
             setTheme(event.matches ? "dark" : "light");
           }
         });
+
+      //--------------------------------------------------------
+      document.addEventListener("DOMContentLoaded", function () {
+        // --- 2. UTC Time ---
+        const utcTimeSpan = document.getElementById("utc-time");
+        function updateUTCTime() {
+          if (utcTimeSpan) {
+            const now = new Date();
+            const hours = String(now.getUTCHours()).padStart(2, "0");
+            const minutes = String(now.getUTCMinutes()).padStart(2, "0");
+            const seconds = String(now.getUTCSeconds()).padStart(2, "0");
+            utcTimeSpan.textContent = `${hours}:${minutes}:${seconds}`;
+          }
+        }
+        if (utcTimeSpan) {
+          updateUTCTime(); // Initial call
+          setInterval(updateUTCTime, 1000); // Update every second
+        }
+
+        // --- 3. User Country Flag & Name (IP Geolocation) ---
+        const flagImg = document.getElementById("country-flag");
+        const countryNameSpan = document.getElementById("country-name");
+        const userLocationSpan = document.getElementById("user-location");
+
+        async function fetchUserLocation() {
+          if (!flagImg || !countryNameSpan || !userLocationSpan) return;
+
+          try {
+            // Using ip-api.com (free, no API key for basic use, good for demo)
+            // For production, consider their terms or a more robust service (e.g., with an API key)
+            const response = await fetch(
+              "http://ip-api.com/json/?fields=status,country,countryCode"
+            );
+            if (!response.ok) {
+              throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+
+            if (data.status === "success" && data.countryCode) {
+              flagImg.src = `https://flagcdn.com/w20/${data.countryCode.toLowerCase()}.png`; // Using flagcdn.com
+              flagImg.alt = `${data.country} flag`;
+              countryNameSpan.textContent = data.country;
+
+              flagImg.style.display = "inline-block";
+              countryNameSpan.style.display = "inline";
+              userLocationSpan.title = `Location estimated via IP: ${data.country}`;
+            } else {
+              console.warn(
+                "Could not retrieve country from IP:",
+                data.message || "Unknown error"
+              );
+              // Optionally hide the "Greetings from" text if location fails
+              // document.querySelector('.location-text').style.display = 'none';
+            }
+          } catch (error) {
+            console.error("Error fetching user location:", error);
+            // document.querySelector('.location-text').style.display = 'none';
+          }
+        }
+        fetchUserLocation();
+
+        // --- 4. "Wild" Feature: Digital Rain/Particle Canvas Effect ---
+        const canvas = document.getElementById("footer-wild-effect-canvas");
+        if (canvas) {
+          const ctx = canvas.getContext("2d");
+          let width, height;
+          let particles = [];
+          const particleCount = 50; // Adjust for density
+          const charSet = "0123456789ABCDEF<>/{}[]()*&^%$#@!~?".split(""); // Characters for digital rain
+
+          function resizeCanvas() {
+            width = canvas.offsetWidth;
+            height = canvas.offsetHeight;
+            canvas.width = width * window.devicePixelRatio; // For sharpness on retina
+            canvas.height = height * window.devicePixelRatio;
+            ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+            particles = []; // Reinitialize particles on resize
+            initParticles();
+          }
+
+          class Particle {
+            constructor() {
+              this.x = Math.random() * width;
+              this.y = Math.random() * height;
+              this.speed = Math.random() * 0.5 + 0.1; // Slower speed
+              this.char = charSet[Math.floor(Math.random() * charSet.length)];
+              this.fontSize = Math.random() * 5 + 7; // Smaller font size for footer
+              this.color =
+                getComputedStyle(document.documentElement)
+                  .getPropertyValue("--color-text-muted")
+                  .trim() || "#666666";
+              // Update color if theme changes (more advanced: listen to theme change event)
+              if (document.body.classList.contains("dark-theme")) {
+                this.color =
+                  getComputedStyle(document.documentElement)
+                    .getPropertyValue("--color-text-muted-dark")
+                    .trim() || "#888888";
+              }
+            }
+
+            draw() {
+              ctx.fillStyle = this.color;
+              ctx.font = `${this.fontSize}px monospace`;
+              ctx.fillText(this.char, this.x, this.y);
+            }
+
+            update() {
+              this.y += this.speed;
+              if (this.y > height + this.fontSize) {
+                // Reset when it goes off screen
+                this.y = 0 - this.fontSize;
+                this.x = Math.random() * width;
+                this.char = charSet[Math.floor(Math.random() * charSet.length)];
+                this.speed = Math.random() * 0.5 + 0.1;
+              }
+            }
+          }
+
+          function initParticles() {
+            for (let i = 0; i < particleCount; i++) {
+              particles.push(new Particle());
+            }
+          }
+
+          function animateParticles() {
+            ctx.clearRect(
+              0,
+              0,
+              canvas.width / window.devicePixelRatio,
+              canvas.height / window.devicePixelRatio
+            ); // Clear considering devicePixelRatio
+            particles.forEach((p) => {
+              p.update();
+              p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+          }
+
+          // Debounced resize
+          let resizeTimer;
+          window.addEventListener("resize", () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(resizeCanvas, 100);
+          });
+
+          // Initial setup
+          resizeCanvas(); // Sets initial size and particles
+          animateParticles();
+        }
+      });
     </script>
     <script src="animation/js/symbols.js"></script>
     <script src="animation/js/wordGlobe.js"></script>
