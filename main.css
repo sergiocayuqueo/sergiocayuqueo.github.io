@@ -96,6 +96,7 @@ html {
 body {
   font-family: var(--font-primary);
   font-size: var(--font-size-md);
+  font-weight: lighter;
   line-height: var(--line-height-base);
   color: var(--color-text);
   background-color: var(--color-background);
