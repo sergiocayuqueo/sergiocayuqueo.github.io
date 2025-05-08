@@ -1,844 +1,1200 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+/* --- Global Reset & Base Styles --- */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-    <!-- --- SEO Core Metadata (Review & COMPLETE Placeholders!) --- -->
-    <!-- Title: Concise, descriptive, includes primary keywords. Aim for < 60 chars. -->
-    <title>
-      Sergio Cayuqueo | AI & Machine Learning Student | Novice --Writer
-    </title>
+:root {
+  /* Color Palette */
+  --color-background: #ffffff; /* Cleaner background */
+  --color-text: #212121; /* Dark grey for text */
+  --color-text-muted: #666666;
+  --color-primary: #0056b3; /* A slightly richer blue */
+  --color-accent: #333; /* Kept from original */
+  --color-border: #e0e0e0;
+  --color-highlight-bg: #f0f0f0; /* Subtle highlight for hovers */
+  --color-selection-bg: var(--color-accent);
+  --color-selection-text: var(--color-background);
 
-    <!-- Description: Compelling summary for SERPs (~150-160 chars). -->
-    <meta
-      name="description"
-      content="Explore the Sergio Cayuqueo --Writings, a passionate student specializing in Artificial Intelligence and Machine Learning. Discover projects, technical skills, and contact information."
-    />
+  /* --- Dark Theme Color Palette --- */
+  --color-background-dark: #1a1a1a; /* Dark background */
+  --color-text-dark: #e0e0e0; /* Light text */
+  --color-text-muted-dark: #888888; /* Muted light text */
+  --color-primary-dark: #4dabf7; /* Brighter blue for contrast */
+  --color-accent-dark: #cccccc; /* Lighter accent */
+  --color-border-dark: #333333; /* Darker border */
+  --color-highlight-bg-dark: #2c2c2c; /* Dark highlight */
+  --color-card-bg-dark: #252525; /* Slightly lighter card background */
+  --color-shadow-dark: rgba(0, 0, 0, 0.2); /* Darker shadow */
 
-    <!-- Canonical URL: The definitive URL. -->
-    <link rel="canonical" href="https://www.sergiocayuqueo.com/" />
+  /* ... Keep your existing typography, spacing, etc. variables ... */
 
-    <!-- Robots Meta Tag -->
-    <meta name="robots" content="index, follow" />
+  /* Typography */
+  --font-primary: "Raleway", -apple-system, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --font-secondary: "Raleway", "Crimson Text", Georgia, serif;
+  --font-size-base: 1rem; /* Typically 16px */
+  --font-size-sm: clamp(
+    0.8rem,
+    0.17vw + 0.76rem,
+    0.89rem
+  ); /* Fluid smaller text */
+  --font-size-md: clamp(1rem, 0.34vw + 0.91rem, 1.19rem); /* Fluid base text */
+  --font-size-lg: clamp(
+    1.25rem,
+    0.61vw + 1.1rem,
+    1.58rem
+  ); /* Fluid large text */
+  --font-size-xl: clamp(1.56rem, 1vw + 1.31rem, 2.11rem); /* Fluid XL text */
+  --font-size-xxl: clamp(
+    1.95rem,
+    1.56vw + 1.56rem,
+    2.81rem
+  ); /* Fluid Heading 2 */
+  --font-size-display: clamp(
+    2.44rem,
+    2.38vw + 1.85rem,
+    3.75rem
+  ); /* Fluid Heading 1 */
+  --line-height-base: 1.65;
+  --line-height-heading: 1.2;
 
-    <!-- Keywords (Less critical for Google, still useful) -->
-    <meta
-      name="keywords"
-      content="Sergio Cayuqueo, student, AI, Artificial Intelligence, Machine Learning, ML, projects, software engineering, data structures, algorithms, --Writer"
-    />
+  /* Spacing (using multiples of base) */
+  --space-xs: calc(var(--font-size-base) * 0.25); /* 4px */
+  --space-sm: calc(var(--font-size-base) * 0.5); /* 8px */
+  --space-md: calc(var(--font-size-base) * 1); /* 16px */
+  --space-lg: calc(var(--font-size-base) * 1.5); /* 24px */
+  --space-xl: calc(var(--font-size-base) * 2.5); /* 40px */
+  --space-xxl: calc(var(--font-size-base) * 4); /* 64px */
 
-    <!-- --- Open Graph Metadata (for Social Sharing) --- -->
-    <meta
-      property="og:title"
-      content="Sergio Cayuqueo | AI & ML Student Portfolio"
-    />
-    <meta
-      property="og:description"
-      content="Discover the projects and skills of Sergio Cayuqueo, specializing in AI and Machine Learning."
-    />
-    <meta property="og:type" content="profile" />
-    <meta property="og:url" content="https://www.sergiocayuqueo.com/" />
-    <meta property="og:image" content="./images/a_city_of_fantasy.jpg" />
-    <!-- **IMPORTANT:** Create a compelling OG image (1200x630px) -->
-    <meta
-      property="og:image:alt"
-      content="Sergio Cayuqueo - AI & Machine Learning Student --Writer"
-    />
-    <meta property="og:site_name" content="Sergio Cayuqueo" />
-    <meta property="profile:first_name" content="Sergio" />
-    <meta property="profile:last_name" content="Cayuqueo" />
+  /* Borders & Radius */
+  --border-width: 1px;
+  --border-radius: 4px;
 
-    <!-- --- Twitter Card Metadata --- -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      name="twitter:title"
-      content="Sergio Cayuqueo | AI & ML Student Portfolio"
-    />
-    <meta
-      name="twitter:description"
-      content="Discover the projects and --Writings of Sergio Cayuqueo, specializing in AI and Machine Learning."
-    />
-    <meta name="twitter:image" content="./images/a_city_of_fantasy.jpg" />
-    <!-- **IMPORTANT:** Create a compelling Twitter image (can be same as OG) -->
-    <meta
-      name="twitter:image:alt"
-      content="Sergio Cayuqueo - AI & Machine Learning Student --Writer"
-    />
-    <meta name="twitter:creator" content="@Sergiocayuqueov" />
-    <meta name="twitter:site" content="@Sergiocayuqueov" />
+  /* Transitions */
+  --transition-speed: 0.3s;
+  --transition-ease: ease-in-out;
 
-    <!-- --- Favicons --- -->
-    <link rel="icon" href="./images/a_city_of_fantasy.jpg" sizes="any" />
-    <link
-      rel="icon"
-      href="./images/a_city_of_fantasy.jpg"
-      type="image/svg+xml"
-    />
-    <link rel="apple-touch-icon" href="./images/a_city_of_fantasy.jpg" />
-    <link
-      rel="manifest"
-      href="https://www.sergiocayuqueo.com/images/site.webmanifest"
-    />
-    <!-- **Ensure these favicon files exist at the specified paths!** -->
+  /* Max Width */
+  --container-max-width: 1200px;
+}
 
-    <!-- --- Fonts & CSS --- -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Oxygen:wght@300;400;700&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="main.css" />
-    <link rel="stylesheet" href="animation/css/symbols.css" />
-    <link rel="stylesheet" href="animation/css/wordGlobe.css" />
+html {
+  font-size: 100%; /* Use % for better accessibility scaling */
+  scroll-behavior: smooth; /* Handled by inline style in HTML now, but good practice */
+  scroll-padding-top: calc(
+    var(--space-xl) * 1.5
+  ); /* Adjust scroll target for fixed header if added */
+  scrollbar-width: none;
+  scrollbar-color: var(--scrollbar-color) var(--scrollbar-track-color);
+  cursor: auto;
+}
 
-    <!-- Tailwind CSS -->
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css"
-      rel="stylesheet"
-    />
+body {
+  font-family: var(--font-primary);
+  font-size: var(--font-size-md);
+  font-weight: lighter;
+  line-height: var(--line-height-base);
+  color: var(--color-text);
+  background-color: var(--color-background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
-    <!-- Link to your updated CSS -->
+/* Lock body scroll when mobile nav is active */
+body.nav-active {
+  overflow: hidden;
+}
 
-    <!-- --- Schema.org Structured Data (JSON-LD) --- -->
-    <!-- **IMPORTANT: Fill in ALL placeholders accurately!** -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Sergio Cayuqueo",
-        "url": "https://www.sergiocayuqueo.com/",
-        "image": "https://www.sergiocayuqueo.com/images/sergio-profile-photo-schema.jpg", // A clear profile photo URL
-        "jobTitle": "Student",
-        "description": "Passionate student specializing in Artificial Intelligence and Machine Learning, focusing on [mention specific interests like algorithm design, system simulation, AI ethics]. Seeking opportunities to apply and expand skills.",
-        "knowsAbout": [
-          "Artificial Intelligence",
-          "Machine Learning",
-          "Algorithm Design",
-          "Data Structures",
-          "System Simulation",
-          "Software Engineering",
-          "AI Ethics", // Add more specific skills/tools
-          "Python", // Example skill
-          "Backend Development" // Example skill
-        ],
-        "alumniOf": {
-          "@type": "EducationalOrganization",
-          "name": "[Your University/Institution Name]" // **REQUIRED**
-        },
-        // Optional: If currently attending
-        // "memberOf": {
-        //   "@type": "EducationalOrganization",
-        //   "name": "[Your University/Institution Name]"
-        // },
-        "sameAs": [
-          "https://www.linkedin.com/in/sergiocayuqueovi/", // **REQUIRED** LinkedIn
-          "https://github.com/sergiocayuqueo", // **REQUIRED** GitHub
-          "https://www.x.com/sergiocayuqueov", // **REQUIRED** Twitter/X
-          "[Other relevant profile URL, e.g., personal blog, researchgate]" // Optional
-        ],
-        "address": {
-          "@type": "PostalAddress",
-          "addressCountry": "CL", // Use ISO 3166-1 alpha-2 country code
-          "addressLocality": "[Your City, Optional]" // Optional city
-        },
-        "email": "mailto:sergiocayuqueo4@gmail.com" // Optional, but recommended
-      }
-    </script>
+/* --- Dark Mode Overrides --- */
+/* Apply dark theme when html element has data-theme="dark" */
+html[data-theme="dark"] {
+  /* Reassign core color variables */
+  --color-background: var(--color-background-dark);
+  --color-text: var(--color-text-dark);
+  --color-text-muted: var(--color-text-muted-dark);
+  --color-primary: var(--color-primary-dark);
+  --color-accent: var(--color-accent-dark);
+  --color-border: var(--color-border-dark);
+  --color-highlight-bg: var(--color-highlight-bg-dark);
+  --color-selection-bg: var(--color-primary-dark); /* Use brighter selection */
+  --color-selection-text: var(--color-background-dark);
 
-    <!-- Add CSS for smooth scrolling -->
-    <style>
-      html {
-        scroll-behavior: smooth;
-      }
-    </style>
-  </head>
-  <body>
-    <!-- Background Animation Container -->
-    <div id="background-animation-container"></div>
+  /* Optional: Override specific component backgrounds if needed */
+  /* --shadow-sm: 0 2px 5px var(--color-shadow-dark); */
+  /* --shadow-md: 0 5px 15px var(--color-shadow-dark); */
+  /* --shadow-lg: 0 10px 30px var(--color-shadow-dark); */
+}
 
-    <header class="site-header">
-      <div class="identity">
-        <a href="#" aria-label="Homepage">
-          <!-- {/* Link logo/name to home */} -->
-          <!-- <div class="name">SERGIO CAYUQUEO</div> -->
-          <div class="title">AI & ML STUDENT</div>
-        </a>
-      </div>
+/* Specific adjustments for dark mode */
+html[data-theme="dark"] body {
+  background-color: var(--color-background); /* Ensure body bg matches */
+  color: var(--color-text);
+}
 
-      <!-- Theme Toggle Button -->
-      <button
-        id="theme-toggle-button"
-        class="theme-toggle"
-        aria-label="Toggle theme"
-        title="Toggle theme"
-      >
-        <span class="icon-sun">L</span>
-        <span class="icon-moon">D</span>
-      </button>
+/* --- Update Component Styles for Dark Mode --- */
 
-      <button
-        class="nav-toggle"
-        aria-label="Toggle navigation"
-        aria-expanded="false"
-      >
-        <span class="hamburger"></span>
-      </button>
+/* Header */
+html[data-theme="dark"] .site-header {
+  background-color: var(--color-background); /* Dark semi-transparent */
+  /* backdrop-filter: blur(10px); Optional: keep or adjust blur */
+  border-bottom-color: transparent; /* Already handled */
+}
+html[data-theme="dark"] .site-header.scrolled {
+  background-color: var(--color-background); /* Darker on scroll */
+  border-bottom-color: var(--color-border-dark);
+  /* box-shadow: var(--shadow-sm); Adjust shadow if using shadow vars */
+}
+html[data-theme="dark"] .identity .name {
+  color: var(--color-accent); /* Use lighter accent for name */
+}
+html[data-theme="dark"] .identity .title {
+  color: var(--color-text-muted);
+}
 
-      <nav class="main-navigation">
-        <ul class="nav-links">
-          <li><a href="#main">MAIN</a></li>
-          <li><a href="#writings">WRITINGS</a></li>
-          <li><a href="#contact">CONTACT</a></li>
-        </ul>
-      </nav>
-    </header>
+/* Hamburger */
+html[data-theme="dark"] .hamburger,
+html[data-theme="dark"] .hamburger::before,
+html[data-theme="dark"] .hamburger::after {
+  background-color: var(--color-text); /* Use lighter accent */
+}
+/* Ensure X animation remains visible */
+html[data-theme="dark"] .nav-toggle[aria-expanded="true"] .hamburger::before,
+html[data-theme="dark"] .nav-toggle[aria-expanded="true"] .hamburger::after {
+  background-color: var(--color-text);
+}
 
-    <main id="main">
-      <div
-        class="word-globe-container"
-        data-initial-rotate-x="10"
-        data-initial-rotate-y="0"
-        aria-label="Interactive 3D globe of formulas"
-        role="application"
-      >
-        <div class="word-globe">
-          <!-- Words/formulas will be added here by JavaScript -->
-        </div>
-      </div>
-      <!-- SECTION: Projects -->
-      <section id="projects" class="content-section">
-        <br />
-        <!-- <h1 class="section-title">Projects</h1> -->
+/* Mobile Navigation Overlay */
+html[data-theme="dark"] .main-navigation {
+  /* background: radial-gradient(circle at top right, rgba(30, 30, 30, 0.9), rgba(30, 30, 30, 0.98)); */
+  background: transparent; /* Simpler dark background */
+  backdrop-filter: blur(6px);
+}
+html[data-theme="dark"] .nav-links a {
+  color: var(--color-text);
+}
+html[data-theme="dark"] .nav-links a:hover,
+html[data-theme="dark"] .nav-links a:focus {
+  color: var(--color-primary);
+}
 
-        <h2 class="subsection-title">-Our hands</h2>
+/* Desktop Navigation Links */
+@media (min-width: 768px) {
+  html[data-theme="dark"] .nav-links a {
+    color: var(--color-text);
+  }
+  html[data-theme="dark"] .nav-links a::after {
+    background-color: var(--color-text-dark);
+  }
+  html[data-theme="dark"] .nav-links a:hover,
+  html[data-theme="dark"] .nav-links a:focus {
+    color: var(--color-primary);
+  }
+}
 
-        <!-- Optional: A brief intro paragraph about your project philosophy -->
+/* Headings */
+html[data-theme="dark"] h1,
+html[data-theme="dark"] h2,
+html[data-theme="dark"] h3,
+html[data-theme="dark"] h4,
+html[data-theme="dark"] h5,
+html[data-theme="dark"] h6 {
+  color: var(--color-text);
+}
+html[data-theme="dark"] h2.subsection-title {
+  color: var(--color-text); /* Regular text color for subsection titles */
+  border-bottom-color: var(--color-border);
+}
 
-        <!-- Using definition list for semantics -->
-        <!-- <dl>
-            <dt>TYPE</dt>
-            <dd>Backend Development</dd>
-            <dd>Algorithm Design</dd>
-          </dl> -->
-        <!-- <dl> -->
-        <!-- <dt>YEAR</dt>
-            <dd> – Present</dd> -->
-        <!-- {/* Use range or latest year */} -->
-        <!-- </dl> -->
-        <!-- <dl> -->
-        <!-- <dt>DISCIPLINE</dt>
-            <dd>Software Engineering</dd>
-            <dd>AI Ethics</dd> -->
-        <!-- <dd>Data Structures</dd> -->
-        <!-- <dd>Algorithm Analysis</dd> -->
-        <!-- <dd>Systems Analysis</dd> -->
-        <!-- </dl> -->
-        <!-- </div> -->
+/* Links */
+html[data-theme="dark"] a {
+  color: var(--color-primary);
+}
+html[data-theme="dark"] a:hover,
+html[data-theme="dark"] a:focus {
+  color: var(--color-text); /* Use light text color for hover */
+}
+/* Adjust subtle underline color */
+html[data-theme="dark"] p a,
+html[data-theme="dark"] .content-section li a,
+html[data-theme="dark"] .footer-links a {
+  background-image: linear-gradient(
+    var(--color-primary),
+    var(--color-primary)
+  ); /* Use primary for underline */
+}
+html[data-theme="dark"] p a:hover,
+html[data-theme="dark"] .content-section li a:hover,
+html[data-theme="dark"] .footer-links a:hover,
+html[data-theme="dark"] p a:focus,
+html[data-theme="dark"] .content-section li a:focus,
+html[data-theme="dark"] .footer-links a:focus {
+  color: var(--color-text);
+}
 
-        <div class="case-studies reveal reveal-delay-2">
-          <!-- <h3 class="subsection-title">Selected Work</h3> -->
-          <div class="item-list project-list">
-            <!-- Add specific class -->
-            <!-- Items remain the same, ensure links are correct -->
-            <a
-              href="#"
-              class="list-item project-item"
-              aria-label="View project: AI and Ethics Independent Research"
-            >
-              <span class="item-title">AI and Ethics Independent Research</span>
-            </a>
-            <div class="list-item project-item">
-              <span class="item-title">University Assistant Prof. Role</span>
-              <span class="item-meta">JUL '24 - MAR '25</span>
-            </div>
-          </div>
-        </div>
-      </section>
+/* Item Lists (Projects) */
+html[data-theme="dark"] .item-list {
+  background-color: var(
+    --color-border-dark
+  ); /* Dark background shows through gaps */
+  border-color: var(--color-border-dark);
+}
+html[data-theme="dark"] .list-item {
+  background-color: var(--color-background-dark); /* Dark item background */
+  color: var(--color-text);
+}
+html[data-theme="dark"] .list-item:hover,
+html[data-theme="dark"] .list-item:focus {
+  background-color: var(--color-highlight-bg-dark);
+  color: var(--color-primary);
+}
+html[data-theme="dark"] .item-meta {
+  color: var(--color-text-muted);
+}
+html[data-theme="dark"] .list-item.placeholder .item-title,
+html[data-theme="dark"] .list-item.placeholder .item-meta {
+  color: var(--color-text-muted);
+}
 
-      <!-- START SECTION: WRITINGS (Creative/Other) -->
-      <section id="writings" class="content-section">
-        <br />
-        <h1 class="section-title">Writings</h1>
-        <p class="section-intro">
-          <!-- Exploring ideas and expression beyond core technical projects. -->
-        </p>
+/* writings Cards */
+html[data-theme="dark"] .writings-item-card {
+  background-color: var(--color-card-bg-dark);
+  border-color: var(--color-border-dark);
+  box-shadow: 0 2px 5px var(--color-shadow-dark); /* Use dark shadow */
+}
+html[data-theme="dark"] .writings-item-card:hover {
+  border-color: var(--color-primary-dark); /* Highlight border on hover */
+  box-shadow: 0 5px 15px var(--color-shadow-dark);
+}
+html[data-theme="dark"] .writings-item-image-wrapper {
+  background-color: var(--color-background-dark); /* Darker placeholder */
+}
+/* Optional: Adjust image filter for dark mode */
+html[data-theme="dark"] .writings-item-image-wrapper img {
+  filter: brightness(0.85) contrast(1.05); /* Slightly dim images */
+}
+html[data-theme="dark"]
+  .writings-item-card:hover
+  .writings-item-image-wrapper
+  img {
+  filter: brightness(1) contrast(1); /* Restore on hover */
+}
+html[data-theme="dark"] .writings-item-content {
+  /* Background is handled by the card */
+}
+html[data-theme="dark"] .writings-item-title {
+  color: var(--color-accent);
+}
 
-        <!-- Main Grid Container for writings -->
-        <div class="writings-grid">
-          <!-- writings Item Card 1 -->
-          <article class="writings-item-card">
-            <div class="writings-item-image-wrapper">
-              <img
-                width="100%"
-                height="auto"
-                src="./images/a_city_of_fantasy.jpg"
-                alt="Painting of a fantastical cityscape with flowing structures."
-                loading="lazy"
-              />
-            </div>
-            <div class="writings-item-content">
-              <!-- Wrapper for text content -->
-              <!-- <h3 class="writings-item-title">Poetry & Stories I-V</h3> -->
-              <!-- Group title -->
-              <div class="item-list writings-list">
-                <!-- Link each item correctly -->
-                <a
-                  href="pages/poetry.html"
-                  class="list-item writings-item"
-                  aria-label="View writings: Poems & Stories"
-                >
-                  <span class="item-title">POEMS & STORIES</span>
-                  <span class="item-meta"></span>
-                </a>
-                <a
-                  href="pages/poetryl.html"
-                  class="list-item writings-item"
-                  aria-label="View writings: Poems & Stories I"
-                >
-                  <span class="item-title">POEMS & STORIES I</span>
-                  <span class="item-meta"></span>
-                </a>
-                <a
-                  href="pages/poetryll.html"
-                  class="list-item writings-item"
-                  aria-label="View writings: Poems & Stories II"
-                >
-                  <span class="item-title">POEMS & STORIES II</span>
-                  <span class="item-meta"></span>
-                </a>
-                <a
-                  href="pages/poetrylll.html"
-                  class="list-item writings-item"
-                  aria-label="View writings: Poems & Stories III"
-                >
-                  <span class="item-title">POEMS & STORIES III</span>
-                  <span class="item-meta"></span>
-                </a>
-                <a
-                  href="pages/poetrylv.html"
-                  class="list-item writings-item"
-                  aria-label="View writings: Poems & Stories IV"
-                >
-                  <span class="item-title">POEMS & STORIES IV</span>
-                  <span class="item-meta"></span>
-                </a>
-                <a
-                  href="pages/poetryv.html"
-                  class="list-item writings-item"
-                  aria-label="View writings: Poems & Stories V"
-                >
-                  <span class="item-title">POEMS & STORIES V</span>
-                  <span class="item-meta"></span>
-                </a>
-              </div>
-            </div>
-          </article>
+/* List inside cards */
+html[data-theme="dark"] .writings-item-card .item-list.writings-list {
+  background-color: transparent; /* Ensure transparency */
+}
+html[data-theme="dark"] .writings-item-card .list-item {
+  background-color: transparent;
+  border-bottom-color: var(--color-border-dark);
+  color: var(--color-text); /* Ensure text is readable */
+}
+html[data-theme="dark"] .writings-item-card .list-item:hover,
+html[data-theme="dark"] .writings-item-card .list-item:focus {
+  background-color: transparent;
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+}
 
-          <!-- writings Item Card 2 -->
-          <article class="writings-item-card">
-            <div class="writings-item-image-wrapper">
-              <img
-                width="100%"
-                height="auto"
-                src="./images/flower_beds_in_holland.jpg"
-                alt="Vibrant painting depicting colorful flower beds in Holland."
-                loading="lazy"
-              />
-            </div>
-            <div class="writings-item-content">
-              <!-- <h3 class="writings-item-title">Poetry & Stories VI-X</h3> -->
-              <div class="item-list writings-list">
-                <a
-                  href="./pages/poetryvl.html"
-                  class="list-item writings-item"
-                  aria-label="View writings: Poems & Stories VI"
-                >
-                  <span class="item-title">POEMS & STORIES VI</span>
-                  <span class="item-meta"></span>
-                </a>
-                <a
-                  href="./pages/poetryvll.html"
-                  class="list-item writings-item"
-                  aria-label="View writings: Poems & Stories VII"
-                >
-                  <span class="item-title">POEMS & STORIES VII</span>
-                  <span class="item-meta"></span>
-                </a>
-                <a
-                  href="./pages/poetryvlll.html"
-                  class="list-item writings-item"
-                  aria-label="View writings: Poems & Stories VIII"
-                >
-                  <span class="item-title">POEMS & STORIES VIII</span>
-                  <span class="item-meta"></span>
-                </a>
-                <a
-                  href="./pages/poetrylx.html"
-                  class="list-item writings-item"
-                  aria-label="View writings: Poems & Stories IX"
-                >
-                  <span class="item-title">POEMS & STORIES IX</span>
-                  <span class="item-meta"></span>
-                </a>
-                <a
-                  href="./pages/poetryx.html"
-                  class="list-item writings-item"
-                  aria-label="View writings: Poems & Stories X"
-                >
-                  <span class="item-title">POEMS & STORIES X</span>
-                  <span class="item-meta"></span>
-                </a>
-              </div>
-            </div>
-          </article>
+/* Contact Section */
+html[data-theme="dark"] .contact-intro {
+  color: var(--color-text-muted);
+}
+html[data-theme="dark"] .contact-item {
+  border-bottom-color: var(--color-border-dark);
+}
+html[data-theme="dark"] .contact-label {
+  color: var(--color-text-muted);
+}
+html[data-theme="dark"] .contact-value,
+html[data-theme="dark"] .contact-item a {
+  color: var(--color-text); /* Use standard light text for values */
+}
+html[data-theme="dark"] .contact-item a {
+  color: var(--color-primary); /* Keep links primary */
+}
+html[data-theme="dark"] .contact-item a:hover,
+html[data-theme="dark"] .contact-item a:focus {
+  color: var(--color-text);
+}
 
-          <!-- writings Item Card 3 -->
-          <article class="writings-item-card">
-            <div class="writings-item-image-wrapper">
-              <img
-                width="100%"
-                height="auto"
-                src="./images/the_watering_can_emblems_the_garden.jpg"
-                alt="Impressionist painting featuring a watering can in a lush garden setting."
-                loading="lazy"
-              />
-            </div>
-            <div class="writings-item-content">
-              <!-- <h3 class="writings-item-title">Imaginarios</h3> -->
-              <div class="item-list writings-list">
-                <a
-                  href="./pages/imagine.html"
-                  class="list-item writings-item"
-                  aria-label="View writings: Imaginarios"
-                >
-                  <span class="item-title">IMAGINARIOS</span>
-                  <span class="item-meta"></span>
-                </a>
-              </div>
-            </div>
-          </article>
+/* Footer */
+html[data-theme="dark"] .site-footer-bottom {
+  border-top-color: var(--color-border-dark);
+  color: var(--color-text-muted);
+}
+html[data-theme="dark"] .footer-links a {
+  color: var(--color-text-muted);
+}
+html[data-theme="dark"] .footer-links a:hover,
+html[data-theme="dark"] .footer-links a:focus {
+  color: var(--color-primary);
+}
 
-          <!-- writings Item Card 4 -->
-          <article class="writings-item-card">
-            <div class="writings-item-image-wrapper">
-              <img
-                width="100%"
-                height="auto"
-                src="./images/the_lighthouse_at_honfleur.jpg"
-                alt="Painting of the serene lighthouse at Honfleur."
-                loading="lazy"
-              />
-            </div>
-            <div class="writings-item-content">
-              <!-- <h3 class="writings-item-title">Humanos</h3> -->
-              <div class="item-list writings-list">
-                <a
-                  href="./pages/humans.html"
-                  class="list-item writings-item"
-                  aria-label="View writings: Humanos"
-                >
-                  <span class="item-title">HUMANOS</span>
-                  <span class="item-meta"></span>
-                </a>
-              </div>
-            </div>
-          </article>
+/* Scrollbar (Optional - adjust if needed) */
+html[data-theme="dark"] {
+  scrollbar-color: var(--color-text-muted-dark) var(--color-background-dark);
+}
+html[data-theme="dark"]::-webkit-scrollbar-track {
+  background-color: var(--color-background-dark);
+}
+html[data-theme="dark"]::-webkit-scrollbar-thumb {
+  background-color: var(--color-text-muted-dark);
+  border-color: var(--color-background-dark);
+}
+html[data-theme="dark"]::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-accent-dark);
+}
 
-          <!-- writings Item Card 5 -->
-          <article class="writings-item-card">
-            <div class="writings-item-image-wrapper">
-              <img
-                width="100%"
-                height="auto"
-                src="./images/river.jpg"
-                alt="Impressionist painting of a calm river scene."
-                loading="lazy"
-              />
-            </div>
-            <div class="writings-item-content">
-              <!-- <h3 class="writings-item-title">Poetry & Stories XI</h3> -->
-              <div class="item-list writings-list">
-                <a
-                  href="./pages/poetryxl.html"
-                  class="list-item writings-item"
-                  aria-label="View writings: Poems & Stories XI"
-                >
-                  <span class="item-title">POEMS & STORIES XI</span>
-                  <span class="item-meta"></span>
-                </a>
-                <a
-                  href="./pages/poetryxll.html"
-                  class="list-item writings-item"
-                  aria-label="View writings: Poems & Stories XI"
-                >
-                  <span class="item-title">POEMS & STORIES XII.</span>
-                  <span class="item-meta"></span>
-                </a>
-              </div>
-            </div>
-          </article>
+/* --- Theme Toggle Button Icons --- */
+.theme-toggle {
+  background: none;
+  border: none;
+  padding: var(--space-xs); /* Adjust padding as needed */
+  margin: 0; /* Reset margin */
+  cursor: pointer;
+  font-size: 1.3rem; /* Control icon size */
+  line-height: 1; /* Prevent extra vertical space */
+  color: var(--color-text); /* Match surrounding text color */
+  transition: color var(--transition-speed-fast) var(--ease-out-quad),
+    transform var(--transition-speed-fast) var(--ease-out-quad);
+  position: relative; /* If needed for positioning */
+  overflow: hidden; /* Helps if icons slightly overlap during potential transitions */
+}
 
-          <!-- writings Item Card 5 -->
-          <article class="writings-item-card">
-            <div class="writings-item-image-wrapper">
-              <img
-                width="100%"
-                height="auto"
-                src="./images/roses.jpg"
-                alt="Impressionist painting of a bunch of roses."
-                loading="lazy"
-              />
-            </div>
-            <div class="writings-item-content">
-              <!-- <h3 class="writings-item-title">Poetry & Stories XI</h3> -->
-              <div class="item-list writings-list">
-                <a
-                  href="./pages/dictionary.html"
-                  class="list-item writings-item"
-                  aria-label="View writings: Poems & Stories XI"
-                >
-                  <span class="item-title">DICTIONARY</span>
-                  <span class="item-meta">***</span>
-                </a>
-              </div>
-            </div>
-          </article>
+.theme-toggle:hover,
+.theme-toggle:focus-visible {
+  color: var(--color-primary); /* Highlight on hover/focus */
+  transform: scale(1.1); /* Slight scale effect */
+  outline: none; /* Use focus-visible or manage manually */
+}
 
-          <!-- writings Item Card 6 (Dictionary - No Image Example)
-          <article class="writings-item-card writings-item-card--no-image">
-            <!-- Add modifier class
-            <div class="writings-item-image-wrapper">
-              <img
-                width="100%"
-                height="auto"
-                src="./images/roses.jpg"
-                alt="Impressionist painting of a calm river scene."
-                loading="lazy"
-              />
-            </div>
-            <div class="writings-item-content">
-              <!-- <h3 class="writings-item-title">Dictionary Dreams</h3>
-              <div class="item-list writings-list">
-                <a
-                  href="pages/dictionary.html"
-                  class="list-item writings-item"
-                  aria-label="View writings: Dictionary Dreams"
-                >
-                  <span class="item-title">DICTIONARY DREAMS</span>
-                  <span class="item-meta"></span>
-                </a>
-              </div>
-            </div>
-          </article> -->
-        </div>
-        <!-- End .writings-grid -->
-      </section>
-      <!-- END SECTION: writings -->
+.theme-toggle .icon-sun,
+.theme-toggle .icon-moon {
+  display: inline-block; /* Allow them to sit side-by-side initially if needed */
+  font-weight: lighter;
+}
 
-      <!-- SECTION: Contact -->
-      <section id="contact" class="content-section">
-        <br />
-        <h1 class="section-title"></h1>
-        <div class="contact-container">
-          <div class="contact-intro">
-            <p>
-              Let's ＣＯＮＮＥＣＴ. Whether it's about an AI project, a
-              challenging idea, collaboration, or just a conversation at the
-              forefront of technology—I'm ready to engage.
-            </p>
-            <p>Reach out. The future is built together.</p>
-          </div>
+/* --- Icon Display Logic --- */
 
-          <div class="contact-details">
-            <div class="contact-group">
-              <div class="contact-item">
-                <span class="contact-label">Personal Email</span>
-                <a href="mailto:sergiocayuqueo4@gmail.com">sergiocayuqueo4@</a>
-              </div>
-              <div class="contact-item">
-                <span class="contact-label">Institutional Email</span>
-                <a href="mailto:scayuqueo@usm.cl">scayuqueo@usm.cl</a>
-              </div>
-              <div class="contact-item">
-                <span class="contact-label">Location</span>
-                <span class="contact-value"
-                  >Chile (Remote Available Worldwide)</span
-                >
-              </div>
-            </div>
-            <div class="contact-group">
-              <div class="contact-item">
-                <span class="contact-label">LinkedIn</span>
-                <a
-                  href="https://www.linkedin.com/in/sergiocayuqueovi/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Sergio Cayuqueo on LinkedIn"
-                  >/sergiocayuqueovi</a
-                >
-              </div>
-              <div class="contact-item">
-                <span class="contact-label">GitHub</span>
-                <a
-                  href="https://github.com/sergiocayuqueo"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Sergio Cayuqueo on GitHub"
-                  >/sergiocayuqueo</a
-                >
-              </div>
-              <div class="contact-item">
-                <span class="contact-label">Twitter/X</span>
-                <a
-                  href="https://www.x.com/sergiocayuqueov"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Sergio Cayuqueo on Twitter/X"
-                  >@sergiocayuqueov</a
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
+/* Default (Light Theme): Show Moon, Hide Sun */
+html:not([data-theme="dark"]) .theme-toggle .icon-sun {
+  display: none;
+}
+html:not([data-theme="dark"]) .theme-toggle .icon-moon {
+  display: inline-block;
+}
 
-    <footer class="site-footer-bottom">
-      <div class="footer-content-left">
-        <span>© <span id="current-year"></span> __</span>
-        <span class="footer-separator"></span>
-      </div>
-      <div class="footer-content-right">
-        <span id="utc-time-container"
-          >UTC: <span id="utc-time">--:--:--</span></span
-        >
-        <span class="footer-separator">|</span>
-        <span>Building the Future</span>
-      </div>
-      <!-- Canvas for particle/digital rain effect -->
-      <canvas id="footer-wild-effect-canvas"></canvas>
-    </footer>
+/* Dark Theme: Show Sun, Hide Moon */
+html[data-theme="dark"] .theme-toggle .icon-sun {
+  display: inline-block;
+}
+html[data-theme="dark"] .theme-toggle .icon-moon {
+  display: none;
+}
 
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const navToggle = document.querySelector(".nav-toggle");
-        const mainNav = document.querySelector(".main-navigation");
-        const body = document.body; // Get body element once
+/* Dark Mode Color for Toggle Button */
+html[data-theme="dark"] .theme-toggle {
+  color: var(--color-text); /* Use the variable which changes with theme */
+}
+html[data-theme="dark"] .theme-toggle:hover,
+html[data-theme="dark"] .theme-toggle:focus-visible {
+  color: var(--color-primary); /* Use the primary color variable */
+}
 
-        // --- Toggle Button Listener ---
-        if (navToggle && mainNav) {
-          navToggle.addEventListener("click", function () {
-            const isExpanded = this.getAttribute("aria-expanded") === "true";
-            this.setAttribute("aria-expanded", !isExpanded);
-            mainNav.classList.toggle("is-active");
-            body.classList.toggle("nav-active"); // Use cached body element
-            // Toggle the button's own active state if needed for 'X' icon styling
-            this.classList.toggle("is-active");
-          });
+/* Container for centered content */
+.container {
+  width: 90%;
+  max-width: var(--container-max-width);
+  margin-left: auto;
+  margin-right: auto;
+}
 
-          // --- *** NEW: Navigation Link Click Listener (for Mobile Menu) *** ---
-          mainNav.addEventListener("click", function (event) {
-            // Check if the clicked element is a link within the nav links list
-            const clickedLink = event.target.closest(".nav-links a");
+/* Links */
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--transition-speed) var(--transition-ease);
+}
 
-            if (clickedLink) {
-              // IMPORTANT: Only close if the mobile menu is currently active
-              // This check prevents issues on desktop where the nav might be visible but not 'active'
-              if (mainNav.classList.contains("is-active")) {
-                // --- Perform the closing actions ---
-                mainNav.classList.remove("is-active");
-                navToggle.setAttribute("aria-expanded", "false");
-                body.classList.remove("nav-active"); // Use cached body element
-                // Also toggle the button's active state back
-                navToggle.classList.remove("is-active");
+a:hover,
+a:focus {
+  color: var(--color-primary);
+  text-decoration: underline; /* Clearer indication on hover/focus */
+  outline: 2px solid transparent; /* Remove default outline, manage focus style explicitly */
+}
 
-                // The browser will automatically handle scrolling to the href="#section"
-              }
-            }
-          });
-        } // End of if (navToggle && mainNav)
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-secondary);
+  font-weight: lighter; /* Crimson Text looks good semi-bold */
+  line-height: var(--line-height-heading);
+  margin-bottom: var(--space-md);
+  color: var(--color-accent);
+}
 
-        // --- Set current year in footer ---
-        const yearSpan = document.getElementById("current-year");
-        if (yearSpan) {
-          yearSpan.textContent = new Date().getFullYear();
-        }
+h1.section-title {
+  font-size: var(--font-size-display);
+  font-weight: lighter;
+  margin-bottom: var(--space-xl);
+}
+h2.subsection-title {
+  font-size: var(--font-size-xl);
+  margin-top: var(--space-xl);
+  margin-bottom: var(--space-lg);
+  border-bottom: var(--border-width) solid var(--color-border);
+  padding-bottom: var(--space-sm);
+}
 
-        // --- Close nav if clicking outside on mobile/tablet ---
-        document.addEventListener("click", function (event) {
-          // Check elements exist and menu is active before proceeding
-          if (mainNav && navToggle && mainNav.classList.contains("is-active")) {
-            const isClickInsideNav = mainNav.contains(event.target);
-            const isClickOnToggle = navToggle.contains(event.target);
+/* Paragraphs & Lists */
+p {
+  margin-bottom: var(--space-md);
+}
+ul,
+ol,
+dl {
+  margin-bottom: var(--space-md);
+  padding-left: 1.2em;
+} /* Basic list styling */
+dt {
+  font-weight: lighter;
+  color: var(--color-accent);
+  margin-top: var(--space-sm);
+}
+dd {
+  margin-left: 0;
+  margin-bottom: var(--space-xs);
+  color: var(--color-text-muted);
+}
 
-            if (!isClickInsideNav && !isClickOnToggle) {
-              // --- Perform the closing actions ---
-              mainNav.classList.remove("is-active");
-              navToggle.setAttribute("aria-expanded", "false");
-              body.classList.remove("nav-active"); // Use cached body element
-              // Also toggle the button's active state back
-              navToggle.classList.remove("is-active");
-            }
-          }
-        });
-      }); // End of DOMContentLoaded
+/* Selection Highlight */
+::selection {
+  background-color: var(--color-selection-bg);
+  color: var(--color-selection-text);
+}
+::-moz-selection {
+  background-color: var(--color-selection-bg);
+  color: var(--color-selection-text);
+}
 
-      // Example JavaScript for a theme toggle button
-      const themeToggle = document.getElementById("theme-toggle-button"); // Assuming your button has this ID
-      const htmlElement = document.documentElement;
+/* --- Header --- */
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-lg) 5%; /* Use percentage for padding relative to viewport width */
+  background-color: var(--color-background);
+  /* Optional: Add a subtle border or shadow */
+  /* border-bottom: var(--border-width) solid var(--color-border); */
+  /* box-shadow: 0 2px 5px rgba(0,0,0,0.05); */
+  position: sticky; /* Make header sticky */
+  top: 0;
+  z-index: 100;
+  padding-bottom: 20px;
+  padding-top: 20px;
+}
 
-      // Function to set the theme
-      function setTheme(theme) {
-        htmlElement.setAttribute("data-theme", theme);
-        // Optional: Save preference to localStorage
-        localStorage.setItem("theme", theme);
-      }
+.identity a {
+  text-decoration: none;
+  color: inherit;
+}
+.identity a:hover,
+.identity a:focus {
+  color: inherit;
+  text-decoration: none;
+}
+.identity .name {
+  font-family: var(--font-primary);
+  font-weight: lighter;
+  font-size: var(--font-size-lg);
+  color: var(--color-accent);
+  letter-spacing: 0.5px;
+}
+.identity .title {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
 
-      // Check for saved theme preference or system preference
-      const savedTheme = localStorage.getItem("theme");
-      const prefersDark = window.matchMedia(
-        "(prefers-color-scheme: dark)"
-      ).matches;
+/* Navigation - Mobile First */
+.nav-toggle {
+  display: block; /* Hidden by default on larger screens */
+  color: var(--color-text);
+  background: none;
+  border: none;
+  padding: var(--space-sm);
+  cursor: pointer;
+  z-index: 110; /* Above nav */
+}
 
-      // Initialize theme on load
-      if (savedTheme) {
-        setTheme(savedTheme);
-      } else if (prefersDark) {
-        setTheme("dark");
-      } else {
-        setTheme("light"); // Default to light if no preference
-      }
+.hamburger {
+  display: block;
+  position: relative;
+  width: 26px;
+  height: 1px;
+  background-color: var(--color-text);
+  transition: transform var(--transition-speed) var(--transition-ease);
+}
 
-      // Add click listener to the toggle button
-      if (themeToggle) {
-        themeToggle.addEventListener("click", () => {
-          const currentTheme = htmlElement.getAttribute("data-theme");
-          const newTheme = currentTheme === "dark" ? "light" : "dark";
-          setTheme(newTheme);
-        });
-      }
+.hamburger::before,
+.hamburger::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: var(--color-text);
+  transition: transform var(--transition-speed) var(--transition-ease),
+    top var(--transition-speed) var(--transition-ease);
+}
 
-      // Optional: Listen for system preference changes
-      window
-        .matchMedia("(prefers-color-scheme: dark)")
-        .addEventListener("change", (event) => {
-          // Only change if user hasn't manually set a theme via localStorage
-          if (!localStorage.getItem("theme")) {
-            setTheme(event.matches ? "dark" : "light");
-          }
-        });
+.hamburger::before {
+  top: -7px;
+}
+.hamburger::after {
+  top: 7px;
+}
 
-      //--------------------------------------------------------
-      document.addEventListener("DOMContentLoaded", function () {
-        // --- 2. UTC Time ---
-        const utcTimeSpan = document.getElementById("utc-time");
-        function updateUTCTime() {
-          if (utcTimeSpan) {
-            const now = new Date();
-            const hours = String(now.getUTCHours()).padStart(2, "0");
-            const minutes = String(now.getUTCMinutes()).padStart(2, "0");
-            const seconds = String(now.getUTCSeconds()).padStart(2, "0");
-            utcTimeSpan.textContent = `${hours}:${minutes}:${seconds}`;
-          }
-        }
-        if (utcTimeSpan) {
-          updateUTCTime(); // Initial call
-          setInterval(updateUTCTime, 1000); // Update every second
-        }
+/* Nav Toggle Animation */
+.nav-toggle[aria-expanded="true"] .hamburger {
+  background-color: transparent;
+} /* Middle bar fades */
+.nav-toggle[aria-expanded="true"] .hamburger::before {
+  transform: rotate(45deg);
+  top: 0;
+}
+.nav-toggle[aria-expanded="true"] .hamburger::after {
+  transform: rotate(-45deg);
+  top: 0;
+}
 
-        // --- 4. "Wild" Feature: Digital Rain/Particle Canvas Effect ---
-        const canvas = document.getElementById("footer-wild-effect-canvas");
-        if (canvas) {
-          const ctx = canvas.getContext("2d");
-          let width, height;
-          let particles = [];
-          const particleCount = 50; // Adjust for density
-          const charSet = "0123456789ABCDEF<>/{}[]()*&^%$#@!~?".split(""); // Characters for digital rain
+.main-navigation {
+  display: none; /* Hidden on mobile by default */
+  position: fixed; /* Full screen overlay */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* background-color: rgba(255, 255, 255, 0.98); Slightly transparent white */
+  backdrop-filter: blur(5px);
+  z-index: 99;
+  padding-top: calc(var(--space-xxl) * 1.5); /* Space for header */
+  background-color: transparent;
+}
 
-          function resizeCanvas() {
-            width = canvas.offsetWidth;
-            height = canvas.offsetHeight;
-            canvas.width = width * window.devicePixelRatio; // For sharpness on retina
-            canvas.height = height * window.devicePixelRatio;
-            ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
-            particles = []; // Reinitialize particles on resize
-            initParticles();
-          }
+.main-navigation.is-active {
+  display: flex; /* Show when active */
+  flex-direction: column;
+  align-items: center;
+  background-color: transparent;
+  justify-content: center;
+}
 
-          class Particle {
-            constructor() {
-              this.x = Math.random() * width;
-              this.y = Math.random() * height;
-              this.speed = Math.random() * 0.5 + 0.1; // Slower speed
-              this.char = charSet[Math.floor(Math.random() * charSet.length)];
-              this.fontSize = Math.random() * 5 + 7; // Smaller font size for footer
-              this.color =
-                getComputedStyle(document.documentElement)
-                  .getPropertyValue("--color-text-muted")
-                  .trim() || "#666666";
-              // Update color if theme changes (more advanced: listen to theme change event)
-              if (document.body.classList.contains("dark-theme")) {
-                this.color =
-                  getComputedStyle(document.documentElement)
-                    .getPropertyValue("--color-text-muted-dark")
-                    .trim() || "#888888";
-              }
-            }
+.nav-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  color: #000;
+}
 
-            draw() {
-              ctx.fillStyle = this.color;
-              ctx.font = `${this.fontSize}px monospace`;
-              ctx.fillText(this.char, this.x, this.y);
-            }
+.nav-links li {
+  margin-bottom: var(--space-lg);
+}
 
-            update() {
-              this.y += this.speed;
-              if (this.y > height + this.fontSize) {
-                // Reset when it goes off screen
-                this.y = 0 - this.fontSize;
-                this.x = Math.random() * width;
-                this.char = charSet[Math.floor(Math.random() * charSet.length)];
-                this.speed = Math.random() * 0.5 + 0.1;
-              }
-            }
-          }
+.nav-links a {
+  font-size: var(--font-size-xl);
+  font-weight: lighter;
+  color: var(--color-text);
+  text-decoration: none;
+  padding: var(--space-sm) var(--space-md);
+  transition: color var(--transition-speed) var(--transition-ease);
+}
 
-          function initParticles() {
-            for (let i = 0; i < particleCount; i++) {
-              particles.push(new Particle());
-            }
-          }
+.nav-links a:hover,
+.nav-links a:focus {
+  /* color: var(--color-primary); */
+  text-decoration: none; /* No underline needed for large mobile links */
+}
 
-          function animateParticles() {
-            ctx.clearRect(
-              0,
-              0,
-              canvas.width / window.devicePixelRatio,
-              canvas.height / window.devicePixelRatio
-            ); // Clear considering devicePixelRatio
-            particles.forEach((p) => {
-              p.update();
-              p.draw();
-            });
-            requestAnimationFrame(animateParticles);
-          }
+/* --- Main Content --- */
+main {
+  padding: var(--space-xl) 5%;
+  max-width: var(--container-max-width);
+  margin: 0 auto; /* Center main content area */
+}
 
-          // Debounced resize
-          let resizeTimer;
-          window.addEventListener("resize", () => {
-            clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(resizeCanvas, 100);
-          });
+.content-section {
+  margin-bottom: var(--space-xxl); /* Generous spacing between sections */
+  padding-bottom: var(--space-xl);
+  border-bottom: var(--border-width) solid var(--color-border);
+}
+.content-section:last-of-type {
+  margin-bottom: 0;
+  border-bottom: none;
+}
 
-          // Initial setup
-          resizeCanvas(); // Sets initial size and particles
-          animateParticles();
-        }
-      });
-    </script>
-    <script src="animation/js/symbols.js"></script>
-    <script src="animation/js/wordGlobe.js"></script>
-  </body>
-</html>
+.section-intro {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-xl);
+  max-width: 65ch; /* Improve readability */
+  font-weight: lighter;
+}
+
+/* --- Projects Section Specifics --- */
+.project-categories {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(150px, 1fr)
+  ); /* Responsive columns */
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xl);
+  font-size: var(--font-size-sm);
+  backdrop-filter: blur(6px);
+}
+
+.project-categories dl {
+  margin-bottom: 0;
+  padding-left: 0;
+} /* Override default list margin */
+
+/* --- Generic Item List Styling (for Projects & writings) --- */
+.item-list {
+  display: grid;
+  gap: var(--border-width); /* Use gap to simulate borders */
+  background-color: var(
+    --color-border
+  ); /* Background color shows through gaps */
+  border: var(--border-width) solid var(--color-border); /* Outer border */
+  border-radius: var(--border-radius);
+  overflow: hidden; /* Clip background color */
+}
+
+.list-item {
+  display: grid;
+  grid-template-columns: 1fr auto; /* Title takes space, meta aligns right */
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  background-color: var(--color-background); /* Item background */
+  color: var(--color-text);
+  text-decoration: none;
+  transition: background-color var(--transition-speed) var(--transition-ease),
+    transform var(--transition-speed) var(--transition-ease);
+}
+
+.list-item:hover,
+.list-item:focus {
+  background-color: var(--color-highlight-bg);
+  color: var(--color-primary);
+  text-decoration: none;
+  outline: none; /* Remove default focus outline, rely on background change */
+  transform: scale(1.01); /* Subtle zoom on hover */
+  z-index: 1; /* Ensure hovered item is on top */
+  position: relative; /* Needed for z-index */
+}
+
+.item-title {
+  font-weight: lighter; /* Semi-bold title */
+}
+
+.item-meta {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  white-space: nowrap; /* Prevent dates/meta from wrapping */
+  align-self: center; /* Vertically center meta text */
+}
+
+.list-item.placeholder .item-title {
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+/* --- Contact Section --- */
+.contact-container {
+  display: grid;
+  gap: var(--space-xl);
+  color: var(--color-primary);
+}
+
+.contact-intro {
+  max-width: 65ch;
+  color: var(--color-text-muted);
+}
+
+.contact-intro p {
+  margin-bottom: var(--space-md);
+}
+
+.contact-details {
+  display: grid;
+  gap: var(--space-xl);
+}
+
+.contact-group {
+  display: grid;
+  gap: var(--space-md);
+}
+
+.contact-item {
+  display: flex;
+  flex-direction: column; /* Stack label and value */
+  gap: var(--space-xs);
+  padding-bottom: var(--space-sm);
+  border-bottom: var(--border-width) solid var(--color-border);
+}
+.contact-item:last-child {
+  border-bottom: none;
+}
+
+.contact-label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.contact-value,
+.contact-item a {
+  font-size: var(--font-size-md);
+  font-weight: lighter;
+}
+.contact-value {
+  color: var(--color-text);
+}
+
+.contact-item a {
+  word-break: break-all;
+} /* Prevent long links overflowing */
+
+/* --- Footer --- */
+/* Ensure your existing CSS variables are defined in :root */
+/* :root {
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 3rem;
+    --border-width: 1px;
+    --color-border: #e0e0e0; (or your theme's border color)
+    --font-size-sm: 0.875rem;
+    --color-text-muted: #666666; (or your theme's muted text color)
+    --color-background: #ffffff; (or your theme's background)
+    --color-primary: #0056b3;
+} */
+
+/* --- Astonishing Footer --- */
+.site-footer-bottom {
+  position: relative; /* For absolute positioning of canvas and pseudo-elements */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-md, 1rem); /* Fallback for var */
+  padding: var(--space-lg, 1.5rem) 5%;
+  margin-top: var(--space-xl, 3rem); /* Space above footer */
+  font-size: var(--font-size-sm, 0.875rem);
+  color: var(--color-text, #6c757d);
+  z-index: 10; /* Ensure it's above some background elements if any */
+
+  /* Frosted Glass / Blur Effect */
+  background-color: var(--color-background);
+  backdrop-filter: blur(10px) saturate(180%);
+  -webkit-backdrop-filter: blur(10px) saturate(180%); /* Safari */
+  border-top: var(--border-width, 1px) solid rgba(200, 200, 200, 0.2); /* Softer border */
+  box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.05); /* Subtle shadow from above */
+
+  /* Smooth transition for theme changes */
+  transition: background-color 0.3s ease, border-top-color 0.3s ease,
+    color 0.3s ease;
+}
+
+/* Dark Theme Specifics for Footer */
+.dark-theme .site-footer-bottom {
+  background-color: rgba(20, 20, 30, 0.4); /* Dark theme semi-transparent */
+  border-top: var(--border-width, 1px) solid rgba(50, 50, 70, 0.3);
+  color: var(--color-text-muted-dark, #888888);
+  box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.15);
+}
+
+.footer-content-left,
+.footer-content-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md, 1rem);
+  flex-wrap: wrap; /* Allow items within these to wrap too */
+}
+
+.footer-separator {
+  opacity: 0.5;
+  user-select: none;
+}
+
+#user-location img {
+  height: 1em; /* Relative to parent font size */
+  width: auto;
+  vertical-align: middle;
+  margin: 0 0.3em; /* Spacing around flag */
+  border-radius: 2px; /* Slight rounding */
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  display: none; /* Hidden by default, shown by JS */
+}
+#country-name {
+  display: none; /* Hidden by default */
+}
+
+/* UTC Time Styling (optional - make it stand out a bit) */
+#utc-time-container {
+  font-family: "Courier New", Courier, monospace; /* Techy font */
+  /* color: var(--color-primary, #0056b3); */ /* Optional: make it primary color */
+}
+.dark-theme #utc-time-container {
+  /* color: var(--color-primary-dark, #4dabf7); */
+}
+
+/* Canvas for Wild Effect */
+#footer-wild-effect-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Behind the footer text content */
+  pointer-events: none; /* Allow clicks to pass through */
+  opacity: 0.15; /* Make it subtle */
+}
+
+/* Subtle pulse animation for dynamic elements (optional) */
+@keyframes pulseSlightly {
+  0%,
+  100% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.01);
+  }
+}
+
+#utc-time,
+#country-flag,
+#country-name {
+  /* animation: pulseSlightly 5s infinite ease-in-out; */ /* Uncomment for subtle pulse */
+}
+
+/* Ensure links in footer are styled appropriately if you add them */
+.site-footer-bottom a {
+  color: var(--color-text-muted, #6c757d);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.site-footer-bottom a:hover {
+  color: var(--color-primary, #0056b3);
+}
+.dark-theme .site-footer-bottom a {
+  color: var(--color-text-muted-dark, #888888);
+}
+.dark-theme .site-footer-bottom a:hover {
+  color: var(--color-primary-dark, #4dabf7);
+}
+
+/* --- Responsive Adjustments --- */
+
+/* Medium screens (Tablets, small laptops) */
+@media (min-width: 768px) {
+  .nav-toggle {
+    display: none; /* Hide hamburger */
+  }
+
+  .main-navigation {
+    display: block; /* Show nav */
+    position: static; /* Reset mobile overlay styles */
+    width: auto;
+    height: auto;
+    background-color: transparent;
+    backdrop-filter: none;
+    padding-top: 0;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: var(--space-lg);
+    text-align: left;
+  }
+
+  .nav-links li {
+    margin-bottom: 0;
+  }
+
+  .nav-links a {
+    font-size: var(--font-size-sm); /* Smaller font for desktop nav */
+    font-weight: lighter;
+    color: var(--color-text);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative; /* For underline effect */
+    padding: var(--space-xs) 0;
+  }
+
+  .nav-links a::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: var(--color-primary);
+    transition: width var(--transition-speed) var(--transition-ease);
+  }
+
+  .nav-links a:hover::after,
+  .nav-links a:focus::after {
+    width: 100%;
+  }
+  .nav-links a:hover,
+  .nav-links a:focus {
+    color: var(--color-primary);
+    text-decoration: none; /* Use underline effect instead */
+    outline: none;
+  }
+
+  /* Contact section layout adjustment */
+  .contact-container {
+    grid-template-columns: 1fr 1fr; /* Two columns */
+    align-items: start;
+  }
+  .contact-details {
+    grid-template-columns: 1fr; /* Stack groups vertically in right column */
+  }
+}
+
+/* Large screens (Desktops) */
+@media (min-width: 1024px) {
+  /* Increase base font size slightly for better readability on large screens */
+  :root {
+    /* --font-size-base: 1.125rem;  18px - Uncomment if desired */
+  }
+
+  .project-categories {
+    grid-template-columns: repeat(3, 1fr); /* Force 3 columns */
+  }
+
+  .contact-details {
+    grid-template-columns: 1fr 1fr; /* Side-by-side groups */
+  }
+}
+
+/* --- writings Section Grid --- */
+.writings-grid {
+  display: grid;
+  /* Creates responsive columns: fits as many cards as possible with a minimum width,
+     but allows them to grow. Adjust minmax(300px, ...) for desired minimum card width.
+     min(300px, 100%) ensures min width isn't larger than viewport on small screens. */
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  gap: var(--space-xl); /* Adjust gap between cards */
+  margin-top: var(--space-xl); /* Space below intro text */
+}
+
+.writings-item-card {
+  background-color: var(--color-background);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--border-radius);
+  overflow: hidden; /* Important for image wrapper effects */
+  display: flex;
+  flex-direction: column; /* Stack image above content */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  transition: transform var(--transition-speed) var(--transition-ease),
+    box-shadow var(--transition-speed) var(--transition-ease);
+}
+
+.writings-item-card:hover {
+  transform: translateY(-5px); /* Subtle lift on hover */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.writings-item-image-wrapper {
+  /* Enforce a consistent aspect ratio for images */
+  aspect-ratio: 16 / 10; /* Common ratio, adjust as needed (e.g., 3/2, 4/3) */
+  overflow: hidden; /* To contain image zoom effect */
+  position: relative; /* For potential future overlays */
+  background-color: var(--color-highlight-bg); /* Placeholder color */
+}
+
+.writings-item-image-wrapper img {
+  display: block; /* Remove extra space below image */
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Scales image to cover, might crop */
+  transition: transform var(--transition-speed) var(--transition-ease);
+}
+
+.writings-item-card:hover .writings-item-image-wrapper img {
+  transform: scale(1.05); /* Zoom image slightly on card hover */
+}
+
+.writings-item-content {
+  padding: var(--space-lg);
+  flex-grow: 1; /* Allow content area to fill remaining space */
+  display: flex;
+  flex-direction: column;
+}
+
+.writings-item-title {
+  font-family: var(--font-primary); /* Maybe use primary font for card title */
+  font-size: var(--font-size-md); /* Adjust size */
+  font-weight: lighter;
+  margin-bottom: var(--space-md);
+  color: var(--color-text);
+}
+
+/* Adjustments for the list INSIDE the card */
+.writings-item-card .item-list.writings-list {
+  border: none; /* Remove border simulation from list itself */
+  background-color: transparent; /* List has no background */
+  gap: 0; /* Remove outer gap */
+  padding: 0; /* Reset padding */
+  margin: 0; /* Reset margin */
+  flex-grow: 1; /* Allow list to take space within content area */
+}
+
+.writings-item-card .list-item {
+  grid-template-columns: 1fr auto; /* Ensure layout */
+  padding: var(--space-sm) 0; /* Padding top/bottom only */
+  background-color: transparent;
+  border-bottom: var(--border-width) dashed var(--color-border); /* Use dashed line */
+  transform: none; /* Disable individual item transform */
+  box-shadow: none;
+  transition: color var(--transition-speed) var(--transition-ease);
+  border-radius: 0; /* No radius on list items */
+}
+
+.writings-item-card .list-item:last-child {
+  border-bottom: none; /* No border on the last link */
+}
+
+.writings-item-card .list-item:hover,
+.writings-item-card .list-item:focus {
+  background-color: transparent;
+  color: var(--color-primary);
+  transform: none;
+}
+
+.writings-item-card .list-item:hover .item-title {
+  /* text-decoration: underline; */ /* Optional underline on hover */
+}
+
+/* Specific style for cards without an image */
+.writings-item-card--no-image {
+  /* Example: Add more padding if there's no image */
+  /* padding-top: var(--space-xl); */
+}
+/* Hide the image wrapper if the card has the --no-image modifier */
+.writings-item-card--no-image .writings-item-image-wrapper {
+  display: none;
+}
+
+/* Remove meta text if empty */
+.item-meta:empty {
+  display: none;
+}
+
+/*-----------------------------------------------------------------------------------*/
+
+/* --- Project List Refinements --- */
+.project-categories {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xl);
+  padding-bottom: var(--space-lg);
+  border-bottom: var(--border-width) dashed var(--color-border); /* Dashed separator */
+}
+html[data-theme="dark"] .project-categories {
+  border-bottom-color: var(--color-border-dark);
+}
+.project-categories dl {
+  margin: 0;
+  padding: 0;
+}
+.project-categories dt {
+  font-size: var(--font-size-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-xs);
+  color: var(--color-text-muted);
+}
+.project-categories dd {
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+  margin: 0 0 var(--space-xs) 0;
+}
+html[data-theme="dark"] .project-categories dt {
+  color: var(--color-text-muted-dark);
+}
+html[data-theme="dark"] .project-categories dd {
+  color: var(--color-text-dark);
+}
+
+.subsection-title {
+  margin-bottom: var(--space-lg);
+  padding-bottom: var(--space-sm);
+  border-bottom: none; /* Remove default border */
+}
+
+.project-list .list-item {
+  /* Inherit base .list-item */
+  transition: background-color var(--transition-speed-fast) ease,
+    border-left-color var(--transition-speed-fast) ease,
+    transform var(--transition-speed-fast) ease;
+  border-left: 3px solid transparent; /* Add space for hover indicator */
+  padding-left: calc(var(--space-lg) - 3px); /* Adjust padding */
+}
+
+.project-list .list-item:hover,
+.project-list .list-item:focus {
+  background-color: var(--color-highlight-bg);
+  color: var(--color-text); /* Keep text color */
+  border-left-color: var(--color-primary);
+  transform: none; /* Remove scale */
+}
+html[data-theme="dark"] .project-list .list-item:hover,
+html[data-theme="dark"] .project-list .list-item:focus {
+  background-color: var(--color-highlight-bg-dark);
+  color: var(--color-text-dark);
+  border-left-color: var(--color-primary-dark);
+}
+
+.project-list .item-title {
+  font-weight: lighter;
+  transition: color var(--transition-speed-fast) ease;
+}
+.project-list .item-meta {
+  font-style: italic;
+}
+
+.project-list .list-item:hover .item-title,
+.project-list .list-item:focus .item-title {
+  color: var(--color-primary);
+}
+html[data-theme="dark"] .project-list .list-item:hover .item-title,
+html[data-theme="dark"] .project-list .list-item:focus .item-title {
+  color: var(--color-primary-dark);
+}
+
+
+
