@@ -608,8 +608,8 @@
     <footer class="site-footer-bottom">
       <div class="footer-content-left">
         <span>© <span id="current-year"></span> __</span>
-        <span class="footer-separator">|</span>
-        <span id="user-location">
+        <span class="footer-separator"></span>
+        <!-- <span id="user-location">
           <span class="location-text"></span>
           <img
             id="country-flag"
@@ -623,7 +623,7 @@
             "
           />
           <span id="country-name" style="display: none"></span>
-        </span>
+        </span> -->
       </div>
       <div class="footer-content-right">
         <span id="utc-time-container"
@@ -763,47 +763,47 @@
           setInterval(updateUTCTime, 1000); // Update every second
         }
 
-        // --- 3. User Country Flag & Name (IP Geolocation) ---
-        const flagImg = document.getElementById("country-flag");
-        const countryNameSpan = document.getElementById("country-name");
-        const userLocationSpan = document.getElementById("user-location");
+        // // --- 3. User Country Flag & Name (IP Geolocation) ---
+        // const flagImg = document.getElementById("country-flag");
+        // const countryNameSpan = document.getElementById("country-name");
+        // const userLocationSpan = document.getElementById("user-location");
 
-        async function fetchUserLocation() {
-          if (!flagImg || !countryNameSpan || !userLocationSpan) return;
+        // async function fetchUserLocation() {
+        //   if (!flagImg || !countryNameSpan || !userLocationSpan) return;
 
-          try {
-            // Using ip-api.com (free, no API key for basic use, good for demo)
-            // For production, consider their terms or a more robust service (e.g., with an API key)
-            const response = await fetch(
-              "http://ip-api.com/json/?fields=status,country,countryCode"
-            );
-            if (!response.ok) {
-              throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            const data = await response.json();
+        //   try {
+        //     // Using ip-api.com (free, no API key for basic use, good for demo)
+        //     // For production, consider their terms or a more robust service (e.g., with an API key)
+        //     const response = await fetch(
+        //       "http://ip-api.com/json/?fields=status,country,countryCode"
+        //     );
+        //     if (!response.ok) {
+        //       throw new Error(`HTTP error! status: ${response.status}`);
+        //     }
+        //     const data = await response.json();
 
-            if (data.status === "success" && data.countryCode) {
-              flagImg.src = `https://flagcdn.com/w20/${data.countryCode.toLowerCase()}.png`; // Using flagcdn.com
-              flagImg.alt = `${data.country} flag`;
-              countryNameSpan.textContent = data.country;
+        //     if (data.status === "success" && data.countryCode) {
+        //       flagImg.src = `https://flagcdn.com/w20/${data.countryCode.toLowerCase()}.png`; // Using flagcdn.com
+        //       flagImg.alt = `${data.country} flag`;
+        //       countryNameSpan.textContent = data.country;
 
-              flagImg.style.display = "inline-block";
-              countryNameSpan.style.display = "inline";
-              userLocationSpan.title = `Location estimated via IP: ${data.country}`;
-            } else {
-              console.warn(
-                "Could not retrieve country from IP:",
-                data.message || "Unknown error"
-              );
-              // Optionally hide the "Greetings from" text if location fails
-              // document.querySelector('.location-text').style.display = 'none';
-            }
-          } catch (error) {
-            console.error("Error fetching user location:", error);
-            // document.querySelector('.location-text').style.display = 'none';
-          }
-        }
-        fetchUserLocation();
+        //       flagImg.style.display = "inline-block";
+        //       countryNameSpan.style.display = "inline";
+        //       userLocationSpan.title = `Location estimated via IP: ${data.country}`;
+        //     } else {
+        //       console.warn(
+        //         "Could not retrieve country from IP:",
+        //         data.message || "Unknown error"
+        //       );
+        //       // Optionally hide the "Greetings from" text if location fails
+        //       // document.querySelector('.location-text').style.display = 'none';
+        //     }
+        //   } catch (error) {
+        //     console.error("Error fetching user location:", error);
+        //     // document.querySelector('.location-text').style.display = 'none';
+        //   }
+        // }
+        // fetchUserLocation();
 
         // --- 4. "Wild" Feature: Digital Rain/Particle Canvas Effect ---
         const canvas = document.getElementById("footer-wild-effect-canvas");
