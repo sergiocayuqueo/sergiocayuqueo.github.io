@@ -138,12 +138,12 @@ html[data-theme="dark"] body {
 
 /* Header */
 html[data-theme="dark"] .site-header {
-  background-color: #1a1a1a; /* Dark semi-transparent */
+  background-color: var(--color-background); /* Dark semi-transparent */
   /* backdrop-filter: blur(10px); Optional: keep or adjust blur */
   border-bottom-color: transparent; /* Already handled */
 }
 html[data-theme="dark"] .site-header.scrolled {
-  background-color: rgba(30, 30, 30, 0.9); /* Darker on scroll */
+  background-color: var(--color-background); /* Darker on scroll */
   border-bottom-color: var(--color-border-dark);
   /* box-shadow: var(--shadow-sm); Adjust shadow if using shadow vars */
 }
@@ -158,18 +158,18 @@ html[data-theme="dark"] .identity .title {
 html[data-theme="dark"] .hamburger,
 html[data-theme="dark"] .hamburger::before,
 html[data-theme="dark"] .hamburger::after {
-  background-color: var(--color-accent); /* Use lighter accent */
+  background-color: var(--color-text); /* Use lighter accent */
 }
 /* Ensure X animation remains visible */
 html[data-theme="dark"] .nav-toggle[aria-expanded="true"] .hamburger::before,
 html[data-theme="dark"] .nav-toggle[aria-expanded="true"] .hamburger::after {
-  background-color: var(--color-accent);
+  background-color: var(--color-text);
 }
 
 /* Mobile Navigation Overlay */
 html[data-theme="dark"] .main-navigation {
   /* background: radial-gradient(circle at top right, rgba(30, 30, 30, 0.9), rgba(30, 30, 30, 0.98)); */
-  background: rgba(30, 30, 30, 0.25); /* Simpler dark background */
+  background: transparent; /* Simpler dark background */
   backdrop-filter: blur(6px);
 }
 html[data-theme="dark"] .nav-links a {
@@ -186,7 +186,7 @@ html[data-theme="dark"] .nav-links a:focus {
     color: var(--color-text);
   }
   html[data-theme="dark"] .nav-links a::after {
-    background-color: var(--color-primary);
+    background-color: var(--color-text-dark);
   }
   html[data-theme="dark"] .nav-links a:hover,
   html[data-theme="dark"] .nav-links a:focus {
@@ -201,7 +201,7 @@ html[data-theme="dark"] h3,
 html[data-theme="dark"] h4,
 html[data-theme="dark"] h5,
 html[data-theme="dark"] h6 {
-  color: var(--color-accent);
+  color: var(--color-text);
 }
 html[data-theme="dark"] h2.subsection-title {
   color: var(--color-text); /* Regular text color for subsection titles */
@@ -533,6 +533,7 @@ dd {
 /* Navigation - Mobile First */
 .nav-toggle {
   display: block; /* Hidden by default on larger screens */
+  color: var(--color-text);
   background: none;
   border: none;
   padding: var(--space-sm);
@@ -545,7 +546,7 @@ dd {
   position: relative;
   width: 26px;
   height: 1px;
-  background-color: var(--color-accent);
+  background-color: var(--color-text);
   transition: transform var(--transition-speed) var(--transition-ease);
 }
 
@@ -556,7 +557,7 @@ dd {
   left: 0;
   width: 100%;
   height: 1px;
-  background-color: var(--color-accent);
+  background-color: var(--color-text);
   transition: transform var(--transition-speed) var(--transition-ease),
     top var(--transition-speed) var(--transition-ease);
 }
@@ -608,6 +609,7 @@ dd {
   padding: 0;
   margin: 0;
   text-align: center;
+  color: #000;
 }
 
 .nav-links li {
@@ -617,7 +619,7 @@ dd {
 .nav-links a {
   font-size: var(--font-size-xl);
   font-weight: lighter;
-  color: var(--color-accent);
+  color: var(--color-text);
   text-decoration: none;
   padding: var(--space-sm) var(--space-md);
   transition: color var(--transition-speed) var(--transition-ease);
@@ -625,7 +627,7 @@ dd {
 
 .nav-links a:hover,
 .nav-links a:focus {
-  color: var(--color-primary);
+  /* color: var(--color-primary); */
   text-decoration: none; /* No underline needed for large mobile links */
 }
 
@@ -781,17 +783,133 @@ main {
 } /* Prevent long links overflowing */
 
 /* --- Footer --- */
+/* Ensure your existing CSS variables are defined in :root */
+/* :root {
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 3rem;
+    --border-width: 1px;
+    --color-border: #e0e0e0; (or your theme's border color)
+    --font-size-sm: 0.875rem;
+    --color-text-muted: #666666; (or your theme's muted text color)
+    --color-background: #ffffff; (or your theme's background)
+    --color-primary: #0056b3;
+} */
+
+/* --- Astonishing Footer --- */
 .site-footer-bottom {
+  position: relative; /* For absolute positioning of canvas and pseudo-elements */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap; /* Allow wrapping on small screens */
-  gap: var(--space-md);
-  padding: var(--space-lg) 5%;
-  margin-top: var(--space-xl);
-  border-top: var(--border-width) solid var(--color-border);
-  font-size: var(--font-size-sm);
-  color: var(--color-text-muted);
+  flex-wrap: wrap;
+  gap: var(--space-md, 1rem); /* Fallback for var */
+  padding: var(--space-lg, 1.5rem) 5%;
+  margin-top: var(--space-xl, 3rem); /* Space above footer */
+  font-size: var(--font-size-sm, 0.875rem);
+  color: var(--color-text, #6c757d);
+  z-index: 10; /* Ensure it's above some background elements if any */
+
+  /* Frosted Glass / Blur Effect */
+  background-color: var(--color-background);
+  backdrop-filter: blur(10px) saturate(180%);
+  -webkit-backdrop-filter: blur(10px) saturate(180%); /* Safari */
+  border-top: var(--border-width, 1px) solid rgba(200, 200, 200, 0.2); /* Softer border */
+  box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.05); /* Subtle shadow from above */
+
+  /* Smooth transition for theme changes */
+  transition: background-color 0.3s ease, border-top-color 0.3s ease,
+    color 0.3s ease;
+}
+
+/* Dark Theme Specifics for Footer */
+.dark-theme .site-footer-bottom {
+  background-color: rgba(20, 20, 30, 0.4); /* Dark theme semi-transparent */
+  border-top: var(--border-width, 1px) solid rgba(50, 50, 70, 0.3);
+  color: var(--color-text-muted-dark, #888888);
+  box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.15);
+}
+
+.footer-content-left,
+.footer-content-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md, 1rem);
+  flex-wrap: wrap; /* Allow items within these to wrap too */
+}
+
+.footer-separator {
+  opacity: 0.5;
+  user-select: none;
+}
+
+#user-location img {
+  height: 1em; /* Relative to parent font size */
+  width: auto;
+  vertical-align: middle;
+  margin: 0 0.3em; /* Spacing around flag */
+  border-radius: 2px; /* Slight rounding */
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+  display: none; /* Hidden by default, shown by JS */
+}
+#country-name {
+  display: none; /* Hidden by default */
+}
+
+/* UTC Time Styling (optional - make it stand out a bit) */
+#utc-time-container {
+  font-family: "Courier New", Courier, monospace; /* Techy font */
+  /* color: var(--color-primary, #0056b3); */ /* Optional: make it primary color */
+}
+.dark-theme #utc-time-container {
+  /* color: var(--color-primary-dark, #4dabf7); */
+}
+
+/* Canvas for Wild Effect */
+#footer-wild-effect-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Behind the footer text content */
+  pointer-events: none; /* Allow clicks to pass through */
+  opacity: 0.15; /* Make it subtle */
+}
+
+/* Subtle pulse animation for dynamic elements (optional) */
+@keyframes pulseSlightly {
+  0%,
+  100% {
+    opacity: 0.85;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.01);
+  }
+}
+
+#utc-time,
+#country-flag,
+#country-name {
+  /* animation: pulseSlightly 5s infinite ease-in-out; */ /* Uncomment for subtle pulse */
+}
+
+/* Ensure links in footer are styled appropriately if you add them */
+.site-footer-bottom a {
+  color: var(--color-text-muted, #6c757d);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.site-footer-bottom a:hover {
+  color: var(--color-primary, #0056b3);
+}
+.dark-theme .site-footer-bottom a {
+  color: var(--color-text-muted-dark, #888888);
+}
+.dark-theme .site-footer-bottom a:hover {
+  color: var(--color-primary-dark, #4dabf7);
 }
 
 /* --- Responsive Adjustments --- */
@@ -940,7 +1058,7 @@ main {
   font-size: var(--font-size-md); /* Adjust size */
   font-weight: lighter;
   margin-bottom: var(--space-md);
-  color: var(--color-accent);
+  color: var(--color-text);
 }
 
 /* Adjustments for the list INSIDE the card */
