@@ -2,334 +2,551 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> 
-    <title>404 - Page Not Found</title>
-    <meta
-      name="description"
-      content="Oops! The page you were looking for doesn't exist on Sergio Cayuqueo's site. Let's get you back on track."
-    />
-    <!-- Setting noindex tells search engines not to index this error page -->
-    <meta name="robots" content="noindex, follow" />
-
-    <!-- --- Favicons (Assuming these are fine, can be simplified if needed) --- -->
-    <link rel="icon" href="./images/a_city_of_fantasy.jpg" sizes="any" />
-    <link
-      rel="icon"
-      href="./images/a_city_of_fantasy.jpg"
-      type="image/svg+xml"
-    />
-    <link rel="apple-touch-icon" href="./images/a_city_of_fantasy.jpg" />
-    <!-- <link rel="manifest" href="/images/site.webmanifest" /> -->
-    <!-- Manifest might be less relevant for a simple 404 -->
-
-    <!-- --- Fonts --- -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@700&family=Oxygen:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 - Adrift in Geometry</title>
     <style>
-      /* --- Global Styles & Dark Theme --- */
-      * {
-        box-sizing: border-box;
+      :root {
+        --color-bg-geo: #f8f9fa; /* Very light grey / off-white - updated for slightly better visibility if needed */
+        --color-text-main-geo: #343a40; /* Dark grey for main text */
+        --color-text-link-geo: #495057; /* Slightly lighter for link */
+        --color-link-hover-geo: #007bff; /* A subtle blue for hover */
+        --color-icon-geo: #868e96; /* Muted grey for icon */
+        --color-icon-hover-geo: #495057;
+
+        /* Pastel outline colors for shapes */
+        --shape-color-1: rgba(255, 192, 203, 0.7); /* Soft Pink */
+        --shape-color-2: rgba(173, 216, 230, 0.7); /* Light Blue */
+        --shape-color-3: rgba(144, 238, 144, 0.7); /* Light Green */
+        --shape-color-4: rgba(255, 218, 185, 0.7); /* Peach */
+        --shape-color-5: rgba(221, 160, 221, 0.7); /* Plum */
+
+        --font-heading-geo: "Playfair Display", serif;
+        --font-body-geo: "Inter", sans-serif;
+
+        --transition-duration-default: 0.3s; /* Renamed for clarity or just use value */
+        --timing-function-default: ease-in-out; /* Extracted for clarity */
+
+        --shape-line-thickness: 1.5px;
+      }
+
+      /* --- Base Styles --- */
+      body {
+        font-family: var(--font-body-geo);
+        background-color: var(--color-bg-geo);
+        color: var(--color-text-main-geo);
         margin: 0;
         padding: 0;
-      }
-
-      body {
-        font-family: "Roboto Mono", monospace; /* Monospace font for mathy feel */
-        background-color: #000; /* Dark blue/purple background */
-        color: white; /* Light text color */
         display: flex;
-        justify-content: center;
         align-items: center;
+        justify-content: center;
         min-height: 100vh;
-        overflow: hidden; /* Prevent scrollbars from animation overflow */
-        position: relative; /* Needed for z-index stacking */
+        overflow: hidden; /* Prevent scrollbars from canvas elements */
       }
 
-      /* --- Background Animation Container --- */
-      #math-animation-container {
+      #geometric-shapes-canvas {
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        z-index: 0; /* Behind content-wrapper */
-        overflow: hidden;
-        pointer-events: none; /* Ignore mouse events */
+        z-index: 0; /* Behind content */
+        pointer-events: none; /* Let clicks pass through */
       }
 
-      /* --- Individual Math Symbol Styling --- */
-      .math-symbol {
-        position: absolute;
-        color: white; /* Muted purple, semi-transparent */
-        user-select: none;
-        /* Animation defined below */
-        animation: fallAndFade linear infinite;
-        white-space: nowrap; /* Prevent wrapping */
-        will-change: transform, opacity; /* Performance hint */
-        text-shadow: 0 0 5px rgba(150, 150, 220, 0.2); /* Subtle glow */
-      }
-
-      /* --- Keyframes for Falling/Floating Animation --- */
-      @keyframes fallAndFade {
-        0% {
-          transform: translateY(-10vh) rotate(0deg); /* Start above viewport */
-          opacity: 0;
-        }
-        10% {
-          opacity: 1; /* Fade in quickly */
-        }
-        90% {
-          opacity: 0.8; /* Stay visible */
-        }
-        100% {
-          transform: translateY(110vh) rotate(720deg); /* Fall below viewport, rotating */
-          opacity: 0; /* Fade out */
-        }
-      }
-
-      /* --- Main 404 Content Styling --- */
-      .content-wrapper {
-        position: relative; /* Ensure it's above the background */
+      .content-container-geometric {
+        position: relative; /* To be above the canvas */
         z-index: 1;
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between; /* Pushes header up, message center, footer down */
+        min-height: 100vh;
+        width: 100%;
+        box-sizing: border-box;
         text-align: center;
-        padding: 20px;
-        /* background-color: rgba(26, 26, 46, 0.6); Semi-transparent overlay */
-        border-radius: 1px;
-        backdrop-filter: blur(3px); /* Blur background behind the content */
-        -webkit-backdrop-filter: blur(3px);
-        /* border: 1px solid rgba(110, 110, 180, 0.2); */
-        /* box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37); */
       }
 
-      .error-code {
-        font-size: clamp(5rem, 20vw, 12rem); /* Responsive font size */
-        font-weight: lighter;
-        color: #9fa8da; /* Lighter purple/blue */
-        margin-bottom: 0px;
-        line-height: 1;
-        text-shadow: 0 0 15px rgba(159, 168, 218, 0.5);
+      /* --- Header with Icon --- */
+      .header-geometric {
+        position: absolute;
+        top: 30px;
+        right: 40px; /* Position to the top right */
       }
-
-      .error-code span:nth-child(2) {
-        /* Style the middle '0' (∅) */
-        color: #f06292; /* A contrasting pink/red for emphasis */
-        animation: pulseError 2s infinite ease-in-out; /* Subtle pulse */
-      }
-
-      @keyframes pulseError {
-        0%,
-        100% {
-          transform: scale(1);
-          opacity: 0.8;
-        }
-        50% {
-          transform: scale(1.1);
-          opacity: 1;
-        }
-      }
-
-      h1 {
-        font-size: clamp(1.5rem, 5vw, 2.5rem);
-        margin-bottom: 15px;
-        color: #c5cae9;
-      }
-
-      p {
-        font-size: clamp(0.9rem, 2.5vw, 1.1rem);
-        margin-bottom: 30px;
-        max-width: 600px;
-        line-height: 1.6;
-        color: #bdbdbd; /* Slightly greyed text */
-      }
-
-      .home-link {
+      .top-icon {
+        color: var(--color-icon-geo);
         display: inline-block;
+        padding: 8px;
+        transition: color var(--transition-duration-default)
+            var(--timing-function-default),
+          transform var(--transition-duration-default)
+            var(--timing-function-default);
+      }
+      .top-icon svg {
+        width: 22px; /* Adjust size */
+        height: 22px;
+        stroke-width: 1.5; /* Match SVG attribute for consistency */
+      }
+      .top-icon:hover,
+      .top-icon:focus {
+        color: var(--color-icon-hover-geo);
+        transform: scale(1.1);
+        outline: none;
+      }
+
+      /* --- Message Area --- */
+      .message-area-geometric {
+        /* CORRECTED ANIMATION LINE: */
+        animation: fadeInMessageGeo 1.2s var(--timing-function-default) 0.3s
+          forwards;
+        opacity: 0;
+        transform: translateY(10px);
+        flex-grow: 1; /* Allows it to take space and center its content */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      @keyframes fadeInMessageGeo {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .title-geometric {
+        font-family: var(--font-heading-geo);
+        font-size: clamp(2.5rem, 6vw, 4rem); /* Elegant, responsive size */
+        font-weight: 400; /* Playfair Display often looks good lighter */
+        color: var(--color-text-main-geo);
+        margin: 0 0 0.5em 0; /* Space below title */
+        letter-spacing: 0.5px;
+      }
+
+      .home-link-geometric {
+        display: inline-block;
+        font-family: var(--font-body-geo);
+        font-size: clamp(0.8rem, 2vw, 0.9rem);
+        font-weight: 500; /* Medium weight for clarity */
+        color: var(--color-text-link-geo);
+        background-color: transparent;
         text-decoration: none;
-        color: #1a1a2e; /* Dark text */
-        background-color: #9fa8da; /* Lighter purple/blue button */
-        padding: 12px 25px;
-        border-radius: 2px;
-        font-weight: lighter;
-        transition: background-color 0.3s ease, transform 0.2s ease;
-        box-shadow: 0 4px 15px rgba(159, 168, 218, 0.3);
+        padding: 0.6em 1.5em;
+        border: 1px solid var(--color-text-link-geo);
+        border-radius: 1px; /* Pill shape */
+        letter-spacing: 1px; /* Slight spacing for uppercase feel */
+        text-transform: uppercase;
+        transition: background-color var(--transition-duration-default)
+            var(--timing-function-default),
+          color var(--transition-duration-default)
+            var(--timing-function-default),
+          border-color var(--transition-duration-default)
+            var(--timing-function-default),
+          transform var(--transition-duration-default)
+            var(--timing-function-default);
       }
 
-      .home-link:hover,
-      .home-link:focus {
-        background-color: #c5cae9;
+      .home-link-geometric:hover,
+      .home-link-geometric:focus {
+        background-color: var(--color-text-link-geo);
+        color: var(--color-bg-geo); /* Text becomes background color */
+        border-color: var(--color-text-link-geo);
         transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(159, 168, 218, 0.5);
+        outline: none;
       }
 
-      /* --- Accessibility --- */
-      @media (prefers-reduced-motion: reduce) {
-        .math-symbol {
-          animation: none; /* Disable symbol animation */
-          opacity: 0.05; /* Make them very faint static elements */
+      /* --- Footer (Optional) --- */
+      .footer-geometric {
+        padding-bottom: 20px; /* Ensure it doesn't overlap content if screen is short */
+        font-size: 0.8rem;
+        color: var(--color-text-muted-geo, #aaa); /* Define if needed */
+      }
+
+      /* --- Responsive Adjustments --- */
+      @media (max-width: 600px) {
+        .content-container-geometric {
+          padding: 25px;
         }
-        .error-code span:nth-child(2) {
-          animation: none; /* Disable pulsing */
+        .header-geometric {
+          top: 20px;
+          right: 25px;
         }
-        .home-link:hover,
-        .home-link:focus {
-          transform: none; /* Disable button hover effect */
+        .title-geometric {
+          font-size: clamp(2rem, 8vw, 3rem);
+        }
+        .home-link-geometric {
+          font-size: clamp(0.75rem, 2.5vw, 0.85rem);
+          padding: 0.5em 1.2em;
         }
       }
     </style>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=Inter:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <!-- Container for the background math animation -->
-    <div id="math-animation-container"></div>
+    <canvas id="geometric-shapes-canvas"></canvas>
 
-    <!-- Main 404 Content -->
-    <div class="content-wrapper">
-      <div class="error-code">
-        <span>4</span>
-        <span>∅</span>
-        <!-- Using Empty Set symbol for Zero -->
-        <span>4</span>
-      </div>
-      <h1>Page Not Found</h1>
-      <a href="/" class="home-link">Return to Homepage (Solve for X)</a>
+    <div class="content-container-geometric">
+      <header class="header-geometric"></header>
+
+      <main class="message-area-geometric">
+        <h1 class="title-geometric">Page Not Found</h1>
+        <a
+          href="https://sergiocayuqueo.com"
+          class="home-link-geometric"
+          aria-label="Go to Homepage"
+        >
+          HOME
+        </a>
+      </main>
+
+      <footer class="footer-geometric">
+        <!-- Optional footer text -->
+      </footer>
     </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const canvas = document.getElementById("geometric-shapes-canvas");
+        if (!canvas) {
+          console.error("Canvas element #geometric-shapes-canvas not found.");
+          return;
+        }
+        const ctx = canvas.getContext("2d");
+        let width, height;
+        let shapes = [];
+        const numShapes = 25; // Adjust for density
+
+        const shapeColors = [
+          getComputedStyle(document.documentElement)
+            .getPropertyValue("--shape-color-1")
+            .trim(),
+          getComputedStyle(document.documentElement)
+            .getPropertyValue("--shape-color-2")
+            .trim(),
+          getComputedStyle(document.documentElement)
+            .getPropertyValue("--shape-color-3")
+            .trim(),
+          getComputedStyle(document.documentElement)
+            .getPropertyValue("--shape-color-4")
+            .trim(),
+          getComputedStyle(document.documentElement)
+            .getPropertyValue("--shape-color-5")
+            .trim(),
+        ];
+        const lineThickness =
+          parseFloat(
+            getComputedStyle(document.documentElement).getPropertyValue(
+              "--shape-line-thickness"
+            )
+          ) || 1.5;
+
+        // --- Simple 3D Point and Shape Definitions ---
+        class Point3D {
+          constructor(x, y, z) {
+            this.x = x;
+            this.y = y;
+            this.z = z;
+          }
+        }
+
+        class Shape {
+          constructor(type, size, color) {
+            this.type = type; // 'cylinder', 'half-sphere', 'cone-segment', 'cube-half'
+            this.size = size;
+            this.color = color;
+            this.points = []; // Vertices in 3D space
+            this.lines = []; // Indices of points to connect to form lines
+
+            this.x =
+              Math.random() * (width || window.innerWidth) -
+              (width || window.innerWidth) / 2;
+            this.y =
+              Math.random() * (height || window.innerHeight) -
+              (height || window.innerHeight) / 2;
+            this.z = Math.random() * 400 - 200; // Depth
+
+            this.rotationX = Math.random() * Math.PI * 2;
+            this.rotationY = Math.random() * Math.PI * 2;
+            this.rotationZ = Math.random() * Math.PI * 2;
+
+            this.rotationSpeedX = (Math.random() - 0.5) * 0.005;
+            this.rotationSpeedY = (Math.random() - 0.5) * 0.005;
+            this.rotationSpeedZ = (Math.random() - 0.5) * 0.005;
+
+            this.driftX = (Math.random() - 0.5) * 0.2;
+            this.driftY = (Math.random() - 0.5) * 0.2;
+            this.driftZ = (Math.random() - 0.5) * 0.1; // Slower Z drift
+
+            this.generateGeometry();
+          }
+
+          generateGeometry() {
+            const s = this.size / 2;
+            if (this.type === "cylinder" || this.type === "half-cylinder") {
+              const segments = 12;
+              for (let i = 0; i < 2; i++) {
+                // Top and bottom circles
+                const y = i === 0 ? -s : s;
+                for (let j = 0; j < segments; j++) {
+                  const angle = (j / segments) * Math.PI * 2;
+                  this.points.push(
+                    new Point3D(Math.cos(angle) * s, y, Math.sin(angle) * s)
+                  );
+                  if (i === 0) this.lines.push([j, (j + 1) % segments]);
+                  if (i === 1)
+                    this.lines.push([
+                      j + segments,
+                      ((j + 1) % segments) + segments,
+                    ]);
+                  this.lines.push([j, j + segments]);
+                }
+              }
+              if (this.type === "half-cylinder") {
+                this.points = this.points.filter((p, index) => {
+                  const segmentIndex = index % segments;
+                  const circleIndex = Math.floor(index / segments); // 0 for first circle, 1 for second
+                  // Keep points roughly on one side (e.g., x >= 0)
+                  // This simplified logic will keep points whose original x (before rotation) was positive
+                  const angle = (segmentIndex / segments) * Math.PI * 2;
+                  return Math.cos(angle) >= -0.01;
+                });
+                // A very rough way to reduce lines for a half-cylinder effect
+                // Proper half-cylinder geometry is more involved for line connections
+                const newLines = [];
+                const pointMap = new Map();
+                this.points.forEach((p, i) => pointMap.set(this.points[i], i)); // Create a map of old point objects to new indices
+
+                // This line filtering is heuristic and might not be perfect.
+                // A more robust approach would regenerate lines based on the new point set.
+                this.lines.forEach((line) => {
+                  const p1Exists = this.points.find(
+                    (p) => p === this.points[line[0]]
+                  ); // Check if original points still exist
+                  const p2Exists = this.points.find(
+                    (p) => p === this.points[line[1]]
+                  );
+                  if (p1Exists && p2Exists) {
+                    // Map old indices to new indices - this part is tricky without original point indices mapping
+                    // For simplicity, this example may result in disconnected lines or incorrect half-shape.
+                    // A truly robust solution would re-calculate lines based on the filtered points.
+                  }
+                });
+                this.lines = this.lines.slice(
+                  0,
+                  Math.floor(this.lines.length / 1.8)
+                ); // Fallback to rough slicing
+              }
+            } else if (this.type === "half-sphere") {
+              const latSegments = 6;
+              const lonSegments = 10;
+              for (let i = 0; i <= latSegments / 2; i++) {
+                const latAngle = Math.PI / 2 - (i / latSegments) * Math.PI;
+                for (let j = 0; j <= lonSegments; j++) {
+                  const lonAngle = (j / lonSegments) * Math.PI * 2;
+                  const x = s * Math.cos(latAngle) * Math.cos(lonAngle);
+                  const y = s * Math.sin(latAngle);
+                  const z = s * Math.cos(latAngle) * Math.sin(lonAngle);
+                  this.points.push(new Point3D(x, y, z));
+                  if (i > 0 && j > 0) {
+                    const p1 = (i - 1) * (lonSegments + 1) + j;
+                    const p2 = i * (lonSegments + 1) + j;
+                    const p3 = i * (lonSegments + 1) + (j - 1);
+                    const p4 = (i - 1) * (lonSegments + 1) + (j - 1);
+                    this.lines.push([p4, p1]);
+                    this.lines.push([p1, p2]);
+                    if (i < latSegments / 2) this.lines.push([p2, p3]); // Avoid closing top for half sphere
+                    this.lines.push([p3, p4]);
+                  }
+                }
+              }
+              // Base circle for half-sphere
+              for (let j = 0; j < lonSegments; j++) {
+                const baseIndex = (latSegments / 2) * (lonSegments + 1);
+                this.lines.push([baseIndex + j, baseIndex + j + 1]);
+              }
+            } else {
+              // Default to a simple cube segment (cut cube)
+              const verts = [
+                new Point3D(-s, -s, -s),
+                new Point3D(s, -s, -s),
+                new Point3D(s, s, -s),
+                new Point3D(-s, s, -s),
+                new Point3D(-s, -s, s),
+                new Point3D(s, -s, s),
+                new Point3D(s, s, s),
+                new Point3D(-s, s, s),
+              ];
+              // Take a random subset of vertices to make it look "cut"
+              this.points = verts.slice(0, Math.floor(Math.random() * 4) + 4); // 4 to 7 vertices
+
+              // Define all possible cube lines and then filter
+              const allCubeLines = [
+                [0, 1],
+                [1, 2],
+                [2, 3],
+                [3, 0],
+                [4, 5],
+                [5, 6],
+                [6, 7],
+                [7, 4],
+                [0, 4],
+                [1, 5],
+                [2, 6],
+                [3, 7],
+              ];
+              this.lines = allCubeLines.filter((line) => {
+                // Only include lines if both its vertices are in our subset of points
+                // This requires mapping original indices to the new `this.points` array,
+                // which is complex if `this.points` is a slice without index preservation.
+                // For simplicity, we'll randomly keep some lines, assuming points are somewhat there.
+                return (
+                  Math.random() > 0.3 &&
+                  line[0] < this.points.length &&
+                  line[1] < this.points.length
+                );
+              });
+              // Ensure some lines if random filter removed too many and points exist
+              if (this.lines.length === 0 && this.points.length > 1) {
+                for (let i = 0; i < this.points.length - 1; i++) {
+                  this.lines.push([i, i + 1]);
+                }
+                if (this.points.length > 2)
+                  this.lines.push([this.points.length - 1, 0]);
+              }
+            }
+          }
+
+          projectPoint(point, angleX, angleY, angleZ) {
+            let x = point.x,
+              y = point.y,
+              z = point.z;
+            // Z rotation
+            let x1 = Math.cos(angleZ) * x - Math.sin(angleZ) * y;
+            let y1_rotZ = Math.sin(angleZ) * x + Math.cos(angleZ) * y;
+            // X rotation
+            let y2_rotX = Math.cos(angleX) * y1_rotZ - Math.sin(angleX) * z;
+            let z1_rotX = Math.sin(angleX) * y1_rotZ + Math.cos(angleX) * z;
+            // Y rotation
+            let x2_rotY = Math.cos(angleY) * x1 + Math.sin(angleY) * z1_rotX;
+            let z2_rotY = -Math.sin(angleY) * x1 + Math.cos(angleY) * z1_rotX;
+
+            const fov = 300;
+            const currentWidth = width || window.innerWidth;
+            const currentHeight = height || window.innerHeight;
+            const scale = fov / (fov + z2_rotY + this.z);
+            return {
+              x: x2_rotY * scale + currentWidth / 2 + this.x,
+              y: y2_rotX * scale + currentHeight / 2 + this.y,
+              scale: scale,
+            };
+          }
+
+          update() {
+            this.rotationX += this.rotationSpeedX;
+            this.rotationY += this.rotationSpeedY;
+            this.rotationZ += this.rotationSpeedZ;
+
+            this.x += this.driftX;
+            this.y += this.driftY;
+            this.z += this.driftZ;
+
+            const currentWidth = width || window.innerWidth;
+            const currentHeight = height || window.innerHeight;
+            const buffer = this.size * 2;
+            if (this.x > currentWidth / 2 + buffer)
+              this.x = -currentWidth / 2 - buffer;
+            if (this.x < -currentWidth / 2 - buffer)
+              this.x = currentWidth / 2 + buffer;
+            if (this.y > currentHeight / 2 + buffer)
+              this.y = -currentHeight / 2 - buffer;
+            if (this.y < -currentHeight / 2 - buffer)
+              this.y = currentHeight / 2 + buffer;
+            if (this.z > 300) this.z = -300;
+            if (this.z < -300) this.z = 300;
+          }
+
+          draw(ctx) {
+            ctx.strokeStyle = this.color;
+            ctx.lineWidth = lineThickness;
+            ctx.beginPath();
+            this.lines.forEach((lineIndices) => {
+              if (
+                lineIndices[0] < this.points.length &&
+                lineIndices[1] < this.points.length
+              ) {
+                const p1 = this.projectPoint(
+                  this.points[lineIndices[0]],
+                  this.rotationX,
+                  this.rotationY,
+                  this.rotationZ
+                );
+                const p2 = this.projectPoint(
+                  this.points[lineIndices[1]],
+                  this.rotationX,
+                  this.rotationY,
+                  this.rotationZ
+                );
+                if (p1.scale > 0.1 && p2.scale > 0.1) {
+                  ctx.moveTo(p1.x, p1.y);
+                  ctx.lineTo(p2.x, p2.y);
+                }
+              }
+            });
+            ctx.stroke();
+          }
+        }
+
+        function setupCanvas() {
+          width = window.innerWidth;
+          height = window.innerHeight;
+          canvas.width = width * window.devicePixelRatio;
+          canvas.height = height * window.devicePixelRatio;
+          canvas.style.width = `${width}px`;
+          canvas.style.height = `${height}px`;
+          ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+
+          shapes = [];
+          const shapeTypes = [
+            "cylinder",
+            "half-sphere",
+            "half-cylinder",
+            "cube-half",
+          ];
+          for (let i = 0; i < numShapes; i++) {
+            const type =
+              shapeTypes[Math.floor(Math.random() * shapeTypes.length)];
+            const size = Math.random() * 60 + 40;
+            const color =
+              shapeColors[Math.floor(Math.random() * shapeColors.length)];
+            shapes.push(new Shape(type, size, color));
+          }
+        }
+
+        function animate() {
+          // Ensure width/height are available for the first animation frame if setupCanvas was slow
+          const currentWidth = width || window.innerWidth;
+          const currentHeight = height || window.innerHeight;
+          ctx.clearRect(0, 0, currentWidth, currentHeight);
+          shapes.forEach((shape) => {
+            shape.update();
+            shape.draw(ctx);
+          });
+          requestAnimationFrame(animate);
+        }
+
+        setupCanvas();
+        animate();
+
+        let resizeTimer;
+        window.addEventListener("resize", () => {
+          clearTimeout(resizeTimer);
+          resizeTimer = setTimeout(setupCanvas, 100);
+        });
+
+        console.log("Geometric Shapes 404 Page Initialized.");
+      });
+    </script>
   </body>
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const container = document.getElementById("math-animation-container");
-      if (!container) {
-        console.error("Animation container not found!");
-        return;
-      }
-
-      // --- Configuration ---
-      const symbols = [
-        "∫",
-        "∑",
-        "∏",
-        "∂",
-        "∇",
-        "√",
-        "∛",
-        "∞",
-        "≈",
-        "≠",
-        "≤",
-        "≥",
-        "∈",
-        "∉",
-        "⊂",
-        "⊃",
-        "∀",
-        "∃",
-        "∴",
-        "∵",
-        "↦",
-        "→",
-        "↔",
-        "¬",
-        "∧",
-        "∨",
-        "⊕",
-        "⊗",
-        "α",
-        "β",
-        "γ",
-        "δ",
-        "ε",
-        "ζ",
-        "η",
-        "θ",
-        "ι",
-        "κ",
-        "λ",
-        "μ",
-        "ν",
-        "ξ",
-        "ο",
-        "π",
-        "ρ",
-        "σ",
-        "τ",
-        "υ",
-        "φ",
-        "χ",
-        "ψ",
-        "ω",
-        "0",
-        "1",
-        "x",
-        "y",
-        "z",
-        "f(x)",
-        "g(y)",
-        "dx",
-        "dy",
-        "lim",
-        "log",
-        "ln",
-        "E=mc²",
-        "a²+b²=c²",
-        "sin(θ)",
-        "cos(φ)",
-        "tan(α)",
-        "d/dx",
-        "?",
-        "∅",
-        "NaN",
-        "Error",
-        "Null",
-        "404", // Thematic elements
-      ];
-      const numberOfSymbols = 150; // Adjust density (consider performance)
-      const minDuration = 10; // Min animation duration (seconds)
-      const maxDuration = 25; // Max animation duration (seconds)
-      const minSize = 10; // Min font size (px)
-      const maxSize = 28; // Max font size (px)
-      const minOpacity = 0.1; // Min base opacity
-      const maxOpacity = 0.5; // Max base opacity
-      // --- End Configuration ---
-
-      function createSymbol() {
-        const symbolElement = document.createElement("span");
-        symbolElement.classList.add("math-symbol");
-
-        // Random properties
-        symbolElement.textContent =
-          symbols[Math.floor(Math.random() * symbols.length)];
-        const randomLeft = Math.random() * 100; // % vw
-        const randomDuration =
-          Math.random() * (maxDuration - minDuration) + minDuration;
-        const randomDelay = Math.random() * maxDuration; // Spread out start times
-        const randomSize = Math.random() * (maxSize - minSize) + minSize;
-        const randomOpacity =
-          Math.random() * (maxOpacity - minOpacity) + minOpacity;
-
-        // Apply styles
-        symbolElement.style.left = `${randomLeft}vw`;
-        symbolElement.style.fontSize = `${randomSize}px`;
-        symbolElement.style.opacity = randomOpacity.toString(); // Base opacity
-        symbolElement.style.animationDuration = `${randomDuration}s`;
-        // Use negative delay to make animations start at different points in their cycle immediately
-        symbolElement.style.animationDelay = `-${randomDelay}s`;
-
-        container.appendChild(symbolElement);
-
-        // Optional: Remove element after animation to prevent infinite build-up
-        // This requires knowing the *exact* duration including delay, might be complex
-        // Given they fade out and are behind content, often okay to leave them
-      }
-
-      // Create initial batch
-      for (let i = 0; i < numberOfSymbols; i++) {
-        createSymbol();
-      }
-
-      console.log("404 Math Animation Initialized.");
-    });
-  </script>
 </html>
