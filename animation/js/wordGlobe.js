@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
       '∫xⁿ dx = (xⁿ⁺¹)/(n+1) + C', 'f\'(x) = lim┬(h→0)⁡〖(f(x+h)-f(x))/h〗',
       'P(A|B) = [P(B|A)P(A)] / P(B)', 'n! = n × (n-1)!', 'e = lim (1 + 1/n)ⁿ',
       'Fₙ = Fₙ₋₁ + Fₙ₋₂', '(x+y)ⁿ = ∑ (n¦k) x^(n-k) y^k', '∬D f(x,y) dA',
-      'det(A)', '||v|| = √(v₁²+v₂²)', 'a · b = ||a|| ||b|| cosθ', 'σ = √[∑(xᵢ-μ)²/N]',
+      'det(A)', '||v|| = √(v₁²+v₂²)', 'a · b = ||a|| ||b|| cosθ', 'σ = √[∑(xᵢ-μ)²/N]','3x + 1',
   ];
 
   const numItems = formulas.length > 40 ? 40 : formulas.length;
@@ -133,3 +133,4 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
 });
+
