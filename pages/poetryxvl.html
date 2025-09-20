@@ -512,17 +512,23 @@
 
         <section class="poem-section" id="title246" aria-labelledby="title246">
           <h2 id="title246">TITLE<span class="highlight-span">246</span></h2>
-          <div class="image-tilt-wrapper">
-            <img
-              class="tilt-zoom-image poem-image"
-              id="main-image"
-              src="../images/poetriaxvl/image1.jpeg"
-              alt="Alt text"
-              loading="lazy"
-            />
-            <!-- Vertical text is now sibling to image-tilt-wrapper, but inside perspective/boundary -->
-            <!-- <div class="vertical-text"></div> -->
+          <div class="perspective-wrapper">
+            <!-- This could potentially be merged with effect-boundary -->
+            <div class="image-tilt-wrapper">
+              <img
+                class="tilt-zoom-image poem-image"
+                id="main-image"
+                src="../images/poetriaxvl/image1.jpeg"
+                alt="Alt text"
+                loading="lazy"
+              />
+              <!-- Vertical text is now sibling to image-tilt-wrapper, but inside perspective/boundary -->
+              <!-- <div class="vertical-text"></div> -->
+            </div>
           </div>
+
+          <div id="zoom-cursor-square"></div>
+
           <div class="poem-text">
             The tree that fell down and made a bridge<br />
             At the edge, age, agents, people's footprints<br />
@@ -543,6 +549,7 @@
             Head-work, Hearken the hello<br />
             In the clouds and down, double towns<br />
             Rest regression, plug one, happily a handy hand.<br /><br /><br />
+            End
           </div>
         </section>
       </main>
