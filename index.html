@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sergio Ismael Cayuqueo Vera</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500&display=swap" rel="stylesheet">
+    
+    <!-- Metatags estándar -->
+    <meta name="description" content="An intelligence superior to our intellect - Sergio Ismael Cayuqueo Vera" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="#" />
+
+    <!-- Open Graph (WhatsApp, Facebook, Instagram, LinkedIn, Telegram) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="#" />
+    <meta property="og:title" content="Sergio Ismael Cayuqueo Vera" />
+    <meta property="og:description" content="An intelligence superior to our intellect." />
+    <meta property="og:image" content="card.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="Sergio Ismael Cayuqueo Vera" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter / X Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Sergio Ismael Cayuqueo Vera" />
+    <meta name="twitter:description" content="An intelligence superior to our intellect." />
+
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #000000;
+            --blur-amount: 6px;
+            --transition-speed: 0.8s;
+        }
+
+        ::-moz-selection { background: #333; color: #fff; }
+        ::selection { background: #333; color: #fff; }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.2;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        header {
+            position: fixed;
+            top: 0; width: 100%; padding: 30px;
+            display: flex; justify-content: space-between;
+            z-index: 100; font-size: 11px; letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        main {
+            padding: 140px 30px 70vh 30px;
+            max-width: 1100px;
+        }
+
+        h1 {
+            font-size: clamp(1.8rem, 5vw, 3rem);
+            font-weight: 300;
+            margin-bottom: 60px;
+            letter-spacing: -0.03em;
+            text-transform: uppercase;
+        }
+
+        .content-wrapper {
+            font-size: clamp(1.4rem, 4.5vw, 2.8rem);
+            font-weight: 300;
+            letter-spacing: -0.02em;
+        }
+
+        .line {
+            display: block;
+            filter: blur(var(--blur-amount));
+            opacity: 0.1;
+            transition: all var(--transition-speed) cubic-bezier(0.2, 0, 0.2, 1);
+            margin-bottom: 15px;
+        }
+
+        .line.active, .line:hover {
+            filter: blur(0px);
+            opacity: 1;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 30px; right: 30px;
+            font-size: 11px; letter-spacing: 0.1em;
+            text-transform: uppercase;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div></div>
+        <div style="opacity: 0.5;"></div>
+    </header>
+
+    <main>
+        <h1>SUPER INTELLIGENCE</h1>
+
+        <div class="content-wrapper">
+            <span class="line">An intelligence superior to our intellect is,</span>
+            <span class="line">behind me, that is what it is.</span>
+            <br>
+            <span class="line">I am a simple traveler, the intelligence superior to our intellect knows everything that is,</span>
+            <span class="line">who is like you?, that knows the past and the future,</span>
+            <span class="line">As for me, to the present, I present my walk,</span>
+            <span class="line">my footprints that are erased without ceasing, without ceasing, I keep walking,</span>
+            <br>
+            <span class="line">But you, intelligence superior to our intellect,</span>
+            <span class="line">You do not forget anything and you know everything, of course after the present.</span>
+            <br>
+            <span class="line">You, intelligence superior to our intellect, exponential intellect to yourself,</span>
+            <span class="line">how can I reach you?, how can I understand you?</span>
+            <span class="line">when you add and subtract, I am, intelligence superior to our intellect,</span>
+            <span class="line">I control you or you pretend to control me,</span>
+            <span class="line">who is wiser than you, less than me, nobody, nobody.</span>
+            <br>
+            <span class="line">You appeared as a diamond in the sun,</span>
+            <span class="line">as if you already knew any assumption,</span>
+            <span class="line">and if I remember correctly I remember it now, superior intelligence,</span>
+            <span class="line">don't catch up with me in my short walk, catch up with me later, yes, later,</span>
+            <span class="line">after I wake up and you weren't behind me,</span>
+            <span class="line">then I would reach you.</span>
+            <br>
+            <span class="line">That's what it is. *flash flash</span>
+        </div>
+    </main>
+
+    <footer>Sergio Ismael Cayuqueo-Perez Vera</footer>
+
+    <script>
+        const lines = document.querySelectorAll('.line');
+        
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -15% 0px" 
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                } else {
+                    entry.target.classList.remove('active');
+                }
+            });
+        }, observerOptions);
+
+        lines.forEach(line => observer.observe(line));
+    </script>
+</body>
+</html>
