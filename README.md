@@ -1,1 +1,1 @@
-# sergiocayuqueo.github.io
+sergiocayuqueo.com
