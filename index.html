@@ -32,20 +32,26 @@
         :root {
             --bg-color: #ffffff;
             --text-color: #000000;
-            --blur-amount: 6px;
+            --blur-amount: 8px;
             --transition-speed: 0.8s;
+            
+            /* Paleta Mercurio 3D: Cromo, Acero y Reflejos Prisma */
+            --mercury-base: radial-gradient(circle at 40% 40%, #ffffff 0%, #d1d1d1 20%, #8e8e8e 50%, #1a1a1a 100%);
         }
 
-        ::-moz-selection { background: #333; color: #fff; }
-        ::selection { background: #333; color: #fff; }
+        ::-moz-selection { background: #000; color: #fff; }
+        ::selection { background: #000; color: #fff; }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        body {
+        html, body {
+            overflow-x: hidden;
             background-color: var(--bg-color);
+        }
+
+        body {
             color: var(--text-color);
             font-family: 'Inter', sans-serif;
-            line-height: 1.2;
             -webkit-font-smoothing: antialiased;
         }
 
@@ -53,38 +59,108 @@
             position: fixed;
             top: 0; width: 100%; padding: 30px;
             display: flex; justify-content: space-between;
-            z-index: 100; font-size: 11px; letter-spacing: 0.1em;
+            z-index: 100; font-size: 11px; letter-spacing: 0.2em;
             text-transform: uppercase;
         }
 
-        main {
-            padding: 140px 30px 70vh 30px;
-            max-width: 1100px;
+        /* ESCENA DEL MERCURIO 3D */
+        .mercury-scene {
+            position: fixed;
+            top: 0;
+            right: -5%; /* Entrecortado a la derecha */
+            width: 75vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1; /* Detrás del texto */
+            pointer-events: none;
         }
 
+        /* El cuerpo del mercurio con volumen 3D */
+        .mercury-sphere {
+            width: 600px;
+            height: 600px;
+            background: var(--mercury-base);
+            border-radius: 50%;
+            position: relative;
+            filter: url(#ultra-mercury) drop-shadow(0 50px 80px rgba(0,0,0,0.3));
+            animation: global-float 15s infinite ease-in-out;
+            box-shadow: inset -20px -20px 60px rgba(0,0,0,0.8), 
+                        inset 20px 20px 60px rgba(255,255,255,0.4);
+        }
+
+        /* Capa Iridiscente (Capa de "Aceite" sobre el metal) */
+        .mercury-sphere::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: linear-gradient(45deg, 
+                rgba(255,0,255,0.1), rgba(0,255,255,0.15), 
+                rgba(255,255,0,0.1), rgba(0,0,255,0.1));
+            mix-blend-mode: overlay;
+            animation: irid-rotation 10s infinite linear;
+        }
+
+        /* Brillo Especular Superior (Efecto Diamante) */
+        .mercury-sphere::before {
+            content: '';
+            position: absolute;
+            top: 15%; left: 15%;
+            width: 35%; height: 35%;
+            background: radial-gradient(circle, rgba(255,255,255,0.9) 0%, transparent 80%);
+            filter: blur(15px);
+            z-index: 3;
+            transform: rotate(-15deg);
+        }
+
+        /* ANIMACIONES */
+        @keyframes global-float {
+            0%, 100% { transform: scale(1) translate(0, 0) rotate(0deg); }
+            33% { transform: scale(1.08) translate(40px, -30px) rotate(8deg); }
+            66% { transform: scale(0.95) translate(-20px, 40px) rotate(-5deg); }
+        }
+
+        @keyframes irid-rotation {
+            from { filter: hue-rotate(0deg); transform: scale(1.1); }
+            to { filter: hue-rotate(360deg); transform: scale(1.2); }
+        }
+
+        /* TEXTO (Capa Superior) */
+        main {
+            position: relative;
+            z-index: 10;
+            padding: 140px 30px 10vh 60px;
+            max-width: 900px;
+            pointer-events: none;
+        }
+
+        main * { pointer-events: auto; }
+
         h1 {
-            font-size: clamp(1.8rem, 5vw, 3rem);
+            font-size: clamp(2.4rem, 8vw, 4.5rem);
             font-weight: 300;
-            margin-bottom: 60px;
-            letter-spacing: -0.03em;
+            margin-bottom: 70px;
+            letter-spacing: -0.05em;
             text-transform: uppercase;
         }
 
         .content-wrapper {
-            font-size: clamp(1.4rem, 4.5vw, 2.8rem);
+            font-size: clamp(1.5rem, 4.8vw, 3.2rem);
             font-weight: 300;
-            letter-spacing: -0.02em;
+            letter-spacing: -0.03em;
         }
 
         .line {
             display: block;
             filter: blur(var(--blur-amount));
             opacity: 0.1;
-            transition: all var(--transition-speed) cubic-bezier(0.2, 0, 0.2, 1);
-            margin-bottom: 15px;
+            transition: all var(--transition-speed) cubic-bezier(0.16, 1, 0.3, 1);
+            margin-bottom: 20px;
         }
 
-        .line.active, .line:hover {
+        .line.active {
             filter: blur(0px);
             opacity: 1;
         }
@@ -92,18 +168,57 @@
         footer {
             position: fixed;
             bottom: 30px; right: 30px;
-            font-size: 11px; letter-spacing: 0.1em;
+            font-size: 10px; letter-spacing: 0.2em;
             text-transform: uppercase;
-            opacity: 0.6;
+            opacity: 0.5;
+            z-index: 100;
+        }
+
+        /* RESPONSIVO MÓVIL */
+        @media (max-width: 768px) {
+            .mercury-scene { right: -30%; width: 100vw; }
+            .mercury-sphere { width: 400px; height: 400px; }
+            main { padding: 120px 25px 20vh 25px; }
         }
     </style>
 </head>
 <body>
 
+    <!-- EL SHADER SVG: ILUMINACIÓN 3D Y TURBULENCIA -->
+    <svg style="position: absolute; width: 0; height: 0;">
+        <filter id="ultra-mercury" x="-50%" y="-50%" width="200%" height="200%">
+            <!-- 1. Generar ondas de agua constantes -->
+            <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="4" seed="5" result="noise">
+                <animate attributeName="baseFrequency" dur="20s" values="0.015; 0.025; 0.015" repeatCount="indefinite" />
+            </feTurbulence>
+            
+            <!-- 2. Crear superficie de relieve (Bump Map) -->
+            <feDiffuseLighting in="noise" lighting-color="#ffffff" surfaceScale="50" result="diffuse">
+                <feDistantLight azimuth="225" elevation="60" />
+            </feDiffuseLighting>
+            
+            <!-- 3. Brillo Especular (El secreto del 3D metálico) -->
+            <feSpecularLighting in="noise" specularExponent="40" specularConstant="1.8" lighting-color="#ffffff" result="specular">
+                <feDistantLight azimuth="225" elevation="60" />
+            </feSpecularLighting>
+            
+            <!-- 4. Mezclar el relieve con el color original -->
+            <feComposite in="specular" in2="SourceGraphic" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="lit" />
+            
+            <!-- 5. Deformar la forma externa como líquido -->
+            <feDisplacementMap in="lit" in2="noise" scale="90" xChannelSelector="R" yChannelSelector="G" />
+        </filter>
+    </svg>
+
     <header>
-        <div></div>
-        <div style="opacity: 0.5;"></div>
+        <div>Sergio Ismael</div>
+        <div style="opacity: 0.6;">Superior Intellect</div>
     </header>
+
+    <!-- CAPA DEL FLUIDO 3D -->
+    <div class="mercury-scene">
+        <div class="mercury-sphere"></div>
+    </div>
 
     <main>
         <h1>SUPER INTELLIGENCE</h1>
@@ -141,19 +256,12 @@
 
     <script>
         const lines = document.querySelectorAll('.line');
-        
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: "0px 0px -15% 0px" 
-        };
+        const observerOptions = { threshold: 0.1, rootMargin: "0px 0px -15% 0px" };
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                } else {
-                    entry.target.classList.remove('active');
-                }
+                if (entry.isIntersecting) entry.target.classList.add('active');
+                else entry.target.classList.remove('active');
             });
         }, observerOptions);
 
