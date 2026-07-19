@@ -31,10 +31,10 @@
     <style>
         :root {
             --bg-color: #ffffff;
+            --cream-color: #f9f8f4; /* Color crema elegante */
             --text-color: #000000;
             --blur-amount: 12px;
             --transition-speed: 0.9s;
-            --mercury-base: radial-gradient(circle at 35% 35%, #ffffff 0%, #d1d1d1 25%, #7a7a7a 50%, #000000 100%);
         }
 
         ::-moz-selection { background: #000; color: #fff; }
@@ -55,6 +55,29 @@
             line-height: 1.4;
         }
 
+        /* PANEL CREMA IZQUIERDA */
+        .left-panel {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 28%; /* Misma posición que la línea */
+            height: 100vh;
+            background-color: var(--cream-color);
+            z-index: 2; /* Por encima del GIF (1) pero debajo del texto (10) */
+            pointer-events: none;
+        }
+
+        /* LÍNEA VERTICAL */
+        .vertical-line {
+            position: fixed;
+            top: 0;
+            left: 28%;
+            width: 1px;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.08);
+            z-index: 3; /* Justo sobre el panel crema */
+        }
+
         header {
             position: fixed;
             top: 0; width: 100%; padding: 30px;
@@ -64,8 +87,8 @@
             pointer-events: none;
         }
 
-        /* MERCURY SCENE OPTIMIZATION */
-        .mercury-scene {
+        /* CONTENEDOR DEL GIF */
+        .fluid-scene {
             position: fixed;
             top: 0;
             right: -10%;
@@ -74,59 +97,27 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 1;
+            z-index: 1; /* Al fondo */
             pointer-events: none;
-            /* Tells the browser this area is independent */
-            contain: strict;
-            will-change: transform;
         }
 
-        .mercury-sphere {
+        .fluid-gif {
             width: min(600px, 80vw);
             height: min(600px, 80vw);
-            background: var(--mercury-base);
-            border-radius: 50%;
-            position: relative;
-            
-            /* Using translate3d triggers Hardware Acceleration */
-            transform: translate3d(0,0,0);
-            filter: url(#ultra-mercury) drop-shadow(0 40px 60px rgba(0,0,0,0.2));
-            
-            animation: global-float 20s infinite ease-in-out;
-            box-shadow: inset -10px -10px 50px rgba(0,0,0,0.8), 
-                        inset 15px 15px 50px rgba(255,255,255,0.3);
-            will-change: transform, filter;
-        }
-
-        /* Reflective layer */
-        .mercury-sphere::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 50%;
-            background: linear-gradient(135deg, 
-                rgba(255,0,255,0.05), rgba(0,255,255,0.08), 
-                rgba(255,255,0,0.05), rgba(0,0,255,0.03));
-            mix-blend-mode: overlay;
-            animation: irid-rotation 15s infinite linear;
+            object-fit: contain;
+            animation: gentle-float 12s infinite ease-in-out; 
             will-change: transform;
         }
 
-        @keyframes global-float {
-            0%, 100% { transform: translate3d(0, 0, 0) scale(1) rotate(0deg); }
-            33% { transform: translate3d(20px, -40px, 0) scale(1.05) rotate(3deg); }
-            66% { transform: translate3d(-20px, 20px, 0) scale(0.98) rotate(-2deg); }
+        @keyframes gentle-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
         }
 
-        @keyframes irid-rotation {
-            from { transform: rotate(0deg) scale(1.1); }
-            to { transform: rotate(360deg) scale(1.1); }
-        }
-
-        /* TEXT LAYER OPTIMIZATION */
+        /* TEXT LAYER */
         main {
             position: relative;
-            z-index: 10;
+            z-index: 10; /* Por encima de todo */
             padding: 160px 40px 20vh 80px;
             max-width: 1000px;
             pointer-events: none;
@@ -140,8 +131,6 @@
             margin-bottom: 80px;
             letter-spacing: -0.06em;
             text-transform: uppercase;
-            /* Smooth hardware text */
-            transform: translate3d(0,0,0);
         }
 
         .content-wrapper {
@@ -154,7 +143,7 @@
             display: block;
             opacity: 0;
             filter: blur(var(--blur-amount));
-            transform: translate3d(0, 20px, 0); /* Pre-position for entry */
+            transform: translate3d(0, 20px, 0); 
             transition: 
                 opacity var(--transition-speed) cubic-bezier(0.215, 0.61, 0.355, 1),
                 filter var(--transition-speed) cubic-bezier(0.215, 0.61, 0.355, 1),
@@ -179,44 +168,30 @@
         }
 
         @media (max-width: 768px) {
-            .mercury-scene { right: -25%; width: 100vw; }
-            .mercury-sphere { width: 350px; height: 350px; }
+            .vertical-line { left: 20%; }
+            .left-panel { width: 20%; }
+            .fluid-scene { right: -25%; width: 100vw; }
+            .fluid-gif { width: 350px; height: 350px; }
             main { padding: 140px 30px 15vh 30px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- OPTIMIZED SVG SHADER -->
-    <!-- color-interpolation-filters="sRGB" is a massive performance boost -->
-    <svg style="position: absolute; width: 0; height: 0;" aria-hidden="true">
-        <filter id="ultra-mercury" x="-50%" y="-50%" width="200%" height="200%" color-interpolation-filters="sRGB">
-            <!-- numOctaves lowered to 2 for 60fps stability -->
-            <feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="5" result="noise">
-                <animate attributeName="baseFrequency" dur="25s" values="0.012; 0.022; 0.012" repeatCount="indefinite" />
-            </feTurbulence>
-            
-            <feDiffuseLighting in="noise" lighting-color="#ffffff" surfaceScale="45" result="diffuse">
-                <feDistantLight azimuth="225" elevation="55" />
-            </feDiffuseLighting>
-            
-            <feSpecularLighting in="noise" specularExponent="35" specularConstant="1.6" lighting-color="#ffffff" result="spec">
-                <feDistantLight azimuth="225" elevation="55" />
-            </feSpecularLighting>
-            
-            <feComposite in="spec" in2="SourceGraphic" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="lit" />
-            
-            <feDisplacementMap in="lit" in2="noise" scale="80" xChannelSelector="R" yChannelSelector="G" />
-        </filter>
-    </svg>
+    <!-- Panel crema izquierdo -->
+    <div class="left-panel"></div>
+
+    <!-- Línea vertical de diseño -->
+    <div class="vertical-line"></div>
 
     <header>
         <div></div>
-        <div style="opacity: 0.6;">🏿</div>
+        <div style="opacity: 0.6;"></div>
     </header>
 
-    <div class="mercury-scene">
-        <div class="mercury-sphere">🏻</div>
+    <!-- Escena del GIF optimizada -->
+    <div class="fluid-scene">
+        <img src="fluid.gif" alt="Fluid Background" class="fluid-gif">
     </div>
 
     <main>
@@ -256,7 +231,6 @@
     <script>
         /**
          * High Performance Scroll Observer
-         * Uses RequestAnimationFrame internally via IntersectionObserver
          */
         const lines = document.querySelectorAll('.line');
         const observerOptions = { 
@@ -267,8 +241,6 @@
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    // We use RequestAnimationFrame to ensure the class toggle 
-                    // happens exactly when the browser is ready to paint.
                     requestAnimationFrame(() => {
                         entry.target.classList.add('active');
                     });
