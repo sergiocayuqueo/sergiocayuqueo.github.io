@@ -118,7 +118,7 @@
         main {
             position: relative;
             z-index: 10; /* Por encima de todo */
-            padding: 160px 40px 20vh 80px;
+            padding: 160px 40px 10vh 80px;
             max-width: 1000px;
             pointer-events: none;
         }
@@ -159,26 +159,30 @@
         }
 
         footer {
-            position: fixed;
-            bottom: 30px; right: 30px;
-            font-size: 10px; letter-spacing: 0.2em;
+            position: relative;
+            padding: 20px 40px 60px 80px;
+            text-align: right;
+            font-size: 10px; 
+            letter-spacing: 0.2em;
             text-transform: uppercase;
-            opacity: 0.4;
             z-index: 100;
         }
 
         footer a {
+            font-family: 'Inter', sans-serif;
             color: #444;
             text-decoration: none;
             padding: 4px 8px;
             border-radius: 4px;
             background-color: transparent;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            opacity: 0.6;
+            transition: background-color 0.3s ease, color 0.3s ease, opacity 0.3s ease;
         }
 
         footer a:hover {
             background-color: #f4f4f4; /* Un fondo gris muy claro al pasar el mouse */
             color: #171d25; /* Un azul tipo Google, limpio */
+            opacity: 1;
         }
 
 
@@ -187,7 +191,8 @@
             .left-panel { width: 20%; }
             .fluid-scene { right: -25%; width: 100vw; }
             .fluid-gif { width: 350px; height: 350px; }
-            main { padding: 140px 30px 15vh 30px; }
+            main { padding: 140px 30px 10vh 30px; }
+            footer { padding: 20px 30px 60px 30px; }
         }
     </style>
 </head>
@@ -241,7 +246,7 @@
         </div>
     </main>
 
-    <footer> <a href="sergiocayuqueov.jpg">Sergio Ismael Cayuqueo-Perez Vera</a></footer>
+    <footer><a href="sergiocayuqueov.jpg">Sergio Ismael Cayuqueo-Perez Vera</a></footer>
 
     <script>
         /**
