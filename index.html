@@ -17,7 +17,7 @@
     <meta property="og:url" content="#" />
     <meta property="og:title" content="Sergio Ismael Cayuqueo-Perez Vera" />
     <meta property="og:description" content="An intelligence superior to our intellect." />
-    <meta property="og:image" content="card.png" />
+    <meta property="og:image" content="sergiocayuqueofronpage.jpg" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:site_name" content="Sergio Ismael Cayuqueo-Perez Vera" />
@@ -55,15 +55,43 @@
             line-height: 1.4;
         }
 
+        /* HERO IMAGE AT TOP */
+        .hero-section {
+            position: relative;
+            width: 100%;
+            height: 75vh;
+            min-height: 480px;
+            overflow: hidden;
+            z-index: 5;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.15) 50%, rgba(0,0,0,0.55) 100%);
+            pointer-events: none;
+        }
+
         /* PANEL CREMA IZQUIERDA */
         .left-panel {
             position: fixed;
             top: 0;
             left: 0;
-            width: 28%; /* Misma posición que la línea */
+            width: 28%;
             height: 100vh;
             background-color: var(--cream-color);
-            z-index: 2; /* Por encima del GIF (1) pero debajo del texto (10) */
+            z-index: 2;
             pointer-events: none;
         }
 
@@ -75,7 +103,7 @@
             width: 1px;
             height: 100vh;
             background-color: rgba(0, 0, 0, 0.08);
-            z-index: 3; /* Justo sobre el panel crema */
+            z-index: 3;
         }
 
         header {
@@ -97,7 +125,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 1; /* Al fondo */
+            z-index: 1;
             pointer-events: none;
         }
 
@@ -117,8 +145,9 @@
         /* TEXT LAYER */
         main {
             position: relative;
-            z-index: 10; /* Por encima de todo */
-            padding: 160px 40px 10vh 80px;
+            z-index: 10;
+            margin-top: -65vh; /* Pulls text up over the top hero image */
+            padding: 0 40px 10vh 80px;
             max-width: 1000px;
             pointer-events: none;
         }
@@ -131,6 +160,13 @@
             margin-bottom: 80px;
             letter-spacing: -0.06em;
             text-transform: uppercase;
+            color: var(--text-color);
+            transition: color 0.4s ease;
+        }
+
+        h1.over-hero {
+            color: #ffffff;
+            text-shadow: 0 2px 14px rgba(0,0,0,0.5);
         }
 
         .content-wrapper {
@@ -144,18 +180,25 @@
             opacity: 0;
             filter: blur(var(--blur-amount));
             transform: translate3d(0, 20px, 0); 
+            color: var(--text-color);
             transition: 
+                color 0.4s ease,
                 opacity var(--transition-speed) cubic-bezier(0.215, 0.61, 0.355, 1),
                 filter var(--transition-speed) cubic-bezier(0.215, 0.61, 0.355, 1),
                 transform var(--transition-speed) cubic-bezier(0.215, 0.61, 0.355, 1);
             margin-bottom: 25px;
-            will-change: opacity, filter, transform;
+            will-change: opacity, filter, transform, color;
         }
 
         .line.active {
             opacity: 1;
             filter: blur(0px);
             transform: translate3d(0, 0, 0);
+        }
+
+        .line.over-hero {
+            color: #ffffff;
+            text-shadow: 0 2px 12px rgba(0,0,0,0.4);
         }
 
         footer {
@@ -180,23 +223,30 @@
         }
 
         footer a:hover {
-            background-color: #f4f4f4; /* Un fondo gris muy claro al pasar el mouse */
-            color: #171d25; /* Un azul tipo Google, limpio */
+            background-color: #f4f4f4;
+            color: #171d25;
             opacity: 1;
         }
 
-
+        /* RESPONSIVE DESIGN */
         @media (max-width: 768px) {
+            .hero-section { height: 60vh; min-height: 380px; }
             .vertical-line { left: 20%; }
             .left-panel { width: 20%; }
             .fluid-scene { right: -25%; width: 100vw; }
             .fluid-gif { width: 350px; height: 350px; }
-            main { padding: 140px 30px 10vh 30px; }
+            main { margin-top: -50vh; padding: 0 30px 10vh 30px; }
             footer { padding: 20px 30px 60px 30px; }
         }
     </style>
 </head>
 <body>
+
+    <!-- Hero Image Section at Top -->
+    <div class="hero-section">
+        <img src="sergiocayuqueofronpage.jpg" alt="Sergio Ismael Cayuqueo Front Page" class="hero-image">
+        <div class="hero-overlay"></div>
+    </div>
 
     <!-- Panel crema izquierdo -->
     <div class="left-panel"></div>
@@ -249,10 +299,11 @@
     <footer><a href="sergiocayuqueov.jpg">Sergio Ismael Cayuqueo-Perez Vera</a></footer>
 
     <script>
-        /**
-         * High Performance Scroll Observer
-         */
+        const hero = document.querySelector('.hero-section');
+        const h1 = document.querySelector('h1');
         const lines = document.querySelectorAll('.line');
+
+        /* Scroll Observer for reveal animations */
         const observerOptions = { 
             threshold: 0.15,
             rootMargin: "0px 0px -10% 0px" 
@@ -273,6 +324,34 @@
         }, observerOptions);
 
         lines.forEach(line => observer.observe(line));
+
+        /* Dynamic color transition when text overlaps hero image */
+        function updateColorsOnScroll() {
+            if (!hero) return;
+            const heroBottom = hero.getBoundingClientRect().bottom;
+
+            if (h1) {
+                const h1Top = h1.getBoundingClientRect().top;
+                if (h1Top < heroBottom - 20) {
+                    h1.classList.add('over-hero');
+                } else {
+                    h1.classList.remove('over-hero');
+                }
+            }
+
+            lines.forEach(line => {
+                const lineTop = line.getBoundingClientRect().top;
+                if (lineTop < heroBottom - 10) {
+                    line.classList.add('over-hero');
+                } else {
+                    line.classList.remove('over-hero');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', updateColorsOnScroll, { passive: true });
+        window.addEventListener('resize', updateColorsOnScroll, { passive: true });
+        updateColorsOnScroll();
     </script>
 </body>
 </html>
