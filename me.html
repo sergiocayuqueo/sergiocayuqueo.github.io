@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Me | Sergio I Cayuqueo-Perez Vera</title>
+    
+    <!-- Optimización de Fuentes (Preconnect + Async) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500&display=swap">
+    </noscript>
+
+    <!-- Standard Metatags -->
+    <meta name="description" content="Portrait of Sergio Ismael Cayuqueo-Perez Vera" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://sergiocayuqueo.com/me.html" />
+    <link rel="icon" type="image/png" href="icon.png">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://sergiocayuqueo.com/me.html" />
+    <meta property="og:title" content="Me | Sergio I Cayuqueo-Perez Vera" />
+    <meta property="og:description" content="Portrait of Sergio Ismael Cayuqueo-Perez Vera" />
+    <meta property="og:image:secure_url" content="https://sergiocayuqueo.com/card.png" />
+    <meta property="og:site_name" content="Sergio I Cayuqueo-Perez Vera" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Dream" />
+    <meta name="twitter:description" content="Portrait of Sergio Ismael Cayuqueo-Perez Vera" />
+    <meta name="twitter:image" content="https://sergiocayuqueo.com/card.png" />
+
+    <style>
+        :root {
+            /* Luxury gallery palette: subtle warm cream background with deep obsidian text */
+            --bg-color: #fbfaf7;
+            --text-color: #111111;
+            --muted-color: #777777;
+            --frame-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08), 0 10px 20px -5px rgba(0, 0, 0, 0.04);
+            --transition-smooth: 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        ::-moz-selection { background: #333; color: #fff; }
+        ::selection { background: #333; color: #fff; }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html, body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* TOP HEADER */
+        header {
+            padding: 40px;
+            font-size: 11px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            font-weight: 400;
+            opacity: 0.8;
+        }
+
+        /* EDITORIAL PORTRAIT DISPLAY */
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .portrait-wrapper {
+            position: relative;
+            max-width: 420px;
+            width: 100%;
+            opacity: 0;
+            transform: translateY(25px);
+            animation: luxuryReveal var(--transition-smooth) forwards;
+        }
+
+        .portrait-frame {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            background: #ffffff;
+            padding: 14px; /* Museum passe-partout matte border effect */
+            box-shadow: var(--frame-shadow);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+        }
+
+        .portrait-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            filter: contrast(1.03) saturate(0.98);
+            transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .portrait-frame:hover .portrait-img {
+            transform: scale(1.025);
+        }
+
+        /* EDITORIAL METADATA CAPTION */
+        .portrait-caption {
+            margin-top: 28px;
+            text-align: center;
+        }
+
+        .artist-name {
+            font-size: 13px;
+            font-weight: 400;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .artist-sub {
+            font-size: 11px;
+            font-weight: 300;
+            color: var(--muted-color);
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+        }
+
+        /* MINIMALIST FOOTER NAVIGATION */
+        footer {
+            padding: 60px 40px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+        }
+
+        footer nav {
+            display: flex;
+            gap: 30px;
+        }
+
+        footer a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 11px;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            opacity: 0.45;
+            transition: opacity 0.4s ease;
+        }
+
+        footer a:hover,
+        footer a.active {
+            opacity: 1;
+        }
+
+        /* ENTRANCE ANIMATION */
+        @keyframes luxuryReveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* RESPONSIVE TUNING */
+        @media (max-width: 768px) {
+            header {
+                padding: 30px 24px;
+            }
+
+            .portrait-wrapper {
+                max-width: 320px;
+            }
+
+            footer {
+                padding: 40px 24px;
+                justify-content: center;
+            }
+
+            footer nav {
+                gap: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav></nav>
+    </header>
+
+    <main>
+        <div class="portrait-wrapper">
+            <!-- Museum Frame Wrapper -->
+            <div class="portrait-frame">
+                <!-- Ensure filename matches your image (sergiocayuqueo.png or .jpg) -->
+                <img src="sergiocayuqueo.png" alt="Portrait of Sergio Ismael Cayuqueo-Perez Vera" class="portrait-img">
+            </div>
+
+            <!-- Elegant Editorial Caption -->
+            <div class="portrait-caption">
+                <div class="artist-name">Sergio I. Cayuqueo-Perez Vera</div>
+                <div class="artist-sub">Portrait</div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <nav aria-label="Footer navigation">
+            <a href="index.html">HOME</a>
+            <a href="me.html" class="active" aria-current="page">ME</a>
+            <a href="child.html">ÉL NIÑO</a>
+            <a href="dream.html">DREAM</a>
+        </nav>
+    </footer>
+
+</body>
+</html>
