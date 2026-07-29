@@ -43,13 +43,15 @@
         :root {
             --bg-color: #ffffff;
             --cream-color: #f9f8f4;
-            --text-color: #000000;
             --blur-amount: 10px;
             --transition-speed: 0.8s;
+            /* To achieve black text on a white background using 'difference', 
+               the text color must be white. */
+            --text-color-logic: #ffffff; 
         }
 
-        ::-moz-selection { background: #000; color: #fff; }
-        ::selection { background: #000; color: #fff; }
+        ::-moz-selection { background: #333; color: #fff; }
+        ::selection { background: #333; color: #fff; }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -61,12 +63,11 @@
         }
 
         body {
-            color: var(--text-color);
             font-family: 'Inter', sans-serif;
             line-height: 1.4;
         }
 
-        /* CAPAS DE FONDO */
+        /* BACKGROUND LAYERS */
         .left-panel {
             position: fixed;
             top: 0; left: 0;
@@ -84,7 +85,7 @@
             z-index: 2;
         }
 
-        /* ARTIST IMAGE - Top Far Right */
+        /* ARTIST IMAGE - RESTORED TO ORIGINAL POSITION */
         .artist-container {
             position: fixed;
             top: 0;
@@ -100,6 +101,12 @@
             height: auto;
             display: block;
             object-fit: cover;
+        }
+
+        /* BLENDING LOGIC FOR ALL TEXT ELEMENTS */
+        header, main, footer {
+            mix-blend-mode: difference;
+            color: var(--text-color-logic);
         }
 
         header {
@@ -124,13 +131,10 @@
             text-transform: uppercase;
         }
 
-        /* TEXT COLOR CHANGE EFFECT */
         .content-wrapper {
             font-size: clamp(1.6rem, 5vw, 3rem);
             font-weight: 300;
             letter-spacing: -0.04em;
-            mix-blend-mode: difference; 
-            color: #000; 
         }
 
         .line {
@@ -152,6 +156,7 @@
             transform: translate3d(0, 0, 0);
         }
 
+        /* FOOTER REACTIVITY */
         footer {
             position: relative;
             padding: 80px 80px 60px 80px;
@@ -162,13 +167,13 @@
         }
 
         footer a {
-            color: var(--text-color);
+            color: inherit; /* Takes the white from parent for blending */
             text-decoration: none;
             font-size: 12px;
             letter-spacing: 0.3em;
             text-transform: uppercase;
             transition: opacity 0.4s ease;
-            opacity: 0.4;
+            opacity: 0.6; /* Higher opacity for better readability */
         }
 
         footer a:hover {
@@ -176,11 +181,9 @@
         }
 
         @media (max-width: 768px) {
-            footer {
-                padding: 60px 40px;
-                justify-content: right;
-                gap: 20px;
-            }
+            .artist-container { width: 50vw; }
+            main { padding: 120px 30px 5vh 40px; }
+            footer { padding: 60px 40px; justify-content: right; }
         }
     </style>
 </head>
@@ -193,7 +196,6 @@
         <nav aria-label="Top navigation"></nav>
     </header>
 
-    <!-- ARTIST IMAGE (Replace src if you have a different image for Dream) -->
     <div class="artist-container">
         <img src="images/1785339757761.jpg" alt="Artist Portrait" class="artist-img">
     </div>
@@ -248,7 +250,7 @@
     <script>
         const lines = document.querySelectorAll('.line');
         const observerOptions = { 
-            threshold: 0.2,
+            threshold: 0.1,
             rootMargin: "0px 0px -5% 0px" 
         };
 
@@ -256,8 +258,6 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('active');
-                } else {
-                    entry.target.classList.remove('active');
                 }
             });
         }, observerOptions);
