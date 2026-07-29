@@ -5,10 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Childhood Hours | Sergio I Cayuqueo-Perez Vera</title>
     
-    <!-- Standard Fonts -->
+    <!-- Optimización de Fuentes (Preconnect + Async) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500&display=swap">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500&display=swap">
+    </noscript>
+
+    <!-- Metatags estándar -->
+    <meta name="description" content="An intelligence superior to our intellect: The Child" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://sergiocayuqueo.com/child.html" />
+    <link rel="icon" type="image/png" href="icon.png">
+
+    <!-- Open Graph (WhatsApp FIX: Requiere URL absoluta) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://sergiocayuqueo.com/child.html" />
+    <meta property="og:title" content="Childhood Hours" />
+    <meta property="og:description" content="An intelligence superior to our intellect: The Child" />
+    <!-- IMPORTANTE: Cambia 'https://sergiocayuqueo.com/' por tu dominio real para que WhatsApp la vea -->
+    <meta property="og:image" content="https://sergiocayuqueo.com/card.png" />
+    <meta property="og:image:secure_url" content="https://sergiocayuqueo.com/card.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="Childhood Hours" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Childhood Hours" />
+    <meta name="twitter:description" content="An intelligence superior to our intellect: The Child" />
+    <meta name="twitter:image" content="https://sergiocayuqueo.com/card.png" />
 
     <style>
         :root {
@@ -180,7 +210,7 @@
     </div>
 
     <main id="main-content">
-        <h1>Childhood Hours</h1>
+        <h1>ÉL NIÑO</h1>
 
         <article class="content-wrapper">
             <span class="line">Since childhood's hour, I have been poor in spirit,</span>
@@ -216,19 +246,19 @@
             <span class="line">Yet, I fell asleep upon the heights, and thunder called out:</span>
             <span class="line">"Childhood hours upon the mountain of the Most High."</span>
 
-            <!-- MINIMALIST NAVIGATION 
+            <!-- MINIMALIST NAVIGATION -->
             <div class="nav-footer">
                 <a href="index.html" class="nav-btn">Back Home</a>
-            </div>-->
+            </div>
         </article>
     </main>
 
     <footer>
-        <nav aria-label="Footer navigation">
+       <!-- <nav aria-label="Footer navigation">
             <a href="index.html">
                 HOME
             </a>
-        </nav>
+        </nav>-->
     </footer>
 
     <script>
