@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Childhood Hours | Sergio I Cayuqueo-Perez Vera</title>
+    <title>EL NIÑO | Sergio I Cayuqueo-Perez Vera</title>
     
     <!-- Optimización de Fuentes (Preconnect + Async) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -40,17 +40,19 @@
     <meta name="twitter:description" content="An intelligence superior to our intellect: The Child" />
     <meta name="twitter:image" content="https://sergiocayuqueo.com/card.png" />
 
+
     <style>
         :root {
             --bg-color: #ffffff;
             --cream-color: #f9f8f4;
-            --text-color: #000000;
+            /* To get black text on white background via 'difference', the color must be white */
+            --blend-text-color: #ffffff; 
             --blur-amount: 10px;
             --transition-speed: 0.8s;
         }
 
-        ::-moz-selection { background: #000; color: #fff; }
-        ::selection { background: #000; color: #fff; }
+        ::-moz-selection { background: #333; color: #fff; }
+        ::selection { background: #333; color: #fff; }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -62,12 +64,11 @@
         }
 
         body {
-            color: var(--text-color);
             font-family: 'Inter', sans-serif;
             line-height: 1.4;
         }
 
-        /* CAPAS DE FONDO - ORIGINAL STYLE */
+        /* CAPAS DE FONDO */
         .left-panel {
             position: fixed;
             top: 0; left: 0;
@@ -85,14 +86,14 @@
             z-index: 2;
         }
 
-        /* ARTIST IMAGE - Top Far Right */
+        /* ARTIST IMAGE - Original positioning */
         .artist-container {
             position: fixed;
             top: 0;
             right: 0;
-            width: 35vw; /* Shorter width as requested */
+            width: 35vw;
             height: auto;
-            z-index: 5; /* Behind text interaction but visible */
+            z-index: 5;
             pointer-events: none;
         }
 
@@ -101,6 +102,12 @@
             height: auto;
             display: block;
             object-fit: cover;
+        }
+
+        /* GLOBAL BLENDING FOR ALL INTERFACE TEXT */
+        header, main, footer {
+            mix-blend-mode: difference;
+            color: var(--blend-text-color);
         }
 
         header {
@@ -112,7 +119,7 @@
 
         main {
             position: relative;
-            z-index: 20; /* Increased to ensure it's above image for blend mode */
+            z-index: 20;
             padding: 160px 40px 10vh 80px;
             max-width: 1000px;
         }
@@ -125,14 +132,10 @@
             text-transform: uppercase;
         }
 
-        /* TEXT COLOR CHANGE EFFECT */
         .content-wrapper {
             font-size: clamp(1.6rem, 5vw, 3rem);
             font-weight: 300;
             letter-spacing: -0.04em;
-            /* Magic color shifting over the image: */
-            mix-blend-mode: difference; 
-            color: #000; /* Stays black on white bg, turns white/invert on dark image */
         }
 
         .line {
@@ -154,64 +157,39 @@
             transform: translate3d(0, 0, 0);
         }
 
-        /* NAVIGATION BUTTONS */
-        .nav-footer {
-            margin-top: 100px;
-            display: flex;
-            gap: 40px;
-            z-index: 100;
-        }
-
-        .nav-btn {
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            color: #000;
-            text-decoration: none;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
-            padding-bottom: 5px;
-            transition: border-color 0.3s;
-        }
-
-        .nav-btn:hover {
-            border-bottom-color: #000;
-        }
-
-        /* MINIMALIST FOOTER NAVIGATION */
+        /* FOOTER NAVIGATION */
         footer {
             position: relative;
-            padding: 80px 80px 60px 80px; /* Increased top padding for breathing room */
+            padding: 80px 80px 60px 80px;
             display: flex;
             justify-content: flex-end;
-            gap: 30px; /* Space between the text links */
+            gap: 30px;
             z-index: 100;
         }
 
         footer a {
-            color: var(--text-color);
+            color: inherit;
             text-decoration: none;
             font-size: 12px;
-            letter-spacing: 0.3em; /* Slightly more tracking for a premium feel */
+            letter-spacing: 0.3em;
             text-transform: uppercase;
             transition: opacity 0.4s ease;
-            opacity: 0.4; /* Faded by default to not distract from main content */
-            background: none; /* Removes the previous box style */
-            padding: 0;
-            border-radius: 0;
+            opacity: 0.5;
         }
 
         footer a:hover {
-            opacity: 1; /* Sharp focus on hover */
-            background: none;
+            opacity: 1;
         }
 
-        /* Mobile Adjustment */
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 1024px) {
+            .artist-container { width: 45vw; }
+        }
+
         @media (max-width: 768px) {
-            footer {
-                padding: 60px 40px;
-                justify-content: right; /* Center on mobile for better balance */
-                gap: 20px;
-            }
+            .artist-container { width: 60vw; opacity: 0.8; }
+            main { padding: 120px 30px 10vh 40px; }
+            footer { padding: 60px 40px; }
         }
     </style>
 </head>
@@ -224,14 +202,12 @@
         <nav aria-label="Top navigation"></nav>
     </header>
 
-    <!-- ARTIST IMAGE (Top Far Right) -->
     <div class="artist-container">
-        <!-- Replace 'artist.jpg' with your actual image path -->
         <img src="images/the_old_musician_1963.10.162.png" alt="Artist Portrait" class="artist-img">
     </div>
 
     <main id="main-content">
-        <h1>ÉL NIÑO</h1>
+        <h1>EL NIÑO</h1>
 
         <article class="content-wrapper">
             <span class="line">Since childhood's hour, I have been poor in spirit,</span>
@@ -271,25 +247,21 @@
 
     <footer>
        <nav aria-label="Footer navigation">
-            <a href="index.html">
-                HOME
-            </a>
+            <a href="index.html">HOME</a>
         </nav>
     </footer>
 
     <script>
         const lines = document.querySelectorAll('.line');
         const observerOptions = { 
-            threshold: 0.2,
-            rootMargin: "0px 0px -5% 0px" 
+            threshold: 0.1,
+            rootMargin: "0px 0px -10% 0px" 
         };
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('active');
-                } else {
-                    entry.target.classList.remove('active');
                 }
             });
         }, observerOptions);
