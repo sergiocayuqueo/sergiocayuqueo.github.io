@@ -161,35 +161,41 @@
             .line, .fluid-gif { animation: none !important; transition: none !important; opacity: 1 !important; filter: none !important; }
         }
 
+        /* MINIMALIST FOOTER NAVIGATION */
         footer {
             position: relative;
-            padding: 40px 40px 60px 80px;
-            text-align: right;
-            font-size: 10px; 
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
+            padding: 80px 80px 60px 80px; /* Increased top padding for breathing room */
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px; /* Space between the text links */
             z-index: 100;
         }
 
         footer a {
-            color: #444;
+            color: var(--text-color);
             text-decoration: none;
-            padding: 8px 12px;
-            background-color: rgba(0,0,0,0.03);
-            border-radius: 4px;
-            transition: background-color 0.3s, color 0.3s;
+            font-size: 10px;
+            letter-spacing: 0.3em; /* Slightly more tracking for a premium feel */
+            text-transform: uppercase;
+            transition: opacity 0.4s ease;
+            opacity: 0.4; /* Faded by default to not distract from main content */
+            background: none; /* Removes the previous box style */
+            padding: 0;
+            border-radius: 0;
         }
 
         footer a:hover {
-            background-color: #000;
-            color: #fff;
+            opacity: 1; /* Sharp focus on hover */
+            background: none;
         }
 
+        /* Mobile Adjustment */
         @media (max-width: 768px) {
-            .vertical-line, .left-panel { width: 15%; left: 0; }
-            .fluid-scene { right: -25%; width: 100vw; }
-            main { padding: 120px 25px 10vh 40px; }
-            footer { padding: 40px 25px 60px 25px; }
+            footer {
+                padding: 60px 40px;
+                justify-content: right; /* Center on mobile for better balance */
+                gap: 20px;
+            }
         }
     </style>
 </head>
@@ -251,6 +257,9 @@
             </a>
             <a href="child.html" aria-label="Since Childhood Hours: THE CHILD">
                 ÉL NIÑO
+            </a>
+            <a href="dream.html" aria-label="The Best Unknown Clock: DREAM">
+                DREAM
             </a>
         </nav>
     </footer>
