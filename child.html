@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Childhood Hours | Sergio I Cayuqueo-Perez Vera</title>
+    
+    <!-- Standard Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500&display=swap">
+
+    <style>
+        :root {
+            --bg-color: #ffffff;
+            --cream-color: #f9f8f4;
+            --text-color: #000000;
+            --blur-amount: 10px;
+            --transition-speed: 0.8s;
+        }
+
+        ::-moz-selection { background: #000; color: #fff; }
+        ::selection { background: #000; color: #fff; }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html, body {
+            overflow-x: hidden;
+            background-color: var(--bg-color);
+            -webkit-font-smoothing: antialiased;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.4;
+        }
+
+        /* CAPAS DE FONDO - ORIGINAL STYLE */
+        .left-panel {
+            position: fixed;
+            top: 0; left: 0;
+            width: 28%; height: 100vh;
+            background-color: var(--cream-color);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .vertical-line {
+            position: fixed;
+            top: 0; left: 28%;
+            width: 1px; height: 100vh;
+            background-color: rgba(0, 0, 0, 0.08);
+            z-index: 2;
+        }
+
+        /* ARTIST IMAGE - Top Far Right */
+        .artist-container {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 35vw; /* Shorter width as requested */
+            height: auto;
+            z-index: 5; /* Behind text interaction but visible */
+            pointer-events: none;
+        }
+
+        .artist-img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        header {
+            position: fixed;
+            top: 0; width: 100%; padding: 30px;
+            z-index: 100; font-size: 11px; letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        main {
+            position: relative;
+            z-index: 20; /* Increased to ensure it's above image for blend mode */
+            padding: 160px 40px 10vh 80px;
+            max-width: 1000px;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 9vw, 5rem);
+            font-weight: 300;
+            margin-bottom: 80px;
+            letter-spacing: -0.06em;
+            text-transform: uppercase;
+        }
+
+        /* TEXT COLOR CHANGE EFFECT */
+        .content-wrapper {
+            font-size: clamp(1.6rem, 5vw, 3rem);
+            font-weight: 300;
+            letter-spacing: -0.04em;
+            /* Magic color shifting over the image: */
+            mix-blend-mode: difference; 
+            color: #000; /* Stays black on white bg, turns white/invert on dark image */
+        }
+
+        .line {
+            display: block;
+            opacity: 0.2;
+            filter: blur(var(--blur-amount));
+            transform: translate3d(0, 20px, 0); 
+            transition: 
+                opacity var(--transition-speed) ease-out,
+                filter var(--transition-speed) ease-out,
+                transform var(--transition-speed) ease-out;
+            margin-bottom: 25px;
+            will-change: opacity, filter, transform;
+        }
+
+        .line.active {
+            opacity: 1;
+            filter: blur(0px);
+            transform: translate3d(0, 0, 0);
+        }
+
+        /* NAVIGATION BUTTONS */
+        .nav-footer {
+            margin-top: 100px;
+            display: flex;
+            gap: 40px;
+            z-index: 100;
+        }
+
+        .nav-btn {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: #000;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            padding-bottom: 5px;
+            transition: border-color 0.3s;
+        }
+
+        .nav-btn:hover {
+            border-bottom-color: #000;
+        }
+
+        footer {
+            position: relative;
+            padding: 40px 40px 60px 80px;
+            text-align: right;
+            font-size: 10px; 
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            z-index: 100;
+        }
+
+        @media (max-width: 768px) {
+            .vertical-line, .left-panel { width: 15%; left: 0; }
+            .artist-container { width: 50vw; }
+            main { padding: 120px 25px 10vh 40px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="left-panel" aria-hidden="true"></div>
+    <div class="vertical-line" aria-hidden="true"></div>
+
+    <header>
+        <nav aria-label="Top navigation"></nav>
+    </header>
+
+    <!-- ARTIST IMAGE (Top Far Right) -->
+    <div class="artist-container">
+        <!-- Replace 'artist.jpg' with your actual image path -->
+        <img src="images/the_old_musician_1963.10.162.png" alt="Artist Portrait" class="artist-img">
+    </div>
+
+    <main id="main-content">
+        <h1>Childhood Hours</h1>
+
+        <article class="content-wrapper">
+            <span class="line">Since childhood's hour, I have been poor in spirit,</span>
+            <span class="line">mourning through endless wintertime.</span>
+            <span class="line">When the shadow-shake descends, a Yell from hell will ascend.</span>
+            
+            <br aria-hidden="true">
+            <span class="line">Yes...</span>
+            <br aria-hidden="true">
+
+            <span class="line">When I hungered and thirsted, unable to satiate my soul,</span>
+            <span class="line">An endless winter rainbow hovered there.</span>
+            <span class="line">When I cried out for mercy, unable to stand on my feet</span>
+            <span class="line">because of unending hours—</span>
+            <span class="line">When my face was earth-stained, my heart raced wildly</span>
+            <span class="line">in that final trial—</span>
+
+            <br aria-hidden="true">
+            <span class="line">From my early days I was not as my brothers were;</span>
+            <span class="line">Whenever my name was called, I was known as 'The Child'</span>
+            <br aria-hidden="true">
+
+            <span class="line">Yes... Since my childhood hours.</span>
+            <br aria-hidden="true">
+
+            <span class="line">As I ran through the mountains pursued by horses at full gallop,</span>
+            <span class="line">my heart was yet full of joy among those heights—</span>
+            <span class="line">When the soft voices whispered within my mind</span>
+            <span class="line">upon those mountains helms,</span>
+            <span class="line">I felt I could move all those realms.</span>
+
+            <br aria-hidden="true">
+            <span class="line">Yet, I fell asleep upon the heights, and thunder called out:</span>
+            <span class="line">"Childhood hours upon the mountain of the Most High."</span>
+
+            <!-- MINIMALIST NAVIGATION 
+            <div class="nav-footer">
+                <a href="index.html" class="nav-btn">Back Home</a>
+            </div>-->
+        </article>
+    </main>
+
+    <footer>
+        <nav aria-label="Footer navigation">
+            <a href="index.html">
+                HOME
+            </a>
+        </nav>
+    </footer>
+
+    <script>
+        const lines = document.querySelectorAll('.line');
+        const observerOptions = { 
+            threshold: 0.2,
+            rootMargin: "0px 0px -5% 0px" 
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                } else {
+                    entry.target.classList.remove('active');
+                }
+            });
+        }, observerOptions);
+
+        lines.forEach(line => observer.observe(line));
+    </script>
+</body>
+</html>
