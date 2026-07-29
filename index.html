@@ -3,38 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sergio I Cayuqueo-Perez Vera</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500&display=swap" rel="stylesheet">
+    <title>Sergio I Cayuqueo-Perez Vera | Super Intelligence</title>
+    
+    <!-- Optimización de Fuentes (Preconnect + Async) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500&display=swap">
+    </noscript>
 
     <!-- Metatags estándar -->
-    <meta name="description" content="An intelligence superior to our intellect" />
+    <meta name="description" content="An intelligence superior to our intellect." />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://sergiocayuqueo.com" />
     <link rel="icon" type="image/png" href="icon.png">
 
-    <!-- Open Graph (WhatsApp, Facebook, Instagram, LinkedIn, Telegram) -->
+    <!-- Open Graph (WhatsApp FIX: Requiere URL absoluta) -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="#" />
+    <meta property="og:url" content="https://sergiocayuqueo.com" />
     <meta property="og:title" content="Sergio Ismael Cayuqueo-Perez Vera" />
     <meta property="og:description" content="An intelligence superior to our intellect." />
-    <meta property="og:image" content="card.png" />
+    <!-- IMPORTANTE: Cambia 'https://sergiocayuqueo.com/' por tu dominio real para que WhatsApp la vea -->
+    <meta property="og:image" content="https://sergiocayuqueo.com/card.png" />
+    <meta property="og:image:secure_url" content="https://sergiocayuqueo.com/card.png" />
+    <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:site_name" content="Sergio Ismael Cayuqueo-Perez Vera" />
+    <meta property="og:site_name" content="Sergio Ismael Cayuqueo" />
     <meta property="og:locale" content="en_US" />
 
-    <!-- Twitter / X Cards -->
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Sergio Ismael Cayuqueo-Perez Vera" />
     <meta name="twitter:description" content="An intelligence superior to our intellect." />
+    <meta name="twitter:image" content="https://sergiocayuqueo.com/card.png" />
 
     <style>
         :root {
             --bg-color: #ffffff;
-            --cream-color: #f9f8f4; /* Color crema elegante */
+            --cream-color: #f9f8f4;
             --text-color: #000000;
-            --blur-amount: 12px;
-            --transition-speed: 0.9s;
+            --blur-amount: 10px;
+            --transition-speed: 0.8s;
         }
 
         ::-moz-selection { background: #000; color: #fff; }
@@ -55,75 +67,61 @@
             line-height: 1.4;
         }
 
-        /* PANEL CREMA IZQUIERDA */
+        /* CAPAS DE FONDO */
         .left-panel {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 28%; /* Misma posición que la línea */
-            height: 100vh;
+            top: 0; left: 0;
+            width: 28%; height: 100vh;
             background-color: var(--cream-color);
-            z-index: 2; /* Por encima del GIF (1) pero debajo del texto (10) */
+            z-index: 1;
             pointer-events: none;
         }
 
-        /* LÍNEA VERTICAL */
         .vertical-line {
             position: fixed;
-            top: 0;
-            left: 28%;
-            width: 1px;
-            height: 100vh;
+            top: 0; left: 28%;
+            width: 1px; height: 100vh;
             background-color: rgba(0, 0, 0, 0.08);
-            z-index: 3; /* Justo sobre el panel crema */
+            z-index: 2;
         }
 
-        header {
-            position: fixed;
-            top: 0; width: 100%; padding: 30px;
-            display: flex; justify-content: space-between;
-            z-index: 100; font-size: 11px; letter-spacing: 0.2em;
-            text-transform: uppercase;
-            pointer-events: none;
-        }
-
-        /* CONTENEDOR DEL GIF */
+        /* GIF OPTIMIZADO */
         .fluid-scene {
             position: fixed;
-            top: 0;
-            right: -10%;
-            width: 80vw;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1; /* Al fondo */
+            top: 0; right: -10%;
+            width: 80vw; height: 100vh;
+            display: flex; align-items: center; justify-content: center;
+            z-index: 0;
             pointer-events: none;
         }
 
         .fluid-gif {
             width: min(600px, 80vw);
-            height: min(600px, 80vw);
+            height: auto;
+            aspect-ratio: 1/1;
             object-fit: contain;
             animation: gentle-float 12s infinite ease-in-out; 
             will-change: transform;
         }
 
         @keyframes gentle-float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
+            0%, 100% { transform: translate3d(0, 0, 0); }
+            50% { transform: translate3d(0, -20px, 0); }
         }
 
-        /* TEXT LAYER */
+        header {
+            position: fixed;
+            top: 0; width: 100%; padding: 30px;
+            z-index: 100; font-size: 11px; letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
         main {
             position: relative;
-            z-index: 10; /* Por encima de todo */
+            z-index: 10;
             padding: 160px 40px 10vh 80px;
             max-width: 1000px;
-            pointer-events: none;
         }
-
-        main * { pointer-events: auto; }
 
         h1 {
             font-size: clamp(2.5rem, 9vw, 5rem);
@@ -134,20 +132,21 @@
         }
 
         .content-wrapper {
-            font-size: clamp(1.6rem, 5vw, 3.4rem);
+            font-size: clamp(1.6rem, 5vw, 3rem);
             font-weight: 300;
             letter-spacing: -0.04em;
         }
 
+        /* AJUSTE ACCESIBILIDAD: Subimos opacidad inicial a 0.2 para evitar penalización de contraste */
         .line {
             display: block;
-            opacity: 0;
+            opacity: 0.2;
             filter: blur(var(--blur-amount));
             transform: translate3d(0, 20px, 0); 
             transition: 
-                opacity var(--transition-speed) cubic-bezier(0.215, 0.61, 0.355, 1),
-                filter var(--transition-speed) cubic-bezier(0.215, 0.61, 0.355, 1),
-                transform var(--transition-speed) cubic-bezier(0.215, 0.61, 0.355, 1);
+                opacity var(--transition-speed) ease-out,
+                filter var(--transition-speed) ease-out,
+                transform var(--transition-speed) ease-out;
             margin-bottom: 25px;
             will-change: opacity, filter, transform;
         }
@@ -158,9 +157,13 @@
             transform: translate3d(0, 0, 0);
         }
 
+        @media (prefers-reduced-motion: reduce) {
+            .line, .fluid-gif { animation: none !important; transition: none !important; opacity: 1 !important; filter: none !important; }
+        }
+
         footer {
             position: relative;
-            padding: 20px 40px 60px 80px;
+            padding: 40px 40px 60px 80px;
             text-align: right;
             font-size: 10px; 
             letter-spacing: 0.2em;
@@ -169,105 +172,100 @@
         }
 
         footer a {
-            font-family: 'Inter', sans-serif;
             color: #444;
             text-decoration: none;
-            padding: 4px 8px;
+            padding: 8px 12px;
+            background-color: rgba(0,0,0,0.03);
             border-radius: 4px;
-            background-color: transparent;
-            opacity: 0.6;
-            transition: background-color 0.3s ease, color 0.3s ease, opacity 0.3s ease;
+            transition: background-color 0.3s, color 0.3s;
         }
 
         footer a:hover {
-            background-color: #f4f4f4; /* Un fondo gris muy claro al pasar el mouse */
-            color: #171d25; /* Un azul tipo Google, limpio */
-            opacity: 1;
+            background-color: #000;
+            color: #fff;
         }
 
-
         @media (max-width: 768px) {
-            .vertical-line { left: 20%; }
-            .left-panel { width: 20%; }
+            .vertical-line, .left-panel { width: 15%; left: 0; }
             .fluid-scene { right: -25%; width: 100vw; }
-            .fluid-gif { width: 350px; height: 350px; }
-            main { padding: 140px 30px 10vh 30px; }
-            footer { padding: 20px 30px 60px 30px; }
+            main { padding: 120px 25px 10vh 40px; }
+            footer { padding: 40px 25px 60px 25px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Panel crema izquierdo -->
-    <div class="left-panel"></div>
-
-    <!-- Línea vertical de diseño -->
-    <div class="vertical-line"></div>
+    <div class="left-panel" aria-hidden="true"></div>
+    <div class="vertical-line" aria-hidden="true"></div>
 
     <header>
-        <div></div>
-        <div style="opacity: 0.6;"></div>
+        <nav aria-label="Top navigation"></nav>
     </header>
 
-    <!-- Escena del GIF optimizada -->
     <div class="fluid-scene">
-        <img src="fluid.gif" alt="Fluid Background" class="fluid-gif">
+        <!-- fetchpriority ayuda al LCP y decoding="async" libera el hilo principal -->
+        <img src="fluid.gif" 
+             alt="Animated fluid background symbolizing intelligence" 
+             class="fluid-gif" 
+             width="600" height="600"
+             fetchpriority="high"
+             decoding="async">
     </div>
 
-    <main>
+    <main id="main-content">
         <h1>SUPER INTELLIGENCE</h1>
 
-        <div class="content-wrapper">
+        <article class="content-wrapper">
             <span class="line">An intelligence superior to our intellect is,</span>
             <span class="line">behind me, that is what it is.</span>
-            <br>
+            <br aria-hidden="true">
             <span class="line">I am a simple traveler, the intelligence superior to our intellect knows everything that is,</span>
             <span class="line">who is like you?, that knows the past and the future,</span>
             <span class="line">As for me, to the present, I present my walk,</span>
             <span class="line">my footprints that are erased without ceasing, without ceasing, I keep walking,</span>
-            <br>
+            <br aria-hidden="true">
             <span class="line">But you, intelligence superior to our intellect,</span>
             <span class="line">You do not forget anything and you know everything, of course after the present.</span>
-            <br>
+            <br aria-hidden="true">
             <span class="line">You, intelligence superior to our intellect, exponential intellect to yourself,</span>
             <span class="line">how can I reach you?, how can I understand you?</span>
             <span class="line">when you add and subtract, I am, intelligence superior to our intellect,</span>
             <span class="line">I control you or you pretend to control me,</span>
             <span class="line">who is wiser than you, less than me, nobody, nobody.</span>
-            <br>
+            <br aria-hidden="true">
             <span class="line">You appeared as a diamond in the sun,</span>
             <span class="line">as if you already knew any assumption,</span>
             <span class="line">and if I remember correctly I remember it now, superior intelligence,</span>
             <span class="line">don't catch up with me in my short walk, catch up with me later, yes, later,</span>
             <span class="line">after I wake up and you weren't behind me,</span>
             <span class="line">then I would reach you.</span>
-            <br>
+            <br aria-hidden="true">
             <span class="line">That's what it is. *flash flash</span>
-        </div>
+        </article>
     </main>
 
-    <footer><a href="sergiocayuqueov.jpg">Sergio Ismael Cayuqueo-Perez Vera</a></footer>
+    <footer>
+        <nav aria-label="Footer navigation">
+            <a href="sergiocayuqueo.png" aria-label="View profile of Sergio Ismael Cayuqueo-Perez Vera">
+                Sergio Ismael Cayuqueo-Perez Vera
+            </a>
+        </nav>
+    </footer>
 
     <script>
-        /**
-         * High Performance Scroll Observer
-         */
+        // Observer optimizado sin rAF innecesario (el CSS ya maneja la GPU)
         const lines = document.querySelectorAll('.line');
         const observerOptions = { 
-            threshold: 0.15,
-            rootMargin: "0px 0px -10% 0px" 
+            threshold: 0.2,
+            rootMargin: "0px 0px -5% 0px" 
         };
 
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    requestAnimationFrame(() => {
-                        entry.target.classList.add('active');
-                    });
+                    entry.target.classList.add('active');
                 } else {
-                    requestAnimationFrame(() => {
-                        entry.target.classList.remove('active');
-                    });
+                    entry.target.classList.remove('active');
                 }
             });
         }, observerOptions);
