@@ -9,9 +9,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500&display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500&display=swap" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;500&display=swap" media="print" onload="this.media='all'">
     <noscript>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;500&display=swap">
     </noscript>
 
     <!-- Standard Metatags -->
@@ -30,161 +30,163 @@
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Dream" />
+    <meta name="twitter:title" content="Me | Sergio I Cayuqueo-Perez Vera" />
     <meta name="twitter:description" content="Portrait of Sergio Ismael Cayuqueo-Perez Vera" />
     <meta name="twitter:image" content="https://sergiocayuqueo.com/card.png" />
-    
+
     <style>
         :root {
-            --bg-color: #f9f8f4; /* Sophisticated Cream */
+            --bg-color: #ffffff;
+            --cream-color: #f9f8f4;
             --text-color: #000000;
-            --transition-speed: 1.5s;
+            --blend-color: #ffffff;
+            --transition-speed: 1.2s;
         }
-
-        ::-moz-selection { background: #333; color: #fff; }
-        ::selection { background: #333; color: #fff; }
-
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        body {
+        html, body {
             background-color: var(--bg-color);
+            -webkit-font-smoothing: antialiased;
+            font-weight: 100;
+            height: 100%;
+            width: 100%;
             color: var(--text-color);
+        }
+
+        body {
             font-family: 'Inter', sans-serif;
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            overflow: hidden;
-            -webkit-font-smoothing: antialiased;
+            overflow: hidden; /* Maintains one-page viewport */
         }
 
-        /* The Frame reveal */
-        .gallery-container {
+        /* ARCHITECTURAL ELEMENTS */
+        .left-panel {
+            position: fixed;
+            top: 0; left: 0;
+            width: 28%; height: 100vh;
+            background-color: var(--cream-color);
+            z-index: 1;
+        }
+
+        .vertical-line {
+            position: fixed;
+            top: 0; left: 28%;
+            width: 1px; height: 100vh;
+            background-color: rgba(0, 0, 0, 0.08);
+            z-index: 2;
+        }
+
+        /* MAIN CONTENT AREA */
+        main {
             position: relative;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: reveal var(--transition-speed) cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            z-index: 10;
+            width: 100%;
+            height: 100vh;
             display: flex;
             flex-direction: column;
-            align-items: center;
+            justify-content: center;
+            padding-left: 35%; /* Offset for the sidebar */
+            padding-right: 10%;
         }
 
-        .image-wrapper {
-            position: relative;
-            padding: 25px;
-            background: #ffffff; /* Art gallery matting */
-            box-shadow: 0 40px 100px rgba(0,0,0,0.04);
+        /* THE IMAGE: FIXED FILTER ISSUE */
+        .image-container {
+            width: 100%;
+            max-width: 420px; /* Perfect size for large screens */
             margin-bottom: 40px;
-            transition: transform 0.6s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: softReveal var(--transition-speed) forwards;
         }
 
-        .image-wrapper img {
-            display: block;
-            max-width: 400px;
+        .image-container img {
             width: 100%;
             height: auto;
-            filter: contrast(1.02);
+            display: block;
+            box-shadow: 0 30px 90px rgba(0,0,0,0.08);
+            /* Removed mix-blend-mode to keep original colors */
         }
 
-        /* Minimalist Download Overlay */
-        .download-btn {
-            position: absolute;
-            bottom: 40px;
-            right: 40px;
-            background: rgba(255, 255, 255, 0.9);
-            color: #000;
-            text-decoration: none;
-            font-size: 9px;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            padding: 12px 20px;
-            border: 1px solid rgba(0,0,0,0.1);
-            opacity: 0;
-            transition: all 0.4s ease;
-            backdrop-filter: blur(5px);
-        }
-
-        .image-wrapper:hover .download-btn {
-            opacity: 1;
-            transform: translateY(-5px);
-        }
-
-        /* Typography */
-        .info {
-            text-align: center;
+        /* TEXT CONTENT: MAINTAINING INTELLECTUAL BLEND */
+        .text-content {
+            mix-blend-mode: difference; /* Text remains "intelligent" */
+            color: var(--text-color);
         }
 
         h1 {
-            font-size: 11px;
-            font-weight: 400;
-            letter-spacing: 0.5em;
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 100;
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+            margin-bottom: 10px;
             text-transform: uppercase;
-            margin-bottom: 12px;
-            opacity: 0.8;
         }
 
-        p {
-            font-size: 10px;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            opacity: 0.4;
+        /* NAVIGATION BUTTON */
+        .close-container {
+            position: absolute;
+            bottom: 60px;
+            right: 60px;
+            mix-blend-mode: difference;
         }
 
-        /* Navigation */
-        .back-home {
-            position: fixed;
-            bottom: 40px;
+        .close-btn {
+            font-size: 12px;
+            letter-spacing: 0.4em;
             text-decoration: none;
             color: var(--text-color);
-            font-size: 10px;
-            letter-spacing: 0.3em;
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 14px 40px;
+            transition: all 0.4s ease;
             text-transform: uppercase;
-            opacity: 0.3;
-            transition: opacity 0.4s ease;
-            border-bottom: 1px solid transparent;
         }
 
-        .back-home:hover {
-            opacity: 1;
-            border-bottom: 1px solid rgba(0,0,0,0.2);
+        .close-btn:hover {
+            background: #ffffff;
+            color: #000000;
         }
 
-        @keyframes reveal {
+        @keyframes softReveal {
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Mobile specific behavior */
+        /* LARGE SCREEN ADJUSTMENTS (4K and Ultrawide) */
+        @media (min-width: 1800px) {
+            main { padding-left: 32%; }
+            .image-container { max-width: 550px; }
+        }
+
+        /* MOBILE ADJUSTMENTS */
         @media (max-width: 768px) {
-            .image-wrapper img { max-width: 300px; }
-            .download-btn {
-                opacity: 1; /* Always visible on touch screens */
-                bottom: 30px;
-                right: 30px;
-            }
+            .left-panel { width: 40px; }
+            .vertical-line { left: 40px; }
+            main { padding-left: 70px; padding-right: 30px; }
+            .image-container { max-width: 280px; }
+            .close-container { right: 30px; bottom: 40px; width: 100%; text-align: right; }
+            h1 { font-size: 2.2rem; }
         }
     </style>
 </head>
 <body>
 
-    <main class="gallery-container">
-        <div class="image-wrapper">
+    <div class="left-panel"></div>
+    <div class="vertical-line"></div>
+
+    <main>
+        <div class="image-container">
+            <!-- Natural, original image without inversion -->
             <img src="sergiocayuqueo.png" alt="Sergio Ismael Cayuqueo-Perez Vera">
-            
-            <!-- Download Button: 'download' attribute forces the browser to save the file -->
-            <a href="sergiocayuqueo.png" download="Sergio_Cayuqueo_Profile" class="download-btn">
-                Download Image
-            </a>
         </div>
-        
-        <div class="info">
+
+        <div class="text-content">
             <h1>Sergio I. Cayuqueo-Perez Vera</h1>
-            <p>Architect of Dreams</p>
+        </div>
+
+        <div class="close-container">
+            <a href="index.html" class="close-btn">CLOSE</a>
         </div>
     </main>
-
-    <a href="index.html" class="back-home">CLOSE</a>
 
 </body>
 </html>
