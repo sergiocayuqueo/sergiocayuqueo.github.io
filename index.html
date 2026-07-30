@@ -5,33 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sergio I Cayuqueo-Perez Vera | Super Intelligence</title>
     
-    <!-- Optimización de Fuentes (Preconnect + Async) -->
+    <!-- Updated Font Import for 100 Weight -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500&display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500&display=swap" media="print" onload="this.media='all'">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap" media="print" onload="this.media='all'">
     <noscript>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap">
     </noscript>
 
     <!-- Metatags estándar -->
-    <meta name="description" content="An intelligence superior to our intellect." />
+    <meta name="description" content="INTELLIGENCE SUPERIOR TO OUR INTELLECT" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://sergiocayuqueo.com" />
     <link rel="icon" type="image/png" href="icon.png">
 
-    <!-- Open Graph (WhatsApp FIX: Requiere URL absoluta) -->
+    <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://sergiocayuqueo.com" />
     <meta property="og:title" content="Sergio Ismael Cayuqueo-Perez Vera" />
     <meta property="og:description" content="INTELLIGENCE SUPERIOR TO OUR INTELLECT" />
-    <!-- IMPORTANTE: Cambia 'https://sergiocayuqueo.com/' por tu dominio real para que WhatsApp la vea -->
     <meta property="og:image" content="https://sergiocayuqueo.com/card.png" />
     <meta property="og:image:secure_url" content="https://sergiocayuqueo.com/card.png" />
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:site_name" content="Sergio Ismael Cayuqueo" />
+    <meta property="og:site_name" content="Sergio Ismael Cayuqueo-Perez Vera" />
     <meta property="og:locale" content="en_US" />
 
     <!-- Twitter -->
@@ -39,15 +38,17 @@
     <meta name="twitter:title" content="Sergio Ismael Cayuqueo-Perez Vera" />
     <meta name="twitter:description" content="INTELLIGENCE SUPERIOR TO OUR INTELLECT" />
     <meta name="twitter:image" content="https://sergiocayuqueo.com/card.png" />
+    
 
     <style>
         :root {
             --bg-color: #ffffff;
             --cream-color: #f9f8f4;
-            /* To achieve black text on white via 'difference' mode, text must be white */
             --blend-text-color: #ffffff; 
             --blur-amount: 10px;
             --transition-speed: 0.8s;
+            /* Added for soft resizing */
+            --resize-speed: 0.6s; 
         }
 
         ::-moz-selection { background: #333; color: #fff; }
@@ -60,11 +61,22 @@
             background-color: var(--bg-color);
             -webkit-font-smoothing: antialiased;
             scroll-behavior: smooth;
+            /* Forced extreme light weight */
+            font-weight: 100; 
         }
 
         body {
             font-family: 'Inter', sans-serif;
             line-height: 1.4;
+        }
+
+        /* Soft Resizing Transitions */
+        main, h1, .content-wrapper, .left-panel, .vertical-line {
+            transition: padding var(--resize-speed) ease, 
+                        margin var(--resize-speed) ease, 
+                        font-size var(--resize-speed) ease, 
+                        width var(--resize-speed) ease, 
+                        left var(--resize-speed) ease;
         }
 
         /* CAPAS DE FONDO */
@@ -109,7 +121,7 @@
             50% { transform: translate3d(20px, -30px, 0); }
         }
 
-        /* GLOBAL BLENDING FOR ALL INTERFACE TEXT */
+        /* GLOBAL BLENDING */
         header, main, footer {
             mix-blend-mode: difference;
             color: var(--blend-text-color);
@@ -131,7 +143,8 @@
 
         h1 {
             font-size: clamp(2.5rem, 9vw, 5rem);
-            font-weight: 300;
+            /* Minimalist weight */
+            font-weight: 100; 
             margin-bottom: 80px;
             letter-spacing: -0.06em;
             text-transform: uppercase;
@@ -139,7 +152,8 @@
 
         .content-wrapper {
             font-size: clamp(1.6rem, 5vw, 3rem);
-            font-weight: 300;
+            /* Minimalist weight */
+            font-weight: 100; 
             letter-spacing: -0.04em;
         }
 
@@ -179,6 +193,7 @@
             text-transform: uppercase;
             transition: opacity 0.4s ease;
             opacity: 0.5;
+            font-weight: 100;
         }
 
         footer a:hover {
@@ -190,6 +205,8 @@
             .fluid-scene { right: -20%; width: 100vw; }
             main { padding: 120px 30px 10vh 40px; }
             footer { padding: 60px 40px; justify-content: right; }
+            .left-panel { width: 15%; }
+            .vertical-line { left: 15%; }
         }
     </style>
 </head>
@@ -235,17 +252,17 @@
             <span class="line">You appeared as a diamond in the sun,</span>
             <span class="line">as if you already knew any assumption,</span>
             <span class="line">and if I remember correctly I remember it now, superior intelligence,</span>
-            <span class="line">don't catch up with me in my short walk, catch up with me later, yes, later,</span>
-            <span class="line">after I wake up and you weren't behind me,</span>
+            <span class="line">do not catch up with me in my short walk, catch up with me later, yes, later,</span>
+            <span class="line">after I wake up and you were not behind me,</span>
             <span class="line">then I would reach you.</span>
             <br aria-hidden="true">
-            <span class="line">That's what it is. *flash flash</span>
+            <span class="line">That is what it is. *FLASH FLASH</span>
         </article>
     </main>
 
     <footer>
         <nav aria-label="Footer navigation">
-             <a href="me.html" aria-label="View profile of Sergio Ismael Cayuqueo-Perez Vera">
+              <a href="me.html" aria-label="View profile of Sergio Ismael Cayuqueo-Perez Vera">
                 ME
             </a>
             <a href="child.html" aria-label="Since Childhood Hours: THE CHILD">
