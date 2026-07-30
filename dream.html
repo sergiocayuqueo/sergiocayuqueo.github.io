@@ -8,10 +8,10 @@
     <!-- Optimización de Fuentes (Preconnect + Async) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500&display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500&display=swap" media="print" onload="this.media='all'">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;500&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;500&display=swap" media="print" onload="this.media='all'">
     <noscript>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;500&display=swap">
     </noscript>
 
     <!-- Metatags estándar -->
@@ -125,7 +125,7 @@
 
         h1 {
             font-size: clamp(2.5rem, 9vw, 5rem);
-            font-weight: 300;
+            font-weight: lighter;
             margin-bottom: 80px;
             letter-spacing: -0.06em;
             text-transform: uppercase;
@@ -133,7 +133,7 @@
 
         .content-wrapper {
             font-size: clamp(1.6rem, 5vw, 3rem);
-            font-weight: 300;
+            font-weight: lighter;
             letter-spacing: -0.04em;
         }
 
@@ -170,6 +170,7 @@
             color: inherit; /* Takes the white from parent for blending */
             text-decoration: none;
             font-size: 12px;
+            font-weight: lighter;
             letter-spacing: 0.3em;
             text-transform: uppercase;
             transition: opacity 0.4s ease;
