@@ -5,27 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>404 | Undefined Sequence</title>
     
-    <!-- Optimización de Fuentes -->
+    <!-- Updated Font Import for 100 Weight -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500&display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500&display=swap" media="print" onload="this.media='all'">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap" media="print" onload="this.media='all'">
     <noscript>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500&display=swap">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap">
     </noscript>
 
-        <!-- Metatags estándar -->
+    <!-- Metatags estándar -->
     <meta name="description" content="INTELLIGENCE SUPERIOR TO OUR INTELLECT" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://sergiocayuqueo.com" />
     <link rel="icon" type="image/png" href="icon.png">
 
-    <!-- Open Graph (WhatsApp FIX: Requiere URL absoluta) -->
+    <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://sergiocayuqueo.com" />
     <meta property="og:title" content="Sergio Ismael Cayuqueo-Perez Vera" />
     <meta property="og:description" content="INTELLIGENCE SUPERIOR TO OUR INTELLECT" />
-    <!-- IMPORTANTE: Cambia 'https://sergiocayuqueo.com/' por tu dominio real para que WhatsApp la vea -->
     <meta property="og:image" content="https://sergiocayuqueo.com/card.png" />
     <meta property="og:image:secure_url" content="https://sergiocayuqueo.com/card.png" />
     <meta property="og:image:type" content="image/png" />
@@ -34,12 +33,11 @@
     <meta property="og:site_name" content="Sergio Ismael Cayuqueo" />
     <meta property="og:locale" content="en_US" />
 
-        <!-- Twitter -->
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Sergio Ismael Cayuqueo-Perez Vera" />
     <meta name="twitter:description" content="INTELLIGENCE SUPERIOR TO OUR INTELLECT" />
     <meta name="twitter:image" content="https://sergiocayuqueo.com/card.png" />
-
 
     <style>
         :root {
@@ -48,7 +46,11 @@
             --blend-text-color: #ffffff; 
             --blur-amount: 12px;
             --transition-speed: 1.2s;
+            --resize-speed: 0.6s; 
         }
+
+        ::-moz-selection { background: #333; color: #fff; }
+        ::selection { background: #333; color: #fff; }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -56,11 +58,21 @@
             overflow-x: hidden;
             background-color: var(--bg-color);
             -webkit-font-smoothing: antialiased;
+            font-weight: 100; /* Thin weight */
         }
 
         body {
             font-family: 'Inter', sans-serif;
             line-height: 1.4;
+        }
+
+        /* Soft Resizing Transitions */
+        main, h1, .content-wrapper, .left-panel, .vertical-line {
+            transition: padding var(--resize-speed) ease, 
+                        margin var(--resize-speed) ease, 
+                        font-size var(--resize-speed) ease, 
+                        width var(--resize-speed) ease, 
+                        left var(--resize-speed) ease;
         }
 
         /* LAYOUT ELEMENTS */
@@ -80,7 +92,7 @@
             z-index: 2;
         }
 
-        /* THE FLUID GIF - REVERSED OR GLITCHED SENSATION */
+        /* THE FLUID GIF */
         .fluid-scene {
             position: fixed;
             top: 0; right: -10%;
@@ -88,8 +100,8 @@
             display: flex; align-items: center; justify-content: center;
             z-index: 5;
             pointer-events: none;
-            opacity: 0.6;
-            filter: grayscale(1); /* Desaturated for the 404 state */
+            opacity: 0.5;
+            filter: grayscale(1);
         }
 
         .fluid-gif {
@@ -104,7 +116,7 @@
             100% { transform: rotate(360deg) scale(1); }
         }
 
-        /* BLENDING CONTENT */
+        /* GLOBAL BLENDING */
         main, footer {
             mix-blend-mode: difference;
             color: var(--blend-text-color);
@@ -119,7 +131,7 @@
 
         h1 {
             font-size: clamp(3rem, 12vw, 8rem);
-            font-weight: 300;
+            font-weight: 100;
             margin-bottom: 40px;
             letter-spacing: -0.08em;
             text-transform: uppercase;
@@ -127,7 +139,7 @@
 
         .content-wrapper {
             font-size: clamp(1.2rem, 4vw, 2.2rem);
-            font-weight: 300;
+            font-weight: 100;
             letter-spacing: -0.02em;
         }
 
@@ -149,6 +161,7 @@
             transform: translate3d(0, 0, 0);
         }
 
+        /* FOOTER NAVIGATION */
         footer {
             padding: 40px 80px;
             display: flex;
@@ -159,9 +172,10 @@
             color: inherit;
             text-decoration: none;
             font-size: 11px;
+            font-weight: 100;
             letter-spacing: 0.4em;
             text-transform: uppercase;
-            border: 1px solid rgba(255,255,255,0.3);
+            border: 1px solid rgba(255,255,255,0.1);
             padding: 10px 20px;
             transition: all 0.4s ease;
         }
@@ -172,8 +186,8 @@
         }
 
         @media (max-width: 768px) {
-            .left-panel { width: 10%; }
-            .vertical-line { left: 10%; }
+            .left-panel { width: 15%; }
+            .vertical-line { left: 15%; }
             main { padding: 120px 20px 10vh 40px; }
             footer { flex-direction: column; padding: 40px; }
         }
@@ -185,7 +199,7 @@
     <div class="vertical-line"></div>
 
     <div class="fluid-scene">
-        <img src="fluid.gif" alt="" class="fluid-gif">
+        <img src="fluid.gif" alt="Animated Background" class="fluid-gif">
     </div>
 
     <main>
@@ -194,8 +208,7 @@
         <article class="content-wrapper">
             <span class="line">Did you wander too far from the present?</span>
             <br>
-            <span class="line">Return to the origin,</span>
-            <span class="line">before the footprints are erased.</span>
+            <span class="line">Return to the origin</span>
         </article>
     </main>
 
@@ -205,7 +218,7 @@
     </footer>
 
     <script>
-        // Trigger animations sequentially
+        // Trigger animations sequentially for a soft entrance
         document.addEventListener('DOMContentLoaded', () => {
             const lines = document.querySelectorAll('.line');
             lines.forEach((line, index) => {
