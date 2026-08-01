@@ -97,7 +97,7 @@
             z-index: 2;
         }
 
-        /* GIF CONTAINER */
+        /* THE FLUID GIF */
         .fluid-scene {
             position: fixed;
             top: 0; right: -10%;
@@ -105,15 +105,14 @@
             display: flex; align-items: center; justify-content: center;
             z-index: 5;
             pointer-events: none;
+            opacity: 0.5;
+            filter: grayscale(1);
         }
 
         .fluid-gif {
-            width: min(600px, 80vw);
+            width: min(500px, 70vw);
             height: auto;
-            aspect-ratio: 1/1;
-            object-fit: contain;
-            animation: gentle-float 12s infinite ease-in-out; 
-            will-change: transform;
+            animation: errant-float 20s infinite linear; 
         }
 
         @keyframes gentle-float {
