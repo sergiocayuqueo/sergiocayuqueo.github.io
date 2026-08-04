@@ -58,7 +58,7 @@
         html, body {
             background-color: var(--bg-color);
             -webkit-font-smoothing: antialiased;
-            font-weight: lighter;
+            font-weight: 100;
             height: 100%;
             width: 100%;
             color: var(--text-color);
@@ -118,23 +118,26 @@
             height: auto;
             display: block;
             box-shadow: 0 30px 90px rgba(0,0,0,0.08);
-            /* Removed mix-blend-mode to keep original colors */
         }
 
-        /* TEXT CONTENT: MAINTAINING INTELLECTUAL BLEND */
+        /* TEXT CONTENT */
         .text-content {
-            mix-blend-mode: difference; /* Text remains "intelligent" */
+            mix-blend-mode: difference;
             color: var(--text-color);
         }
 
         .text-content a {
             color: var(--text-color);
             text-decoration: none;
+            /* Added to ensure the link remains interactive despite the blend mode */
+            position: relative;
+            z-index: 100;
+            display: inline-block;
         }
 
         h1 {
             font-size: clamp(2rem, 5vw, 4rem);
-            font-weight: lighter;
+            font-weight: 100;
             letter-spacing: -0.04em;
             line-height: 1.1;
             margin-bottom: 10px;
@@ -151,7 +154,6 @@
 
         .close-btn {
             font-size: 12px;
-            font-weight: lighter;
             letter-spacing: 0.4em;
             text-decoration: none;
             color: var(--text-color);
@@ -170,7 +172,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* LARGE SCREEN ADJUSTMENTS (4K and Ultrawide) */
+        /* LARGE SCREEN ADJUSTMENTS */
         @media (min-width: 1800px) {
             main { padding-left: 32%; }
             .image-container { max-width: 550px; }
@@ -194,12 +196,11 @@
 
     <main>
         <div class="image-container">
-            <!-- Natural, original image without inversion -->
             <img src="sergiocayuqueo.png" alt="Sergio Ismael Cayuqueo-Perez Vera">
         </div>
 
         <div class="text-content">
-            <h1> <a href="mailto:sergiocayuqueo4@gmail.com">Sergio I. Cayuqueo-Perez Vera</a></h1>
+            <h1><a href="mailto:sergiocayuqueo4@gmail.com">Sergio I. Cayuqueo-Perez Vera</a></h1>
         </div>
 
         <div class="close-container">
