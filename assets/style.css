@@ -1,0 +1,166 @@
+        :root {
+            --bg-color: #ffffff;
+            --cream-color: #f9f8f4;
+            --blend-text-color: #ffffff; 
+            --blur-amount: 10px;
+            --transition-speed: 0.8s;
+            /* Added for soft resizing */
+            --resize-speed: 0.6s; 
+        }
+
+        ::-moz-selection { background: #333; color: #fff; }
+        ::selection { background: #333; color: #fff; }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html, body {
+            overflow-x: hidden;
+            background-color: var(--bg-color);
+            -webkit-font-smoothing: antialiased;
+            scroll-behavior: smooth;
+            /* Forced extreme light weight */
+            font-weight: lighter; 
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.4;
+        }
+
+        /* Soft Resizing Transitions */
+        main, h1, .content-wrapper, .left-panel, .vertical-line {
+            transition: padding var(--resize-speed) ease, 
+                        margin var(--resize-speed) ease, 
+                        font-size var(--resize-speed) ease, 
+                        width var(--resize-speed) ease, 
+                        left var(--resize-speed) ease;
+        }
+
+        /* CAPAS DE FONDO */
+        .left-panel {
+            position: fixed;
+            top: 0; left: 0;
+            width: 28%; height: 100vh;
+            background-color: var(--cream-color);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .vertical-line {
+            position: fixed;
+            top: 0; left: 28%;
+            width: 1px; height: 100vh;
+            background-color: rgba(0, 0, 0, 0.08);
+            z-index: 2;
+        }
+
+        /* THE FLUID GIF */
+        .fluid-scene {
+            position: fixed;
+            top: 0; right: -10%;
+            width: 80vw; height: 100vh;
+            display: flex; align-items: center; justify-content: center;
+            z-index: 5;
+            pointer-events: none;
+            opacity: 0.5;
+            filter: grayscale(1);
+        }
+
+        .fluid-gif {
+            width: min(500px, 70vw);
+            height: auto;
+            animation: errant-float 20s infinite linear; 
+        }
+
+        @keyframes gentle-float {
+            0%, 100% { transform: translate3d(0, 0, 0); }
+            50% { transform: translate3d(20px, -30px, 0); }
+        }
+
+        /* GLOBAL BLENDING */
+        header, main, footer {
+            mix-blend-mode: difference;
+            color: var(--blend-text-color);
+            position: relative;
+        }
+
+        header {
+            position: fixed;
+            top: 0; width: 100%; padding: 30px;
+            z-index: 100; font-size: 11px; letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        main {
+            z-index: 20;
+            padding: 160px 40px 10vh 80px;
+            max-width: 1000px;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 9vw, 5rem);
+            /* Minimalist weight */
+            font-weight: lighter; 
+            margin-bottom: 80px;
+            letter-spacing: -0.06em;
+            text-transform: uppercase;
+        }
+
+        .content-wrapper {
+            font-size: clamp(1.6rem, 5vw, 3rem);
+            /* Minimalist weight */
+            font-weight: lighter; 
+            letter-spacing: -0.04em;
+        }
+
+        .line {
+            display: block;
+            opacity: 0.2;
+            filter: blur(var(--blur-amount));
+            transform: translate3d(0, 20px, 0); 
+            transition: 
+                opacity var(--transition-speed) ease-out,
+                filter var(--transition-speed) ease-out,
+                transform var(--transition-speed) ease-out;
+            margin-bottom: 25px;
+            will-change: opacity, filter, transform;
+        }
+
+        .line.active {
+            opacity: 1;
+            filter: blur(0px);
+            transform: translate3d(0, 0, 0);
+        }
+
+        /* FOOTER NAVIGATION */
+        footer {
+            padding: 80px 80px 60px 80px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 30px;
+            z-index: 100;
+        }
+
+        footer a {
+            color: inherit;
+            text-decoration: none;
+            font-size: 12px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            transition: opacity 0.4s ease;
+            opacity: 0.5;
+            font-weight: lighter;
+        }
+
+        footer a:hover {
+            opacity: 1;
+        }
+
+        /* RESPONSIVE ADJUSTMENTS */
+        @media (max-width: 768px) {
+            .fluid-scene { right: -20%; width: 100vw; }
+            main { padding: 120px 30px 10vh 40px; }
+            footer { padding: 60px 40px; justify-content: right; }
+            .left-panel { width: 15%; }
+            .vertical-line { left: 15%; }
+        }
